@@ -1,0 +1,102 @@
+$testingCenterInformation-color: #4458A7;
+$makeAppointment-color: #09BCD4;
+$calendar-color: #4DAF4E;
+$reports-color: #EF4438;
+$blackoutDates-color: #795649;
+$primary-color: #375AE0;
+
+
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#bs-example-navbar-collapse-1{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: $primary-color;
+}
+
+.testingCenterInformationHeader{
+  color: white;
+  background-color: $testingCenterInformation-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+.makeAppointmentsHeader{
+  color: white;
+  background-color: $makeAppointment-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+.calendarHeader{
+  color: white;
+  background-color: $calendar-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+
+.reportsHeader{
+  color: white;
+  background-color: $reports-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+
+.blackoutDatesHeader{
+  color: white;
+  background-color: $blackoutDates-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+
+#testingCenterInformation{
+  background-color: $testingCenterInformation-color;
+  a{
+    color: white;
+  }
+}
+
+#makeAppointments{
+  background-color: $makeAppointment-color;
+  a{
+    color: white;
+  }
+}
+
+#calendar{
+  background-color: $calendar-color;
+  a{
+    color: white;
+  }
+}
+
+#reports{
+  background-color: $reports-color;
+  a{
+    color: white;
+  }
+}
+
+#blackoutDates{
+  background-color: $blackoutDates-color;
+  a{
+    color: white;
+  }
+}

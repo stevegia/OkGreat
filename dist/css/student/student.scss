@@ -1,0 +1,65 @@
+$apppointment-color: #4458A7;
+$make-color: #09BCD4;
+$calendar-color: #4DAF4E;
+$primary-color: #375AE0;
+
+
+
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#bs-example-navbar-collapse-1{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: $primary-color;
+}
+
+.calendarHeader{
+  color: white;
+  background-color: $calendar-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+.appointmentsHeader{
+  color: white;
+  background-color: $apppointment-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+.makeHeader{
+  color: white;
+  background-color: $make-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+#makeAppointment{
+    background-color: #09BCD4;
+  a{
+    color: white;
+  }
+
+}
+#appointments{
+    background-color: #4458A7;
+    a{
+        color: white;
+    }
+}
+#calendar{
+    background-color: #4DAF4E;
+    a{
+        color: white;
+    }
+}
