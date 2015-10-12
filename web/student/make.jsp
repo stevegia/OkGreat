@@ -112,8 +112,8 @@
         </div>
         <div class="row">Search</div>
 <div class="row">
-    <div class="row makeAppointmentButton">
-        <button type="button" class="btn-block ">Make Appointment</button>
+    <div class="row searchButton">
+        <button type="button" class="btn-block ">Search</button>
     </div>
 
 </div>
