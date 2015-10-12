@@ -10,7 +10,7 @@
     }
     if(id.equals("instructor")){
 
-        response.sendRedirect("student/appointments.jsp");
+        response.sendRedirect("instructor/pendingRequests.jsp");
         return;
     }
 

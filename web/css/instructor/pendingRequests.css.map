@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,uBAAuB;EACrB,OAAO,EAAE,mBAAmB;;AAI9B,UAAU;EACR,UAAU,EAAG,MAAM;EACnB,SAAS,EAAE,IAAI",
+"sources": ["pendingRequests.scss"],
 "names": [],
 "file": "pendingRequests.css"
 }

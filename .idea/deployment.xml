@@ -5,7 +5,7 @@
       <paths name="localtomcat">
         <serverdata>
           <mappings>
-            <mapping deploy="\" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="localtomcat" local="$PROJECT_DIR$/web" web="/" />
           </mappings>
         </serverdata>
       </paths>

@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,UAAU;EACR,UAAU,EAAG,MAAM;EACnB,SAAS,EAAE,IAAI;;AAGjB,uBAAuB;EACrB,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC",
+"mappings": "AAAA,UAAU;EACR,UAAU,EAAG,MAAM;EACnB,SAAS,EAAE,IAAI;;AAGjB,uBAAuB;EACrB,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;;AAGZ,mBAAmB;EACjB,OAAO,EAAE,mBAAmB",
 "sources": ["appointments.scss"],
 "names": [],
 "file": "appointments.css"
