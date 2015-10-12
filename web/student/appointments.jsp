@@ -67,40 +67,104 @@
   </div>
   </div>
 
+<div class="col-md-2">
+<div class="list-group">
+  <a href="#" class="list-group-item active">Biology Final Makeup  </a>
+  <a href="#" class="list-group-item">Dapibus ac faciasis in</a>
+  <a href="#" class="list-group-item">Morbi leo risus</a>
+  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+  <a href="#" class="list-group-item" onclick="">Vestibulum at eros</a>
+</div>
+  </div>
+<div class="row " >
+  <div class="col-md-8 examInfo">
+    <div id="TestTitle">Biology Final Makeups</div>
 
-<div class="col-md-2"><ul class="list-group">
-  <li class="list-group-item">Biology Final Makeup</li>
-  <li class="list-group-item">Dapibus ac facilisis in</li>
-  <li class="list-group-item">Morbi leo risus</li>
-  <li class="list-group-item">Porta ac consectetur ac</li>
-  <li class="list-group-item">Vestibulum at eros</li>
-</ul></div>
-<div class="col-md-8"><ul class="list-group">
-  <div id="TestTitle">Biology Final Makeups</div>
-<div class="row">
 
-  <div class="col-md-1" id ="classLabel">Class:</div>
-  <div class="col-md-2" id ="class">CHE-131</div>
+    <div class="">
+      <div class="col-md-5">
+
+        <div class="row ">
+
+          <div class="col-md-3" id ="classLabel">Class:</div>
+          <div class="col-md-4" id ="class">CHE-131</div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-3" id ="dateLabel">Date:</div>
+          <div class="col-md-4" id ="date">December 1st</div>
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-3" id ="sectionLabel">Section:</div>
+          <div class="col-md-4" id ="section">2</div>
+
+
+        </div>
+        <div class="row">
+          <div class="" id=""></div>
+
+        </div>
+
+
+      </div>
+
+      <div class="col-md-5">
+
+        <div class="row">
+
+          <div class="col-md-3" id ="startLabel">Start:</div>
+          <div class="col-md-4" id ="start">now</div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-3" id ="endTimeLabel">End Time:</div>
+          <div class="col-md-4" id ="endTime">December 2st</div>
+        </div>
+
+
+
+
+        <div class="row ">
+          <div class="col-md-3" id ="examTimeLabel">Exam Time: </div>
+          <div class="col-md-4" id ="examTime">alot</div>
+
+
+        </div>
+
+        <div class="row paddingBox">Additional Info</div>
+        <div class="row paddingBox"></div>
+asdasda
+        <div class="row paddingBox">
+          <button type="button" class="btn btn-default ">Cancel Appointment</button>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+  </div>
 
 </div>
 
 
-  <div class="row">
-    <div class="col-md-1" id ="sectionLabel">Section:</div>
+
+<div class="row makeAppointmentButton">
+  <button type="button" class="btn btn-default ">Make Appointment</button>
+</div>
 
 
 
-  </div>
-  <div class="row">
-    <div class="" id=""></div>
 
-
-  </div>
-
-
-  <div id ="section">CHE-131</div>
-  <button type="button" class="btn btn-default">Cancel Appointment</button>
-</ul></div>
+</div>
 
 
 

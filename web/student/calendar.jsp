@@ -34,9 +34,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li id ="appointments"><a href="appointments.html">Appointments</a></li>
-        <li id="makeAppointment"><a href="make.html">Make an Appointment </a></li>
-        <li id="calendar"><a href="calendar.html">Calendar<span class="sr-only">(current)</span></a></li>
+        <li id ="appointments"><a href="appointments.jsp">Appointments</a></li>
+        <li id="makeAppointment"><a href="make.jsp">Make an Appointment </a></li>
+        <li id="calendar"><a href="calendar.jsp">Calendar<span class="sr-only">(current)</span></a></li>
 
 
       </ul>
