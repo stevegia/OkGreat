@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
+  <meta name="viewport" content="width=device-width" charset="UTF-8">
 
-    <title>Appointments</title>
+  <title>calendar</title>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="css/student.css">
+  <link rel="stylesheet" href="../css/instructor/instructor.css">
+  <link rel="stylesheet" href="../css/instructor/calendar.css">
 
 
 
 </head>
 
-<div class="scheduledAppointments">Appointments</div>
+<div class="calendarHeader">Calendar</div>
 <nav role="navigation" class="navbar navbar-default">
   <div class="container-fluid">
 
@@ -34,9 +35,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li id ="appointments"><a href="#">Appointments <span class="sr-only">(current)</span></a></li>
-        <li id="makeAppointment"><a href="#">Make an Appointment</a></li>
-        <li id="calendar"><a href="#">calendar</a></li>
+        <li id ="pendingRequests"><a href="pendingRequests.jsp">Pending Requests</a></li>
+        <li id="createNewRequests"><a href="createNewRequests.jsp">Create New Requests </a></li>
+        <li id="calendar"><a href="calendar.jsp">Calendar<span class="sr-only">(current)</span></a></li>
 
 
       </ul>
@@ -64,42 +65,8 @@
 
     </ul>
   </div>
-  </div>
-
-
-<div class="col-md-2"><ul class="list-group">
-  <li class="list-group-item">Biology Final Makeup</li>
-  <li class="list-group-item">Dapibus ac facilisis in</li>
-  <li class="list-group-item">Morbi leo risus</li>
-  <li class="list-group-item">Porta ac consectetur ac</li>
-  <li class="list-group-item">Vestibulum at eros</li>
-</ul></div>
-<div class="col-md-8"><ul class="list-group">
-  <div id="TestTitle">Biology Final Makeups</div>
-<div class="row">
-
-  <div class="col-md-1" id ="classLabel">Class:</div>
-  <div class="col-md-2" id ="class">CHE-131</div>
-
 </div>
 
-
-  <div class="row">
-    <div class="col-md-1" id ="sectionLabel">Section:</div>
-
-
-
-  </div>
-  <div class="row">
-    <div class="" id=""></div>
-
-
-  </div>
-
-
-  <div id ="section">CHE-131</div>
-  <button type="button" class="btn btn-default">Cancel Appointment</button>
-</ul></div>
 
 
 

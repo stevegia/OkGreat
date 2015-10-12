@@ -1,0 +1,65 @@
+$pendingRequestst-color: #4458A7;
+$createNewRequests-color: #09BCD4;
+$calendar-color: #4DAF4E;
+$primary-color: #375AE0;
+
+
+
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#bs-example-navbar-collapse-1{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: $primary-color;
+}
+
+.calendarHeader{
+  color: white;
+  background-color: $calendar-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+.pendingRequestsHeader{
+  color: white;
+  background-color: $pendingRequestst-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+.createNewRequestsHeader{
+  color: white;
+  background-color: $createNewRequests-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+#createNewRequests{
+  background-color: $createNewRequests-color;
+  a{
+    color: white;
+  }
+
+}
+#pendingRequests{
+  background-color: $pendingRequestst-color;
+  a{
+    color: white;
+  }
+}
+#calendar{
+  background-color: $calendar-color;
+  a{
+    color: white;
+  }
+}

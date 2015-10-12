@@ -1,0 +1,52 @@
+.container-fluid {
+  margin: 0;
+  padding: 0; }
+
+.navbar {
+  margin: 0;
+  padding: 0;
+  border: 0; }
+
+#bs-example-navbar-collapse-1 {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #375AE0; }
+
+.calendarHeader {
+  color: white;
+  background-color: #4DAF4E;
+  padding: 20px;
+  text-align: center;
+  font-size: 30px; }
+
+.appointmentsHeader {
+  color: white;
+  background-color: #4458A7;
+  padding: 20px;
+  text-align: center;
+  font-size: 30px; }
+
+.makeHeader {
+  color: white;
+  background-color: #09BCD4;
+  padding: 20px;
+  text-align: center;
+  font-size: 30px; }
+
+#makeAppointment {
+  background-color: #09BCD4; }
+  #makeAppointment a {
+    color: white; }
+
+#appointments {
+  background-color: #4458A7; }
+  #appointments a {
+    color: white; }
+
+#calendar {
+  background-color: #4DAF4E; }
+  #calendar a {
+    color: white; }
+
+/*# sourceMappingURL=student.css.map */
