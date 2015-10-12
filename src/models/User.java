@@ -81,6 +81,12 @@ public abstract class User {
 		this.type = type;
 	}
 
+	public void makeStudentAppointment(Student student, Exam exam){
+		//TODO: stub
+	}
+	public void cancelAppointment(Appointment appointment){
+		//TODO: stub
+	}
 
 
 	public enum Type{

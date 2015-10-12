@@ -10,12 +10,6 @@ public class Administrator extends User {
 	public void displayUtilization(Date date){
 		//TODO: stub
 	}
-	public void makeStudentAppointment(Exam exam){
-		//TODO: stub
-	}
-	public void cancelAppointment(Appointment appointment){
-		//TODO: stub
-	}
 	public void editAppointment(Appointment appointment){
 		//TODO: stub
 	}
