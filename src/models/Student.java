@@ -1,9 +1,12 @@
 package models;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class Student extends User {
-
+	
+	private Collection<Course> registeredCourses;
+	
 	public void makeAppointment(Exam exam){
 		makeStudentAppointment(this, exam);
 	}
