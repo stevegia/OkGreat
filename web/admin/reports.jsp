@@ -18,37 +18,7 @@
 
 <div class="reportsHeader">Reports</div>
 
-<nav role="navigation" class="navbar navbar-default">
-  <div class="container-fluid">
-
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-
-
-        <li id ="testingCenterInformation"><a href="testingCenterInformation.jsp">Testing Center Information</a></li>
-        <li id="makeAppointments"><a href="makeAppointments.jsp">Make Appointments </a></li>
-        <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
-        <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>
-        <li id="blackoutDates"><a href="blackoutDates.jsp">Blackout Dates</a></li>
-
-
-      </ul>
-
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+<%@include file="adminHeader.html"%>
 <body>
 
 
