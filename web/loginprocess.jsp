@@ -1,9 +1,32 @@
 <%@page import="DBWorks.DBConnection"%>
 <%@page import="java.util.logging.Logger"%>
 <%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="java.io.File" %>
 
 <% Logger logger=Logger.getLogger("loginprocess.jsp");%>
-<% FileHandler fileHandler = new FileHandler("logs/login.txt");
+<%
+    File dir = new File("./logs");
+
+    System.out.println( dir.getAbsolutePath());
+
+
+
+    // Tests whether the directory denoted by this abstract pathname exists.
+    String current = new java.io.File( "." ).getCanonicalPath();
+    boolean exists = dir.exists();
+    System.out.println(current);
+    if(exists == false){
+        File root = new File(current);
+        File newfolder = new File(root, "/logs");
+        newfolder.mkdir();
+    }
+
+
+
+
+
+
+    FileHandler fileHandler = new FileHandler("logs/login.txt");
     logger.addHandler(fileHandler);;%>
 
 <%
