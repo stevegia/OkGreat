@@ -18,8 +18,48 @@
 
 <%@include file="adminHeader.html"%>
 <body>
-
+  <div class="container">
+    <div class="row">
+        Term:
+      <ul class="nav nav-pills left">
+        <li class="dropdown active span8">
+            <a class="dropdown-toggle" id="inp_impact" data-toggle="dropdown">
+                <i class="icon icon-envelope icon-white"></i>&nbsp;<span id="dropdown_title">Select</span><span class="caret"></span></a>
+            <ul ID="divNewNotifications" class="dropdown-menu">
+              <li><a>One</a></li> 
+              <li><a>Two</a></li>       
+              <li><a>Three</a></li>                         
+            </ul>
+        </li>
+      </ul>
+    </div>
+    <form name="frm" method="post" action="editTestingCenterInformation.jsp" onclick="log.trace('I was traced!');return false;">
+      Number of Seats: 
+      <input name="numberofseats" type="password" class="form-control" placeholder="" required>
+      <br>
+      Number of Set-aside Seats:
+      <input name="numberofsetasideseats" type="password" class="form-control" placeholder="" required>
+      <br>
+      Gap Time:
+      <input name="gaptime" type="password" class="form-control" placeholder="" required>
+      <br>
+      Reminder Interval: 
+      <input name="reminderinterval" type="password" class="form-control" placeholder="" required>
+      <br>
+      <center>
+        <input type="submit" value="Submit"/>
+      </center>    
+    </form>
+  </div>
 
 </body>
+<script>
+    $(document).ready(function () {
+      $('.dropdown-toggle').dropdown();
+      $('#divNewNotifications li').on('click', function() {
+    $('#dropdown_title').html($(this).find('a').html());
+    });
+});
+</script>    
 
 </html>

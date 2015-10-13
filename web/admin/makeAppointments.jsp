@@ -19,8 +19,54 @@
 
 <%@include file="adminHeader.html"%>
 <body>
-
+    <div class="container">
+      <div class="row">
+          Type:
+        <ul class="nav nav-pills left">
+          <li class="dropdown active span8">
+              <a class="dropdown-toggle" id="inp_impact" data-toggle="dropdown">
+                  <i class="icon icon-envelope icon-white"></i>&nbsp;<span id="dropdown_title">Select</span><span class="caret"></span></a>
+              <ul ID="divNewNotifications" class="dropdown-menu">
+                <li><a>Course</a></li> 
+                <li><a>Ad Hoc</a></li>       
+              </ul>
+          </li>
+        </ul>
+      </div>
+      Seat Type:
+      <div class="radio">
+        <label><input type="radio" name="optradio">Regular</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="optradio">Set-Aside</label>
+      </div>
+      <form name="frm" method="post" action="makeAppointments.jsp" onclick="log.trace('I was traced!');return false;">
+        Student NetId:
+        <input name="studentnetid" type="password" class="form-control" placeholder="" required>
+        <br>
+        Exam Id
+        <input name="examid" type="password" class="form-control" placeholder="" required>
+        <br>
+        Start Date and Time
+        <input name="startdatetime" type="password" class="form-control" placeholder="" required>
+        <br>
+        Duration
+        <input name="duration" type="password" class="form-control" placeholder="" required>
+        <br>
+        <center>
+          <input type="submit" value="Make Appointment"/>
+        </center>    
+      </form>
+    </div>
 
 </body>
+<script>
+    $(document).ready(function () {
+      $('.dropdown-toggle').dropdown();
+      $('#divNewNotifications li').on('click', function() {
+    $('#dropdown_title').html($(this).find('a').html());
+    });
+});
+</script>
 
 </html>
