@@ -57,6 +57,30 @@
           <input type="submit" value="Make Appointment"/>
         </center>    
       </form>
+          <div class="container">
+      <h2>Available Tests</h2>
+
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Start</th>
+          <th>Regular Seats</th>
+          <th>Select</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>11/15/12</td>
+          <td>11:00pm</td>
+          <td>3</td>
+
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
     </div>
 
 </body>
