@@ -19,31 +19,42 @@ import java.util.logging.Logger;
  */
 public class DBConnection {
     static String mysJDBCDriver = /*"mysql2.cs.stonybrook.edu";  */  "com.mysql.jdbc.Driver";
-    static String url = "jdbc:mysql://mysql2.cs.stonybrook.edu:3306/hashahid";
-    static String username = "hashahid";
-    static String password = "107425481";
+    static String url = "jdbc:mysql://localhost:3306/testing_center_scheduler";
+    static String username = "root";
+    static String password = "admin";
     static java.sql.Connection myConnection = null;
 
     static PreparedStatement myPreparedStatement = null;
    
     public static ResultSet ExecQuery(String query){
         ResultSet myResultSet = null;
+        System.out.println("Test");
         try{
             if(myConnection == null || (myConnection !=null && !myConnection.isValid(0)))
             {
+
                 Class.forName(mysJDBCDriver).newInstance();
                 myConnection = DriverManager.getConnection(url,username,password);
+                System.out.println("myConnection");
+            System.out.println(myConnection);
             }
+
             myPreparedStatement = myConnection.prepareStatement(query);
+            System.out.println("myPreparedStatement");
+            System.out.println(myPreparedStatement);
             myResultSet = myPreparedStatement.executeQuery();
+            System.out.println("myResultSet");
+            System.out.println(myResultSet);
             
         } catch(ClassNotFoundException e)
         {
         }
         catch (SQLException e){
         } catch (InstantiationException ex) {
+            System.out.println(ex);
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return  myResultSet;

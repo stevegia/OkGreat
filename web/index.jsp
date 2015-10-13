@@ -22,7 +22,7 @@
 
         <form action="loginprocess.jsp" method="post">
         <input  type="text" class="form-control" placeholder="NetID" name="netid" required autofocus>
-          <input type="password" class="form-control" placeholder="password" required>
+          <input type="password" class="form-control" placeholder="password" name="password" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">
             Log In</button>

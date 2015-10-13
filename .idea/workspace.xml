@@ -7,69 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cda167ba-e93d-4a45-8490-b3f7053f0a0d" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\admin\reports.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\admin.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\admin.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\blackoutDates.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\blackoutDates.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\blackoutDates.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\calender.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\calender.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\calender.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\makeAppointments.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\makeAppointments.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\makeAppointments.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\reports.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\reports.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\reports.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\testingCenterInformation.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\testingCenterInformation.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\admin\testingCenterInformation.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\default.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\calender.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\calender.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\calender.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\createNewRequests.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\createNewRequests.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\createNewRequests.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\instructor.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\instructor.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\pendingRequests.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\pendingRequests.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\instructor\pendingRequests.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\login.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\login.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\Appointments.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\appointments.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\appointments.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\calender.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\calender.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\calender.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\make.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\make.css.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\make.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\student.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Gartusk\Documents\OkGreat\web\css\student\student.css.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/classes/DBWorks/DBConnection.class" afterPath="$PROJECT_DIR$/web/WEB-INF/classes/DBWorks/DBConnection.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DBWorks/DBConnection.java" afterPath="$PROJECT_DIR$/src/DBWorks/DBConnection.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/classes/DBWorks/DBConnection.java" afterPath="$PROJECT_DIR$/web/WEB-INF/classes/DBWorks/DBConnection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/OkGreatJsp.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/OkGreatJsp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/student/appointments.jsp" afterPath="$PROJECT_DIR$/web/student/appointments.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/blackoutDates.jsp" afterPath="$PROJECT_DIR$/web/admin/blackoutDates.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/calendar.jsp" afterPath="$PROJECT_DIR$/web/admin/calendar.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/instructor/calendar.jsp" afterPath="$PROJECT_DIR$/web/instructor/calendar.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/student/calendar.jsp" afterPath="$PROJECT_DIR$/web/student/calendar.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/instructor/createNewRequests.jsp" afterPath="$PROJECT_DIR$/web/instructor/createNewRequests.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/instructor/instructor.scss" afterPath="$PROJECT_DIR$/web/css/instructor/instructor.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/student/make.jsp" afterPath="$PROJECT_DIR$/web/student/make.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/makeAppointments.jsp" afterPath="$PROJECT_DIR$/web/admin/makeAppointments.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/instructor/pendingRequests.jsp" afterPath="$PROJECT_DIR$/web/instructor/pendingRequests.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/reports.jsp" afterPath="$PROJECT_DIR$/web/admin/reports.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/student/student.scss" afterPath="$PROJECT_DIR$/web/css/student/student.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/testingCenterInformation.jsp" afterPath="$PROJECT_DIR$/web/admin/testingCenterInformation.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.jsp" afterPath="$PROJECT_DIR$/web/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/loginprocess.jsp" afterPath="$PROJECT_DIR$/web/loginprocess.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="OkGreat.iws" />
@@ -93,16 +35,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pendingRequests.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/instructor/pendingRequests.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="appointments.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/student/appointments.jsp">
           <provider selected="true" editor-type-id="text-editor">
@@ -163,21 +95,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/css/admin/admin.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5097561">
-              <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
+            <state vertical-scroll-proportion="-4.967742">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="instructorHeader.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/instructor/instructorHeader.html">
+      <file leaf-file-name="DBConnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DBWorks/DBConnection.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="103" />
+              <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginprocess.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/loginprocess.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.49253732">
+              <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.83871">
+              <caret line="23" column="80" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -222,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/com/tutorialspoint/StudentsBean.java" />
         <option value="$PROJECT_DIR$/src/basic/okgreat/LoginBean.java" />
         <option value="$PROJECT_DIR$/src/basic/okgreat/Login.java" />
-        <option value="$PROJECT_DIR$/web/index.jsp" />
         <option value="$PROJECT_DIR$/web/css/student/appointments.css" />
         <option value="$PROJECT_DIR$/web/css/student/appointments.scss" />
         <option value="$PROJECT_DIR$/web/css/student/make.css" />
@@ -233,8 +184,6 @@
         <option value="$PROJECT_DIR$/web/admin/adminHeader.html" />
         <option value="$PROJECT_DIR$/web/student/studentHeader.html" />
         <option value="$PROJECT_DIR$/src/DBWorks/dbconnection.java" />
-        <option value="$PROJECT_DIR$/web/loginprocess.jsp" />
-        <option value="$PROJECT_DIR$/src/DBWorks/DBConnection.java" />
         <option value="$PROJECT_DIR$/web/css/student/make.scss" />
         <option value="$PROJECT_DIR$/web/css/instructor/pendingRequests.scss" />
         <option value="$PROJECT_DIR$/web/admin/testingCenterInformation.jsp" />
@@ -249,11 +198,14 @@
         <option value="$PROJECT_DIR$/web/student/appointments.jsp" />
         <option value="$PROJECT_DIR$/web/student/calendar.jsp" />
         <option value="$PROJECT_DIR$/web/student/make.jsp" />
-        <option value="$PROJECT_DIR$/web/css/login.scss" />
         <option value="$PROJECT_DIR$/web/css/student/student.scss" />
         <option value="$PROJECT_DIR$/web/css/instructor/pendingRequests.css" />
         <option value="$PROJECT_DIR$/web/css/instructor/instructor.scss" />
         <option value="$PROJECT_DIR$/web/css/admin/admin.scss" />
+        <option value="$PROJECT_DIR$/web/index.jsp" />
+        <option value="$PROJECT_DIR$/web/css/login.scss" />
+        <option value="$PROJECT_DIR$/src/DBWorks/DBConnection.java" />
+        <option value="$PROJECT_DIR$/web/loginprocess.jsp" />
       </list>
     </option>
   </component>
@@ -265,10 +217,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="2576" />
-    <option name="height" value="1416" />
+    <option name="x" value="-31" />
+    <option name="y" value="240" />
+    <option name="width" value="2560" />
+    <option name="height" value="1400" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -340,109 +292,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="instructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="instructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OkGreat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -475,6 +325,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OkGreat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OkGreat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBWorks" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -775,15 +643,15 @@
       <workItem from="1444664946359" duration="8034000" />
       <workItem from="1444690342275" duration="2418000" />
       <workItem from="1444700145360" duration="1591000" />
-      <workItem from="1444701766743" duration="388000" />
+      <workItem from="1444701766743" duration="7875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36797000" />
+    <option name="totallyTimeSpent" value="44284000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <frame x="-31" y="240" width="2560" height="1400" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -794,12 +662,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32746747" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32746747" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33152595" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.49790356" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18984374" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19103773" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976282" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1041,14 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3846154">
-          <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/admin/adminHeader.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1060,21 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/loginprocess.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30769232">
-          <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DBWorks/DBConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1169,14 +1014,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/login.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.161291">
-          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/css/student/student.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.709678">
@@ -1195,8 +1032,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/css/admin/admin.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5097561">
-          <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
+        <state vertical-scroll-proportion="-4.967742">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/login.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.161291">
+          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DBWorks/DBConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.83871">
+          <caret line="23" column="80" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/loginprocess.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49253732">
+          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
           <folding />
         </state>
       </provider>

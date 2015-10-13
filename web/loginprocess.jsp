@@ -11,30 +11,34 @@
     String id = request.getParameter("netid");
     String userpasswd = request.getParameter("password");
     String query = null;
+    System.out.println("Got here");
     session.setAttribute("login", "");
     if (id != null && userpasswd != null) {
         if (id.trim().equals("") || userpasswd.trim().equals("")) {
             response.sendRedirect("index.htm");
         } else {
-            query = "SELECT * FROM UserLogin WHERE NetId = '"
-                    + id + "' AND Password = '" + userpasswd + "' AND Type = 'Administrator'";
+            query = "SELECT * FROM TCSUser WHERE NetId = '"
+                    + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Administrator'";
             java.sql.ResultSet rs = DBConnection.ExecQuery(query);
+            System.out.println("rs");
+            System.out.println(rs);
             if (rs.next()) {
                 // login success
                 session.setAttribute("login", "" + id);
                 response.sendRedirect("admin/testingCenterInformation.jsp");
             } else {
-                query = "SELECT * FROM UserLogin WHERE NetId = '"
-                        + id + "' AND Password = '" + userpasswd + "' AND Type = 'Instructor'";
+                query = "SELECT * FROM TCSUser WHERE NetId = '"
+                        + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Instructor'";
                 rs = DBConnection.ExecQuery(query);
+                System.out.println(rs);
                 if (rs.next()) {
                     // login success
                     session.setAttribute("login", "" + id);
                     response.sendRedirect("instructor/pendingRequests.jsp");
 
                 } else {
-                    query = "SELECT * FROM UserLogin WHERE NetId = '"
-                            + id + "' AND Password = '" + userpasswd + "' AND Type = 'Student'";
+                    query = "SELECT * FROM TCSUser WHERE NetId = '"
+                            + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Student'";
                     rs = DBConnection.ExecQuery(query);
                     if (rs.next()) {
                         // login success
