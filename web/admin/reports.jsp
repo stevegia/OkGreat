@@ -20,7 +20,36 @@
 
 <%@include file="adminHeader.html"%>
 <body>
-
+	<div class="container">
+      <div class="row">
+          Term:
+        <ul class="nav nav-pills left">
+          <li class="dropdown active span8">
+              <a class="dropdown-toggle" id="inp_impact" data-toggle="dropdown">
+                  <i class="icon icon-envelope icon-white"></i>&nbsp;<span id="dropdown_title">Fall 2015</span><span class="caret"></span></a>
+              <ul ID="divNewNotifications" class="dropdown-menu">
+                <li><a>Fall 2014</a></li> 
+                <li><a>Spring 2014</a></li>       
+              </ul>
+          </li>
+        </ul>
+      </div>
+      <img src="http://farm4.static.flickr.com/3554/3480778622_13391fdfc0.jpg">
+              Start Date and Time
+        <input name="startdatetime" type="password" class="form-control" placeholder="" required>
+        <br>
+                End Date and Time
+        <input name="enddatetime" type="password" class="form-control" placeholder="" required>
+        <br>
+        <a href="reports.jsp">
+        <button>Generate Report</button>
+        </a>
+        <a href="importData.jsp">
+        <button>Import Data</button>
+        </a>
+        <img src="http://i.stack.imgur.com/TBxuO.jpg">
+        Utilization
+    </div>  
 
 </body>
 

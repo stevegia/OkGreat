@@ -1,9 +1,12 @@
 
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="DBWorks.DBConnection"%>
+<%//@page import="org.apache.commons.logging.*"%>
+<% //Logger logger=Logger.getLogger("this.getClass().getName()");%>
+
 <%
     if ((request.getParameter("action") != null) && (request.getParameter("action").trim().equals("logout"))) {
-        //session.putValue("login", "");
+        //logger.track("logging out");
         session.setAttribute("login", "");
         response.sendRedirect("/");
         return;
@@ -11,19 +14,21 @@
     String id = request.getParameter("netid");
     String userpasswd = request.getParameter("password");
     String query = null;
-    System.out.println("Got here");
+    System.out.println("Login Processing");
+    //logger.info("Login Processing, reading in values");
     session.setAttribute("login", "");
     if (id != null && userpasswd != null) {
         if (id.trim().equals("") || userpasswd.trim().equals("")) {
-            response.sendRedirect("index.htm");
+            //logger.info("One of more fields empty/whitespace, redirecting back");
+            response.sendRedirect("index.jsp");
         } else {
             query = "SELECT * FROM TCSUser WHERE NetId = '"
                     + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Administrator'";
             java.sql.ResultSet rs = DBConnection.ExecQuery(query);
-            System.out.println("rs");
             System.out.println(rs);
+            //logger.info("rs is "+rs);
             if (rs.next()) {
-                // login success
+                //logger.info("logged onto admin");
                 session.setAttribute("login", "" + id);
                 response.sendRedirect("admin/testingCenterInformation.jsp");
             } else {
@@ -32,7 +37,7 @@
                 rs = DBConnection.ExecQuery(query);
                 System.out.println(rs);
                 if (rs.next()) {
-                    // login success
+                    //logger.info("logged onto instructor");
                     session.setAttribute("login", "" + id);
                     response.sendRedirect("instructor/pendingRequests.jsp");
 
@@ -41,20 +46,22 @@
                             + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Student'";
                     rs = DBConnection.ExecQuery(query);
                     if (rs.next()) {
-                        // login success
+                        //logger.info("logged onto student");
                         session.setAttribute("login", "" + id);
                         response.sendRedirect("student/appointments.jsp");
                     }
                     // username or password mistake
+                    //logger.info("incorrect login")
                     out.print("Username or Password is not Correct!!!");
 %>
 <br>
-<a href="index.htm"> Back to login page </a>
+<a href="index.jsp"> Back to login page </a>
 <%
                 }
             }
 
         }
     } else
-        response.sendRedirect("index.jsp");
+        { //logger.info("id and/or pass is null, redirecting back")
+        response.sendRedirect("index.jsp");}
 %>

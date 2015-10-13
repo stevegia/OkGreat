@@ -18,6 +18,10 @@
 <div class="makeAppointmentsHeader">Make Appointments</div>
 
 <%@include file="adminHeader.html"%>
+<% 
+   //String query="SELECT * FROM Appointment WHERE Date = "+new java.util.Date();
+   //java.sql.ResultSet rs = DBConnection.ExecQuery(query);
+   %>
 <body>
     <div class="container">
       <div class="row">
@@ -57,6 +61,39 @@
           <input type="submit" value="Make Appointment"/>
         </center>    
       </form>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th> Id </th>
+              <th>Student NetId </th>
+              <th> Date </th>   
+              <th> Exam Id </th>
+              <th> Duration </th>                           
+              <th> Gap Time </th>
+              <th> Status </th>
+            </tr>
+          </thead>
+          <tbody>
+      <%   /*   while(rs.next())
+              {
+                 %>
+                <tr>
+                   <td > <% out.print(rs.getString(1)); %> </td>
+                   <td > <% out.print(rs.getString(2)); %> </td>
+                   <td > <% out.print(rs.getString(3)); %> </td>   
+                   <td > <% out.print(rs.getString(4)); %> </td>
+                   <td > <% out.print(rs.getString(5)); %> </td>
+                   <td > <% out.print(rs.getString(6)); %> </td>
+                   <td > <% out.print(rs.getString(7)); %> </td>                                    
+                </tr>
+                 <%         
+              }  */                                          
+        %> 
+          </tbody>
+        </table>
+      </div> 
+
           <div class="container">
       <h2>Available Tests</h2>
 
