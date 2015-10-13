@@ -11,28 +11,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import static org.apache.tomcat.jni.User.username;
 
-/**
- *
- * @author Ahmad
- */
 public class DBConnection {
-    static String mysJDBCDriver = /*"mysql2.cs.stonybrook.edu";  */  "com.mysql.jdbc.Driver";
-    static String url = "jdbc:mysql://localhost:3306/testing_center_scheduler";
+    // JDBC parameters
+    static String mysJDBCDriver =  "com.mysql.jdbc.Driver";
+    static String url = "jdbc:mysql://localhost:3306/test_center_scheduler";
     static String username = "root";
-    static String password = "admin";
+    static String password = "admin123";
     static java.sql.Connection myConnection = null;
 
+    // Used to hold the query and execute it
     static PreparedStatement myPreparedStatement = null;
-   
+
+    /* Method for executing MySQL queries from JSP files */
     public static ResultSet ExecQuery(String query){
         ResultSet myResultSet = null;
         System.out.println("Test");
         try{
             if(myConnection == null || (myConnection !=null && !myConnection.isValid(0)))
             {
-
                 Class.forName(mysJDBCDriver).newInstance();
                 myConnection = DriverManager.getConnection(url,username,password);
                 System.out.println("myConnection");
@@ -54,13 +51,12 @@ public class DBConnection {
             System.out.println(ex);
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return  myResultSet;
     }
-    
-    public static int ExecUpdateQuery(String query){
+
+    /*public static int ExecUpdateQuery(String query){
        int retValue = 0;
         try{
             if(myConnection == null || (myConnection !=null && !myConnection.isValid(0)))
@@ -81,5 +77,5 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return  retValue;
-    }
+    }*/
 }

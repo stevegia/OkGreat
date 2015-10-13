@@ -1,5 +1,9 @@
-<%//@page import="org.apache.commons.logging.*"%>
-<% //Logger logger=Logger.getLogger("this.getClass().getName()");%>
+<%@page import="java.util.logging.Logger"%>
+<%@ page import="java.util.logging.FileHandler" %>
+
+<% Logger logger=Logger.getLogger("loginprocess.jsp");%>
+<% FileHandler fileHandler = new FileHandler("logs/loginPage.txt");
+    logger.addHandler(fileHandler);;%>
 
 <html lang="en">
 <head>
@@ -14,16 +18,17 @@
   <link rel="stylesheet" href="css/login.css">
   <script type="text/javascript" src="log4javascript.js"></script>
   <script type="text/javascript">
-   var log = log4javascript.getDefaultLogger();
+
   </script>
 </head>
+<body>
 <div class="loginHeader">Testing Center</div>
 
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-md-4 col-md-offset-4 login-offset">
       <h1 class="text-center login-title">Welcome to the Testing Center</h1>
-<%        //logger.info("at login page");
+<%            logger.info("Login Processing, reading in values");
 %>
 
         <form action="loginprocess.jsp" method="post">

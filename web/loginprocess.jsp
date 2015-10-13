@@ -1,16 +1,14 @@
-
-<%@page import="javax.swing.JOptionPane"%>
 <%@page import="DBWorks.DBConnection"%>
 <%@page import="java.util.logging.Logger"%>
 <%@ page import="java.util.logging.FileHandler" %>
 
 <% Logger logger=Logger.getLogger("loginprocess.jsp");%>
-<% FileHandler fileHandler = new FileHandler("login.txt");
+<% FileHandler fileHandler = new FileHandler("logs/login.txt");
     logger.addHandler(fileHandler);;%>
 
 <%
     if ((request.getParameter("action") != null) && (request.getParameter("action").trim().equals("logout"))) {
-        //logger.track("logging out");
+        logger.info("logging out");
         session.setAttribute("login", "");
         response.sendRedirect("/");
         return;
@@ -50,7 +48,7 @@
                             + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Student'";
                     rs = DBConnection.ExecQuery(query);
                     if (rs.next()) {
-                        //logger.info("logged onto student");
+                        logger.info("logged onto student");
                         session.setAttribute("login", "" + id);
                         response.sendRedirect("student/appointments.jsp");
                     }
@@ -66,6 +64,7 @@
 
         }
     } else
-        { //logger.info("id and/or pass is null, redirecting back")
+        {
+            logger.info("id and/or pass is null, redirecting back");
         response.sendRedirect("index.jsp");}
 %>

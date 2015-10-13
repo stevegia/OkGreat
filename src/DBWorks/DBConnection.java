@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 public class DBConnection {
     // JDBC parameters
     static String mysJDBCDriver =  "com.mysql.jdbc.Driver";
-    static String url = "jdbc:mysql://localhost:3306/testing_center_scheduler";
+    static String url = "jdbc:mysql://localhost:3306/test_center_scheduler";
     static String username = "root";
-    static String password = "admin";
+    static String password = "admin123";
     static java.sql.Connection myConnection = null;
 
     // Used to hold the query and execute it
