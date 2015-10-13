@@ -23,7 +23,7 @@ public class DBConnection {
     static String username = "hashahid";
     static String password = "107425481";
     static java.sql.Connection myConnection = null;
-                   
+
     static PreparedStatement myPreparedStatement = null;
    
     public static ResultSet ExecQuery(String query){

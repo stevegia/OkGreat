@@ -10,7 +10,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="../css/instructor/instructor.css">
-  <link rel="stylesheet" href="../css/instructor/createNewRequests.css">
+
 
 
 
@@ -24,19 +24,29 @@
 
 
 
-<div class="dropdown">
-  Term:
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Fall 2015
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Spring 2016</a></li>
-    <li><a href="#">Spring 2015</a></li>
-    <li><a href="#">Fall 2014</a></li>
 
-  </ul>
+<div class="createNewRequestContent">
+  <div class="dropdown">
+    Term:
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Fall 2015
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li><a href="#">Spring 2016</a></li>
+      <li><a href="#">Spring 2015</a></li>
+      <li><a href="#">Fall 2014</a></li>
+
+    </ul>
+  </div>
+
+
+
+
+
 </div>
+
+
 </div>
 
 

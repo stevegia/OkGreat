@@ -12,7 +12,7 @@
   <script type="text/javascript" src="../js/calendar.min.js"></script>
   <link rel="stylesheet" href="../css/calendar.min.css">
   <link rel="stylesheet" href="../css/student/student.css">
-  <link rel="stylesheet" href="../css/calendar.min.css">
+
 
 
 
