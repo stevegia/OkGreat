@@ -1,9 +1,28 @@
 <%@page import="java.util.logging.Logger"%>
 <%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="java.io.File" %>
 
-<% Logger logger=Logger.getLogger("loginprocess.jsp");%>
-<% FileHandler fileHandler = new FileHandler("logs/loginPage.txt");
-    logger.addHandler(fileHandler);;%>
+<% Logger logger=Logger.getLogger("index.jsp");%>
+<%
+    File dir = new File("./okgreatlogs");
+    System.out.println( dir.getAbsolutePath());
+    // Tests whether the directory denoted by this abstract pathname exists.
+    String current = new java.io.File( "." ).getCanonicalPath();
+    boolean exists = dir.exists();
+    System.out.println(current);
+    if(exists == false){
+        File root = new File(current);
+        File newfolder = new File(root, "/okgreatlogs");
+        newfolder.mkdir();
+    }
+    FileHandler fileHandler = new FileHandler("okgreatlogs/login.txt");
+    logger.addHandler(fileHandler);
+
+
+%>
+
+
+
 
 <html lang="en">
 <head>
@@ -28,8 +47,7 @@
   <div class="row">
     <div class="col-sm-6 col-md-4 col-md-offset-4 login-offset">
       <h1 class="text-center login-title">Welcome to the Testing Center</h1>
-<%            logger.info("Login Processing, reading in values");
-%>
+<%logger.info("Login Processing, reading in values");%>
 
         <form action="loginprocess.jsp" method="post">
         <input  type="text" class="form-control" placeholder="NetID" name="netid" required autofocus>

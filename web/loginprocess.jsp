@@ -1,33 +1,8 @@
 <%@page import="DBWorks.DBConnection"%>
 <%@page import="java.util.logging.Logger"%>
-<%@ page import="java.util.logging.FileHandler" %>
-<%@ page import="java.io.File" %>
 
 <% Logger logger=Logger.getLogger("loginprocess.jsp");%>
-<%
-    File dir = new File("./logs");
-
-    System.out.println( dir.getAbsolutePath());
-
-
-
-    // Tests whether the directory denoted by this abstract pathname exists.
-    String current = new java.io.File( "." ).getCanonicalPath();
-    boolean exists = dir.exists();
-    System.out.println(current);
-    if(exists == false){
-        File root = new File(current);
-        File newfolder = new File(root, "/logs");
-        newfolder.mkdir();
-    }
-
-
-
-
-
-
-    FileHandler fileHandler = new FileHandler("logs/login.txt");
-    logger.addHandler(fileHandler);;%>
+<%%>
 
 <%
     if ((request.getParameter("action") != null) && (request.getParameter("action").trim().equals("logout"))) {
@@ -50,7 +25,6 @@
             query = "SELECT * FROM TCSUser WHERE NetId = '"
                     + id + "' AND Password = '" + userpasswd + "' AND UserType = 'Administrator'";
             java.sql.ResultSet rs = DBConnection.ExecQuery(query);
-            System.out.println(rs);
             logger.info("rs is "+rs);
             if (rs.next()) {
                 logger.info("logged onto admin");

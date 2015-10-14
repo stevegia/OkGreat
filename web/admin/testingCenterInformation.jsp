@@ -35,16 +35,21 @@
     </div>
     <form name="frm" method="post" action="editTestingCenterInformation.jsp" onclick="log.trace('I was traced!');return false;">
       Number of Seats: 
-      <input name="numberofseats" type="password" class="form-control" placeholder="" required>
+      <input name="numberofseats" type="text" class="form-control" placeholder="" required>
       <br>
       Number of Set-aside Seats:
-      <input name="numberofsetasideseats" type="password" class="form-control" placeholder="" required>
+      <input name="numberofsetasideseats" type="text" class="form-control" placeholder="" required>
       <br>
       Gap Time:
-      <input name="gaptime" type="password" class="form-control" placeholder="" required>
+      <input name="gaptime" type="text" class="form-control" placeholder="" required>
+<br>
+      Remainder Time:
+      <input name="remaindertime" type="text" class="form-control" placeholder="" required>
+
       <br>
+
       Reminder Interval: 
-      <input name="reminderinterval" type="password" class="form-control" placeholder="" required>
+      <input name="reminderinterval" type="text" class="form-control" placeholder="" required>
       <br>
       <center>
         <input type="submit" value="Submit"/>

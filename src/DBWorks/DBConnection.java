@@ -5,14 +5,17 @@
  */
 package DBWorks;
 
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnection {
+
     // JDBC parameters
     static String mysJDBCDriver =  "com.mysql.jdbc.Driver";
     static String url = "jdbc:mysql://localhost:3306/test_center_scheduler";
@@ -24,9 +27,26 @@ public class DBConnection {
     static PreparedStatement myPreparedStatement = null;
 
     /* Method for executing MySQL queries from JSP files */
-    public static ResultSet ExecQuery(String query){
+    public static ResultSet ExecQuery(String query) throws IOException {
+
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        Properties properties = new Properties();
+        properties.load(classLoader.getResourceAsStream("basic/okgreat/mysqlconfig.properties"));
+        username = properties.getProperty("username");
+        password = properties.getProperty("password");
+        url = properties.getProperty("url");
+
+        System.out.println(username);
+        System.out.println(password);
+        System.out.println(url);
+
+
+
+
+
         ResultSet myResultSet = null;
-        System.out.println("Test");
+
         try{
             if(myConnection == null || (myConnection !=null && !myConnection.isValid(0)))
             {
@@ -35,13 +55,11 @@ public class DBConnection {
                 System.out.println("myConnection");
             System.out.println(myConnection);
             }
-
+            System.out.println(query);
             myPreparedStatement = myConnection.prepareStatement(query);
-            System.out.println("myPreparedStatement");
-            System.out.println(myPreparedStatement);
+
             myResultSet = myPreparedStatement.executeQuery();
-            System.out.println("myResultSet");
-            System.out.println(myResultSet);
+
             
         } catch(ClassNotFoundException e)
         {
