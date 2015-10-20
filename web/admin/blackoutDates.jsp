@@ -13,10 +13,6 @@
   <link rel="stylesheet" href="../css/calendar.min.css">
   <link rel="stylesheet" href="../css/student/student.css">
   <link rel="stylesheet" href="../css/admin/admin.css">
-
-
-
-
 </head>
 
 <div class="calendarHeader">BlackOut Dates</div>

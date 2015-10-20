@@ -13,8 +13,9 @@ CREATE TABLE TCSUser (
 
 /* Inserting dummy user into TCSUser table */
 INSERT INTO TCSUser (NetId, Password, Email, FirstName, LastName, UserType)
-VALUES ('jsmith', 'pass123', 'jsmith@stonybrook.edu', 'Joe', 'Smith', 'Student');
-
+VALUES ('akwok', 'pass123', 'akwok@stonybrook.edu', 'Antony', 'Kwok', 'Student');
+INSERT INTO TCSUser VALUES ('sgia', 'pass123', 'sgia@stonybrook.edu', 'Steven', 'Gia', 'Instructor');
+INSERT INTO TCSUser VALUES ('hshahid', 'pass123', 'hshahid@stonybrook.edu', 'Haseeb', 'Shahid', 'Admin');
 /* Query for importing information from user.csv */
 /*LOAD DATA LOCAL INFILE 'C:/Users/Haseeb/Desktop/user.csv'
 INTO TABLE TCSUser
@@ -76,7 +77,7 @@ CREATE TABLE TestingCenter (
 	ReminderInterval INT,
 	PRIMARY KEY (Id)
 );
-
+INSERT INTO TestingCenter VALUES (0, 45, 5, 1, 1);
 /* Table for testing center hours of operation.
 Since the hours can change on a day-by-day basis, each day of the term is a tuple in the table */
 CREATE TABLE TestingCenterHours (
@@ -106,13 +107,13 @@ CREATE TABLE Exam (
 	ExamType CHAR(6),
 	InstructorNetId VARCHAR(20),
 	Name VARCHAR(20),
-	TestingCenterId INT,
 	NumberOfStudents INT,
 	NumberOfAppointments INT,
 	Status VARCHAR(15),
 	StartDate DATETIME,
 	EndDate DATETIME,
 	Duration INT,
+	TestingCenterId INT,
 	PRIMARY KEY (Id),
 	FOREIGN KEY (InstructorNetId)
 		REFERENCES TCSUser (NetId),
@@ -154,10 +155,10 @@ CREATE TABLE Appointment (
 	StudentNetId VARCHAR(20),
 	AppointmentDate DATETIME,
 	ExamId CHAR(15),
-	TestingCenterId INT,
 	Duration INT,
 	GapTime INT,
 	Status VARCHAR(15),
+	TestingCenterId INT,
 	PRIMARY KEY(Id),
 	FOREIGN KEY (StudentNetId)
 		REFERENCES TCSUser (NetId)

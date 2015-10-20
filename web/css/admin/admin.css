@@ -12,65 +12,32 @@
   padding: 0;
   list-style: none;
   background-color: #375AE0; }
-
-.testingCenterInformationHeader {
-  color: white;
+.header {
+    color: white;
   background-color: #4458A7;
   padding: 20px;
   text-align: center;
-  font-size: 30px; }
-
-.makeAppointmentsHeader {
-  color: white;
-  background-color: #09BCD4;
-  padding: 20px;
-  text-align: center;
-  font-size: 30px; }
-
-.calendarHeader {
-  color: white;
-  background-color: #4DAF4E;
-  padding: 20px;
-  text-align: center;
-  font-size: 30px; }
-
-.reportsHeader {
-  color: white;
-  background-color: #EF4438;
-  padding: 20px;
-  text-align: center;
-  font-size: 30px; }
-
-.blackoutDatesHeader {
-  color: white;
-  background-color: #795649;
-  padding: 20px;
-  text-align: center;
-  font-size: 30px; }
-
-#testingCenterInformation {
-  background-color: #4458A7; }
-  #testingCenterInformation a {
-    color: white; }
-
-#makeAppointments {
-  background-color: #09BCD4; }
-  #makeAppointments a {
-    color: white; }
-
-#calendar {
-  background-color: #4DAF4E; }
-  #calendar a {
-    color: white; }
-
-#reports {
-  background-color: #EF4438; }
-  #reports a {
-    color: white; }
-
-#blackoutDates {
-  background-color: #795649; }
-  #blackoutDates a {
-    color: white; }
+  font-size: 30px;
+}
+/* override Bootstrap */
+.navbar-default .navbar-nav>li>a {
+  color: white; 
+}
+.nav-pills>li>a {
+  margin: 2px;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.textbox {
+  border: 1px solid black;
+  height: auto;
+  width: auto;
+  padding: 50px;
+  margin: 50px;
+}
 
 /*# sourceMappingURL=admin.css.map */
