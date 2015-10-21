@@ -1,5 +1,7 @@
 package models;
 
+import utils.Constants;
+
 public abstract class User {
 
 	private String netID;
@@ -7,7 +9,7 @@ public abstract class User {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private Type type;
+	private Constants.UserType type;
 	
 	
 	
@@ -71,13 +73,13 @@ public abstract class User {
 
 
 
-	public Type getType() {
+	public Constants.UserType getUserType() {
 		return type;
 	}
 
 
 
-	public void setType(Type type) {
+	public void setType(Constants.UserType type) {
 		this.type = type;
 	}
 
@@ -89,7 +91,5 @@ public abstract class User {
 	}
 
 
-	public enum Type{
-		ADMIN, INSTRUCTOR, STUDENT
-	}
+
 }
