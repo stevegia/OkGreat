@@ -5,7 +5,8 @@
 	String netId = request.getParameter("netid");
 	String password = request.getParameter("password");
 	TCSUser user = LoginValidator.validate(netId, password);
-	System.out.println(user.toString());
+	/*this could cause a null pointer exception, needs to be moved
+	System.out.println(user.toString());*/
 	if (user != null) {
 		switch (user.getUserType()) {
 			case ADMINISTRATOR:
