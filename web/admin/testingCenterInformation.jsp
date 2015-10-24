@@ -1,5 +1,10 @@
+<%@ page import="jpaentities.TCSUser" %>
+<%@ page import="application.*" %>
+<%@ page import="utils.Constants" %>
 <% String title = "Testing Center Information";%>
 <%@include file="adminHeader.html"%>
+<%TestingCenter testingCenter = Retriever.getTestingCenter(); %>
+
   <div class="container">
     <div class="row">
       <div class="left">
@@ -28,17 +33,17 @@
       <button>Submit</button>
     </div>
     <form name="frm" method="post" action="editTestingCenterInformation.jsp" onclick="log.trace('I was traced!');return false;">
-      Number of Seats: 
-      <input name="numberofseats" type="text" class="form-control" placeholder="" required>
+      Number of Seats:
+      <input name="numberofseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSeats();%>" value="<%=testingCenter.getNumberOfSeats();%>" required>
       <br>
       Number of Set-aside Seats:
-      <input name="numberofsetasideseats" type="text" class="form-control" placeholder="" required>
+      <input name="numberofsetasideseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSetAsideSeats();%>" value="<%=testingCenter.getNumberOfSetAsideSeats();%>" required>
       <br>
       Gap Time:
-      <input name="gaptime" type="text" class="form-control" placeholder="" required>
+      <input name="gaptime" type="text" class="form-control" placeholder="<%=testingCenter.getGapTime();%>" value="<%=testingCenter.getGapTime();%>" required>
       <br>
-      Reminder Interval: 
-      <input name="reminderinterval" type="text" class="form-control" placeholder="" required>
+      Reminder Interval:
+      <input name="reminderinterval" type="text" class="form-control" placeholder="<%=testingCenter.getReminderInterval();%>" value="<%=testingCenter.getReminderInterval();%>" required>
       <br>
       <center>
         <input type="submit" value="Submit"/>

@@ -4,9 +4,8 @@
 <%
 	String netId = request.getParameter("netid");
 	String password = request.getParameter("password");
-	TCSUser user = LoginValidator.validate(netId, password);
-	/*this could cause a null pointer exception, needs to be moved
-	System.out.println(user.toString());*/
+	TCSUser user = Retriever.validate(netId, password);
+	System.out.println("netId is "+netId+" and password is "+password);
 	if (user != null) {
 		switch (user.getUserType()) {
 			case ADMINISTRATOR:
@@ -29,9 +28,13 @@
 
 			default:
 				session.invalidate();
+				System.out.println("error matching user type");
 				response.sendRedirect("error.jsp");
 				break;
 		}
 	}
-	else response.sendRedirect("error.jsp");
+	else {
+	System.out.println("user is null, error retrieving");
+	response.sendRedirect("error.jsp");
+	}
 %>
