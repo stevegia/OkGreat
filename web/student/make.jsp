@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width" charset="UTF-8">
+<meta name="viewport" content="width=device-width" charset="UTF-8">
 
-  <title>Make an Appointment</title>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<title>Make an Appointment</title>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="../css/student/student.css">
+<link rel="stylesheet" href="../css/student/student.css">
 
 
 
@@ -21,114 +24,85 @@
 
 <body>
 
-<div class="makeAppointmentContent">
+	<div class="makeAppointmentContent">
 
+		<form action="submitAppointment.jsp">
 
-  <div class="container-fluid">
+			<div class="container-fluid">
 
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-2">Test Type: </div>
-        <div class="col-md-3">
-          <div class="checkbox-inline">
-            <label><input type="checkbox" value="">Course</label>
-          </div>
-          <div class="checkbox-inline">
-            <label><input type="checkbox" value="">Ad Hoc</label>
-          </div>
-        </div>
-      </div>
-        <div class="row">
-            <div class="col-md-2">Section:  </div>
-            <div class="col-md-3"> 2 </div>
-        </div>
+				<div class="col-md-6">
 
-        <div class="row">
+					<div class="row">
 
-            <div class="dropdown">
-                Term:
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Fall 2015
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Spring 2016</a></li>
-                    <li><a href="#">Spring 2015</a></li>
-                    <li><a href="#">Fall 2014</a></li>
+						<div class="dropdown">
+							Term: <select name="termId">
+								<option value="1158">Fall 2015</option>
+								<option value="1161">Winter 2016</option>
+								<option value="1164">Spring 2016</option>
+								<option value="1166">Summer 2016</option>
+								<option value="1168">Fall 2016</option>
+							</select>
+						</div>
 
-                </ul>
-            </div>
+					</div>
 
-        </div>
+				</div>
+				<div class="col-md-5">
+					<div class="row">Exam Identifier</div>
+					<div class="row">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Enter Identifier" name="examRefinedId"
+								aria-describedby="basic-addon2">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="row">Appointment Date and Time</div>
+					<div class="row">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Enter Date and Time" name="appointmentDatetime"
+								aria-describedby="basic-addon2">
+						</div>
+					</div>
+				</div>
 
-    </div>
-    <div class="col-md-5">
-        <div class="row">
-            Start Time and date
-        </div>
-        <div class="row">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Start Date" aria-describedby="basic-addon2">
-                <input type="text" class="form-control" placeholder="Start Time" aria-describedby="basic-addon2">
+				<div class="container">
+					<h2>Available Tests</h2>
 
-            </div>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Start</th>
+								<th>Regular Seats</th>
+								<th>Select</th>
 
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>11/15/12</td>
+								<td>11:00pm</td>
+								<td>3</td>
 
+							</tr>
 
-        </div>
-        <div class="row">
-            End Time and date
-        </div>
-        <div class="row">
-            <input type="text" class="form-control" placeholder="End Date" aria-describedby="basic-addon2">
-            <input type="text" class="form-control" placeholder="End Time" aria-describedby="basic-addon2">
-        </div>
-        <div class="row">Search</div>
-<div class="row">
-    <div class="row searchButton">
-        <button type="button" class="btn-block ">Search</button>
-    </div>
+						</tbody>
+					</table>
+				</div>
+				<div class="row makeAppointmentButton">
+					<input type="submit" value="Submit Request">
+				</div>
 
-</div>
+			</div>
 
-
-    </div>
-
-      <div class="container">
-          <h2>Available Tests</h2>
-
-          <table class="table table-bordered">
-              <thead>
-              <tr>
-                  <th>Date</th>
-                  <th>Start</th>
-                  <th>Regular Seats</th>
-                  <th>Select</th>
-
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                  <td>11/15/12</td>
-                  <td>11:00pm</td>
-                  <td>3</td>
-
-              </tr>
-
-              </tbody>
-          </table>
-      </div>
-      <div class="row makeAppointmentButton">
-          <button type="button" class="btn-block ">Make Appointment</button>
-      </div>
-
-  </div>
+		</form>
 
 
 
-
-
-</div>
+	</div>
 
 
 

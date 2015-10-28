@@ -3,19 +3,22 @@ The 'UserType' field specified Instructor, Administrator, or Student */
 CREATE TABLE TCSUser (
 	NetId VARCHAR(20) NOT NULL,
 	Password VARCHAR(20),
-	Email VARCHAR(30),
+	Email VARCHAR(255),
 	FirstName VARCHAR(20),
 	LastName VARCHAR(20),
-	UserType CHAR(15),
+	UserType ENUM('ADMINISTRATOR', 'INSTRUCTOR', 'STUDENT') NOT NULL,
 	PRIMARY KEY (NetId),
 	UNIQUE (Email)
 );
 
-/* Inserting dummy user into TCSUser table */
+/* Inserting dummy users into TCSUser table */
 INSERT INTO TCSUser (NetId, Password, Email, FirstName, LastName, UserType)
-VALUES ('akwok', 'pass123', 'akwok@stonybrook.edu', 'Antony', 'Kwok', 'Student');
-INSERT INTO TCSUser VALUES ('sgia', 'pass123', 'sgia@stonybrook.edu', 'Steven', 'Gia', 'Instructor');
-INSERT INTO TCSUser VALUES ('hshahid', 'pass123', 'hshahid@stonybrook.edu', 'Haseeb', 'Shahid', 'Admin');
+VALUES ('admin', 'a123', 'admin@stonybrook.edu', 'Test', 'Admin', 'ADMINISTRATOR');
+INSERT INTO TCSUser (NetId, Password, Email, FirstName, LastName, UserType)
+VALUES ('instr', 'i123', 'instr@stonybrook.edu', 'Test', 'Instructor', 'INSTRUCTOR');
+INSERT INTO TCSUser (NetId, Password, Email, FirstName, LastName, UserType)
+VALUES ('student', 's123', 'student@stonybrook.edu', 'Test', 'Student', 'STUDENT');
+
 /* Query for importing information from user.csv */
 /*LOAD DATA LOCAL INFILE 'C:/Users/Haseeb/Desktop/user.csv'
 INTO TABLE TCSUser
@@ -28,14 +31,39 @@ SET Password = 'pass';*/
 /* For testing, all users from user.csv are imported as Students */
 /*UPDATE TCSUser SET UserType = 'Student';*/
 
-/* Table for course information */
-CREATE TABLE Course (
-	Id CHAR(10) NOT NULL,
+/* Table for term information */
+CREATE TABLE Term (
+	Id INT NOT NULL,
+    TermName VARCHAR(255),
+    StartDate DATE,
+    EndDate DATE,
+    PRIMARY KEY (Id)
+);
+
+/* Inserting specific terms into Term table */
+INSERT INTO Term (Id, TermName, StartDate, EndDate)
+VALUES (1158, 'Fall 2015', '2015-08-24', '2015-12-16');
+INSERT INTO Term (Id, TermName, StartDate, EndDate)
+VALUES (1161, 'Winter 2016', '2016-01-05', '2016-01-22');
+INSERT INTO Term (Id, TermName, StartDate, EndDate)
+VALUES (1164, 'Spring 2016', '2016-01-25', '2016-05-18');
+INSERT INTO Term (Id, TermName, StartDate, EndDate)
+VALUES (1166, 'Summer 2016', '2016-05-31', '2016-08-20');
+INSERT INTO Term (Id, TermName, StartDate, EndDate)
+VALUES (1168, 'Fall 2016', '2016-08-29', '2016-12-21');
+
+/* Table for class information */
+CREATE TABLE TCSClass (
+	Id INT NOT NULL AUTO_INCREMENT,
+	UnrefinedId CHAR(10) NOT NULL,
+    RefinedId CHAR(16) NOT NULL,
 	Subject CHAR(3),
 	CatalogNumber INT,
-	Section CHAR(5),
+	Section CHAR(4),
 	InstructorNetId VARCHAR(20),
 	PRIMARY KEY (Id),
+    UNIQUE (UnrefinedId),
+    UNIQUE (RefinedId),
 	FOREIGN KEY (InstructorNetId)
 		REFERENCES TCSUser (NetId)
 );
@@ -51,13 +79,17 @@ IGNORE 1 LINES
 /* Table for roster information */
 CREATE TABLE Roster (
 	NetId VARCHAR(20) NOT NULL,
-	CourseID CHAR(10) NOT NULL,
-	PRIMARY KEY (NetId, CourseId),
+	TCSClassUnrefinedId CHAR(10) NOT NULL,
+    TermId INT,
+	PRIMARY KEY (NetId, TCSClassUnrefinedId),
 	FOREIGN KEY (NetId)
 		REFERENCES TCSUser (NetId),
-	FOREIGN KEY (CourseId)
-		REFERENCES Course (Id)
-		ON DELETE CASCADE
+	FOREIGN KEY (TCSClassUnrefinedId)
+		REFERENCES TCSClass (UnrefinedId)
+		ON DELETE CASCADE,
+	FOREIGN KEY (TermId)
+		REFERENCES Term (Id)
+        ON DELETE CASCADE
 );
 
 /* Query for importing information from roster.csv */
@@ -75,14 +107,21 @@ CREATE TABLE TestingCenter (
 	NumberofSetAsideSeats INT,
 	GapTime INT,
 	ReminderInterval INT,
-	PRIMARY KEY (Id)
+    CurrentTerm INT,
+	PRIMARY KEY (Id),
+    FOREIGN KEY (CurrentTerm)
+		REFERENCES Term (Id)
 );
-INSERT INTO TestingCenter VALUES (0, 45, 5, 1, 1);
+
+/* Inserting a tuple into the TestingCenter table */
+INSERT INTO TestingCenter (NumberOfSeats, NumberofSetAsideSeats, GapTime, ReminderInterval, CurrentTerm)
+VALUES (64, 10, 30, 30, 1158);
+
 /* Table for testing center hours of operation.
 Since the hours can change on a day-by-day basis, each day of the term is a tuple in the table */
 CREATE TABLE TestingCenterHours (
 	TestingCenterId INT NOT NULL,
-	OpenDate DATE,
+	OpenDate DATE NOT NULL,
 	StartTime TIME,
 	EndTime TIME,
 	PRIMARY KEY (TestingCenterId, OpenDate),
@@ -103,50 +142,63 @@ CREATE TABLE ClosedDates (
 
 /* Table for exam information */
 CREATE TABLE Exam (
-	Id CHAR(15) NOT NULL,
-	ExamType CHAR(6),
+	Id INT NOT NULL AUTO_INCREMENT,
+	RefinedId CHAR(20) NOT NULL,
+	ExamType ENUM('AD-HOC', 'COURSE') NOT NULL,
 	InstructorNetId VARCHAR(20),
-	Name VARCHAR(20),
+	ExamName VARCHAR(255),
+	TestingCenterId INT,
 	NumberOfStudents INT,
 	NumberOfAppointments INT,
-	Status VARCHAR(15),
+	ExamStatus VARCHAR(15),
 	StartDate DATETIME,
 	EndDate DATETIME,
 	Duration INT,
-	TestingCenterId INT,
+    TermId INT,
 	PRIMARY KEY (Id),
+    UNIQUE (RefinedId),
 	FOREIGN KEY (InstructorNetId)
 		REFERENCES TCSUser (NetId),
 	FOREIGN KEY (TestingCenterId)
-		REFERENCES TestingCenter (Id)
+		REFERENCES TestingCenter (Id),
+	FOREIGN KEY (TermId)
+		REFERENCES Term (Id)
 );
 
 /* Table for course exam information */
 CREATE TABLE CourseExam (
-	ExamId CHAR(15) NOT NULL,
-	CourseId CHAR(10) NOT NULL,
-	Section CHAR(5),
-	PRIMARY KEY (ExamId, CourseId),
-	FOREIGN KEY (ExamId)
-		REFERENCES Exam (Id)
+	ExamRefinedId CHAR(20) NOT NULL,
+	TCSClassRefinedId CHAR(16) NOT NULL,
+	PRIMARY KEY (ExamRefinedId, TCSClassRefinedId),
+	FOREIGN KEY (ExamRefinedId)
+		REFERENCES Exam (RefinedId)
 		ON DELETE CASCADE,
-	FOREIGN KEY (CourseId)
-		REFERENCES Course (Id)
+	FOREIGN KEY (TCSClassRefinedId)
+		REFERENCES TCSClass (RefinedId)
 		ON DELETE CASCADE
 );
 
 /* Table for Ad-Hoc Exam information.
 Since Ad-Hoc Exams require a list of students, each student is a tuple in this table */
 CREATE TABLE AdHocExam (
-	ExamId CHAR(15) NOT NULL,
+	ExamRefinedId CHAR(20) NOT NULL,
 	StudentNetId VARCHAR(20) NOT NULL,
-	PRIMARY KEY (ExamId, StudentNetId),
-	FOREIGN KEY (ExamId)
-		REFERENCES Exam (Id)
+    StudentFirstName VARCHAR(20),
+	StudentLastName VARCHAR(20),
+	PRIMARY KEY (ExamRefinedId, StudentNetId),
+	FOREIGN KEY (ExamRefinedId)
+		REFERENCES Exam (RefinedId)
 		ON DELETE CASCADE,
 	FOREIGN KEY (StudentNetId)
 		REFERENCES TCSUser (NetId)
 		ON DELETE CASCADE
+);
+
+/* Table for Seat information */
+CREATE TABLE Seat (
+	Number INT NOT NULL AUTO_INCREMENT,
+    SetAside BOOLEAN,
+    PRIMARY KEY (Number)
 );
 
 /* Table for Appointment information */
@@ -154,18 +206,25 @@ CREATE TABLE Appointment (
 	Id INT NOT NULL AUTO_INCREMENT,
 	StudentNetId VARCHAR(20),
 	AppointmentDate DATETIME,
-	ExamId CHAR(15),
+	ExamRefinedId CHAR(20),
+	TestingCenterId INT,
 	Duration INT,
 	GapTime INT,
-	Status VARCHAR(15),
-	TestingCenterId INT,
-	PRIMARY KEY(Id),
+	AppointmentStatus VARCHAR(15),
+    TermId INT,
+    SeatNumber INT,
+	PRIMARY KEY (Id),
 	FOREIGN KEY (StudentNetId)
 		REFERENCES TCSUser (NetId)
 		ON DELETE CASCADE,
-	FOREIGN KEY (ExamId)
-		REFERENCES Exam (Id)
+	FOREIGN KEY (ExamRefinedId)
+		REFERENCES Exam (RefinedId)
 		ON DELETE CASCADE,
 	FOREIGN KEY (TestingCenterId)
 		REFERENCES TestingCenter (Id)
+        ON DELETE CASCADE,
+	FOREIGN KEY (TermId)
+		REFERENCES Term (Id),
+	FOREIGN KEY (SeatNumber)
+		REFERENCES Seat (Number)
 );
