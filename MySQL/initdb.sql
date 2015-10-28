@@ -1,3 +1,10 @@
+# DROP/CREATE DB
+DROP DATABASE IF EXISTS testing_center_scheduler;
+
+CREATE DATABASE testing_center_scheduler;
+
+USE testing_center_scheduler;
+
 /* Table for users of the system
 The 'UserType' field specified Instructor, Administrator, or Student */
 CREATE TABLE TCSUser (
