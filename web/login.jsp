@@ -1,11 +1,11 @@
 <%@ page import="jpaentities.TCSUser" %>
 <%@ page import="application.*" %>
-<%@ page import="utils.Constants" %>
 <%
 	String netId = request.getParameter("netid");
 	String password = request.getParameter("password");
-	TCSUser user = Retriever.validate(netId, password);
-	System.out.println("netId is "+netId+" and password is "+password);
+	Retriever loginValidator = Retriever.getInstance();
+	TCSUser user = loginValidator.getUser(netId, password);
+
 	if (user != null) {
 		switch (user.getUserType()) {
 			case ADMINISTRATOR:
@@ -28,13 +28,9 @@
 
 			default:
 				session.invalidate();
-				System.out.println("error matching user type");
 				response.sendRedirect("error.jsp");
 				break;
 		}
 	}
-	else {
-	System.out.println("user is null, error retrieving");
-	response.sendRedirect("error.jsp");
-	}
+	else response.sendRedirect("error.jsp");
 %>
