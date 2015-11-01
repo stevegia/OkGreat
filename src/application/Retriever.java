@@ -8,7 +8,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import jpaentities.Appointment;
+import jpaentities.Exam;
 import jpaentities.TCSUser;
+import jpaentities.Term;
+
+import java.util.List;
 
 /**
  * @author Haseeb Shahid
@@ -55,7 +60,8 @@ public class Retriever {
     		query = em.createQuery("SELECT t FROM TCSUser t WHERE t.netId = ?1 AND t.password = ?2");
     		query.setParameter(1, netId);
     		query.setParameter(2, password);
-    		
+    		System.out.println(netId);
+
     		// user exists in database
     		return (TCSUser) query.getSingleResult();
         } catch(Exception e) {
@@ -63,4 +69,49 @@ public class Retriever {
         	return null;
         }
 	}
+
+	public Appointment testGetAppointment(){
+		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
+		query.setParameter(1, 0);
+		Appointment result = (Appointment) query.getSingleResult();
+		System.out.println(result.toString());
+	return result;
+	}
+
+
+	public List<Exam> getExamsInTerm(String netId, int termId){
+		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
+		query.setParameter(1, termId);
+		query.setParameter(2, netId);
+
+		List<Exam> returnedList = query.getResultList();
+
+		for(Exam element : returnedList){
+			System.out.println(element.toString());
+		}
+
+
+		return returnedList;
+
+
+	}
+
+	public String getExamsInTermString(String netId, int termId){
+		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
+		query.setParameter(1, termId);
+		query.setParameter(2, netId);
+
+		String JSONTORETURN = "[";
+
+		List<Exam> returnedList = query.getResultList();
+
+		for(Exam element : returnedList){
+			System.out.println(element.toString());
+		}
+
+
+		return "";
+	}
+
+
 }

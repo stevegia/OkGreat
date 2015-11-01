@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="TestingCenterScheduler">
-	<class>jpaentities.TCSUser</class>
-	<class>jpaentities.TestingCenter</class>
-	<class>jpaentities.TestingCenterHour</class>
-	<class>jpaentities.TestingCenterHourPK</class>
-	<class>jpaentities.Course</class>
-	<class>jpaentities.Roster</class>
-	<class>jpaentities.RosterPK</class>
-	<class>jpaentities.ClosedDate</class>
-	<class>jpaentities.ClosedDatePK</class>
-	<class>jpaentities.Exam</class>
-	<class>jpaentities.Appointment</class>
-	<class>jpaentities.Seat</class>
-		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/testing_center_scheduler" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="admin" />
-			
-			<!-- EclipseLink should create the database schema automatically -->
-			<property name="eclipselink.ddl-generation" value="create-tables" />
-			<property name="eclipselink.ddl-generation.output-mode" value="database" />
-		</properties>
-	</persistence-unit>
+    <persistence-unit name="TestingCenterScheduler">
+        <class>jpaentities.TCSUser</class>
+        <class>jpaentities.TestingCenter</class>
+        <class>jpaentities.TestingCenterHour</class>
+        <class>jpaentities.TestingCenterHourPK</class>
+        <class>jpaentities.Course</class>
+        <class>jpaentities.Roster</class>
+        <class>jpaentities.RosterPK</class>
+        <class>jpaentities.ClosedDate</class>
+        <class>jpaentities.ClosedDatePK</class>
+        <class>jpaentities.Exam</class>
+        <class>jpaentities.Appointment</class>
+        <class>jpaentities.Term</class>
+        <class>jpaentities.Seat</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/testing_center_scheduler" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="admin" />
+
+            <!-- EclipseLink should create the database schema automatically -->
+            <property name="eclipselink.ddl-generation" value="create-tables" />
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+        </properties>
+    </persistence-unit>
 </persistence>
