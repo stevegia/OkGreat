@@ -3,6 +3,7 @@
  */
 package application;
 
+import jpaentities.Exam;
 import jpaentities.TCSUser;
 import utils.Constants;
 
@@ -41,6 +42,23 @@ public class Student extends TCSUser {
 		this.setFirstName(user.getFirstName());
 		this.setLastName(user.getLastName());
 		this.setUserType(Constants.UserType.STUDENT);
+	}
+
+	public boolean makeAppointment(String netId, int termId, String examRefinedId, String apptDatetime) {
+		Retriever retriever = Retriever.getInstance();
+		Exam exam = retriever.getExam(examRefinedId);
+
+		// Requested exam not found
+		if (exam == null) return false;
+
+		if (exam.getExamType().equals("COURSE")) {
+			// Exam is a course exam
+		}
+		else {
+			// Exam is an ad-hoc exam
+		}
+
+		return true;
 	}
 
 }

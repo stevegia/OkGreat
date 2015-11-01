@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head></head>
-
-<%@ page import="jpaentities.TCSUser"%>
 <%@ page import="application.*"%>
+<%
+	Student student = (Student) session.getAttribute("user");
 
-<body>
-	<%
-		Student student = (Student) session.getAttribute("user");
-	%>
+	int termId = Integer.parseInt(request.getParameter("termId"));
+	String examRefinedId = request.getParameter("examRefinedId");
+	String apptDatetime = request.getParameter("appointmentDatetime");
+	boolean apptSuccessful = student.makeAppointment(student.getNetId(), termId, examRefinedId, apptDatetime);
 
-	<div>
-
-		<%
-			System.out.println(student.getNetId());
-			request.getParameter("termId");
-			request.getParameter("examRefinedId");
-			request.getParameter("appointmentDatetime");
-		%>
-
-
-	</div>
-</body>
-</html>
+	if (apptSuccessful)
+		response.sendRedirect("appointments.jsp");
+	else
+		System.out.println("There was an error making your appointment. Make sure your inputs are correct.");
+%>

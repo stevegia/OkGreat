@@ -1,222 +1,186 @@
 package jpaentities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-
 import javax.persistence.*;
+import java.util.Date;
+
 
 /**
  * The persistent class for the exam database table.
- * @author Haseeb Shahid
+ * 
  */
 @Entity
 @Table(name = "exam")
+@NamedQuery(name="Exam.findAll", query="SELECT e FROM Exam e")
 public class Exam implements Serializable {
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
-	private String id;
-	private String examType;
-	private String instructorNetId;
-	private String name;
-	private int testingCenterId;
-	private int numberOfStudents;
-	private int numberOfAppointments;
-	private String status;
-	private Timestamp startDate;
-	private Timestamp endDate;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+
 	private int duration;
-	
-	/**
-	 * 
-	 */
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date endDate;
+
+	private String examName;
+
+	private String examStatus;
+
+	private String examType;
+
+	private String instructorNetId;
+
+	private int numberOfAppointments;
+
+	private int numberOfStudents;
+
+	private String refinedId;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date startDate;
+
+	private int termId;
+
+	private int testingCenterId;
+
 	public Exam() {
 	}
 
 	/**
-	 * @param id
+	 * @param duration
+	 * @param endDate
+	 * @param examName
+	 * @param examStatus
 	 * @param examType
 	 * @param instructorNetId
-	 * @param name
-	 * @param testingCenterId
-	 * @param numberOfStudents
 	 * @param numberOfAppointments
-	 * @param status
+	 * @param numberOfStudents
+	 * @param refinedId
 	 * @param startDate
-	 * @param endDate
-	 * @param duration
+	 * @param termId
+	 * @param testingCenterId
 	 */
-	public Exam(String id, String examType, String instructorNetId, String name, int testingCenterId,
-			int numberOfStudents, int numberOfAppointments, String status, Timestamp startDate, Timestamp endDate,
-			int duration) {
-		this.id = id;
+	public Exam(int duration, Date endDate, String examName, String examStatus, String examType, String instructorNetId,
+			int numberOfAppointments, int numberOfStudents, String refinedId, Date startDate, int termId,
+			int testingCenterId) {
+		this.duration = duration;
+		this.endDate = endDate;
+		this.examName = examName;
+		this.examStatus = examStatus;
 		this.examType = examType;
 		this.instructorNetId = instructorNetId;
-		this.name = name;
-		this.testingCenterId = testingCenterId;
-		this.numberOfStudents = numberOfStudents;
 		this.numberOfAppointments = numberOfAppointments;
-		this.status = status;
+		this.numberOfStudents = numberOfStudents;
+		this.refinedId = refinedId;
 		this.startDate = startDate;
-		this.endDate = endDate;
+		this.termId = termId;
+		this.testingCenterId = testingCenterId;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getDuration() {
+		return this.duration;
+	}
+
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
+	public Date getEndDate() {
+		return this.endDate;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
-	/**
-	 * @return the examType
-	 */
+	public String getExamName() {
+		return this.examName;
+	}
+
+	public void setExamName(String examName) {
+		this.examName = examName;
+	}
+
+	public String getExamStatus() {
+		return this.examStatus;
+	}
+
+	public void setExamStatus(String examStatus) {
+		this.examStatus = examStatus;
+	}
+
 	public String getExamType() {
-		return examType;
+		return this.examType;
 	}
 
-	/**
-	 * @param examType the examType to set
-	 */
 	public void setExamType(String examType) {
 		this.examType = examType;
 	}
 
-	/**
-	 * @return the instructorNetId
-	 */
 	public String getInstructorNetId() {
-		return instructorNetId;
+		return this.instructorNetId;
 	}
 
-	/**
-	 * @param instructorNetId the instructorNetId to set
-	 */
 	public void setInstructorNetId(String instructorNetId) {
 		this.instructorNetId = instructorNetId;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the testingCenterId
-	 */
-	public int getTestingCenterId() {
-		return testingCenterId;
-	}
-
-	/**
-	 * @param testingCenterId the testingCenterId to set
-	 */
-	public void setTestingCenterId(int testingCenterId) {
-		this.testingCenterId = testingCenterId;
-	}
-
-	/**
-	 * @return the numberOfStudents
-	 */
-	public int getNumberOfStudents() {
-		return numberOfStudents;
-	}
-
-	/**
-	 * @param numberOfStudents the numberOfStudents to set
-	 */
-	public void setNumberOfStudents(int numberOfStudents) {
-		this.numberOfStudents = numberOfStudents;
-	}
-
-	/**
-	 * @return the numberOfAppointments
-	 */
 	public int getNumberOfAppointments() {
-		return numberOfAppointments;
+		return this.numberOfAppointments;
 	}
 
-	/**
-	 * @param numberOfAppointments the numberOfAppointments to set
-	 */
 	public void setNumberOfAppointments(int numberOfAppointments) {
 		this.numberOfAppointments = numberOfAppointments;
 	}
 
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
+	public int getNumberOfStudents() {
+		return this.numberOfStudents;
 	}
 
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setNumberOfStudents(int numberOfStudents) {
+		this.numberOfStudents = numberOfStudents;
 	}
 
-	/**
-	 * @return the startDate
-	 */
-	public Timestamp getStartDate() {
-		return startDate;
+	public String getRefinedId() {
+		return this.refinedId;
 	}
 
-	/**
-	 * @param startDate the startDate to set
-	 */
-	public void setStartDate(Timestamp startDate) {
+	public void setRefinedId(String refinedId) {
+		this.refinedId = refinedId;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	/**
-	 * @return the endDate
-	 */
-	public Timestamp getEndDate() {
-		return endDate;
+	public int getTermId() {
+		return this.termId;
 	}
 
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Timestamp endDate) {
-		this.endDate = endDate;
+	public void setTermId(int termId) {
+		this.termId = termId;
 	}
 
-	/**
-	 * @return the duration
-	 */
-	public int getDuration() {
-		return duration;
+	public int getTestingCenterId() {
+		return this.testingCenterId;
 	}
 
-	/**
-	 * @param duration the duration to set
-	 */
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setTestingCenterId(int testingCenterId) {
+		this.testingCenterId = testingCenterId;
 	}
 
 	/**
@@ -224,10 +188,11 @@ public class Exam implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Exam [id=" + id + ", examType=" + examType + ", instructorNetId=" + instructorNetId + ", name=" + name
-				+ ", testingCenterId=" + testingCenterId + ", numberOfStudents=" + numberOfStudents
-				+ ", numberOfAppointments=" + numberOfAppointments + ", status=" + status + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", duration=" + duration + "]";
+		return "Exam [id=" + id + ", duration=" + duration + ", endDate=" + endDate + ", examName=" + examName
+				+ ", examStatus=" + examStatus + ", examType=" + examType + ", instructorNetId=" + instructorNetId
+				+ ", numberOfAppointments=" + numberOfAppointments + ", numberOfStudents=" + numberOfStudents
+				+ ", refinedId=" + refinedId + ", startDate=" + startDate + ", termId=" + termId + ", testingCenterId="
+				+ testingCenterId + "]";
 	}
 
 }
