@@ -21,15 +21,16 @@ public class Exam implements Serializable {
 	private String id;
 	private String examType;
 	private String instructorNetId;
-	private String name;
+	private String examName;
 	private int testingCenterId;
 	private int numberOfStudents;
 	private int numberOfAppointments;
-	private String status;
+	private String examStatus;
 	private Timestamp startDate;
 	private Timestamp endDate;
 	private int duration;
-	
+	private int termId;
+
 	/**
 	 * 
 	 */
@@ -44,22 +45,24 @@ public class Exam implements Serializable {
 	 * @param testingCenterId
 	 * @param numberOfStudents
 	 * @param numberOfAppointments
-	 * @param status
+	 * @param examStatus
 	 * @param startDate
 	 * @param endDate
 	 * @param duration
+	 * @param termId
 	 */
 	public Exam(String id, String examType, String instructorNetId, String name, int testingCenterId,
-			int numberOfStudents, int numberOfAppointments, String status, Timestamp startDate, Timestamp endDate,
-			int duration) {
+			int numberOfStudents, int numberOfAppointments, String examStatus, Timestamp startDate, Timestamp endDate,
+			int duration,int termId) {
+		this.termId=termId;
 		this.id = id;
 		this.examType = examType;
 		this.instructorNetId = instructorNetId;
-		this.name = name;
+		this.examName = name;
 		this.testingCenterId = testingCenterId;
 		this.numberOfStudents = numberOfStudents;
 		this.numberOfAppointments = numberOfAppointments;
-		this.status = status;
+		this.examStatus = examStatus;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.duration = duration;
@@ -110,15 +113,15 @@ public class Exam implements Serializable {
 	/**
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
+	public String getExamName() {
+		return examName;
 	}
 
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+		this.examName = name;
 	}
 
 	/**
@@ -164,17 +167,17 @@ public class Exam implements Serializable {
 	}
 
 	/**
-	 * @return the status
+	 * @return the examStatus
 	 */
-	public String getStatus() {
-		return status;
+	public String getExamStatus() {
+		return examStatus;
 	}
 
 	/**
-	 * @param status the status to set
+	 * @param examStatus the examStatus to set
 	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setExamStatus(String examStatus) {
+		this.examStatus = examStatus;
 	}
 
 	/**
@@ -219,14 +222,23 @@ public class Exam implements Serializable {
 		this.duration = duration;
 	}
 
+	public int getTermId() {
+		return termId;
+	}
+
+	public void setTermId(int termId) {
+		this.termId = termId;
+	}
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
+
 	public String toString() {
-		return "Exam [id=" + id + ", examType=" + examType + ", instructorNetId=" + instructorNetId + ", name=" + name
+		return "Exam [id=" + id + ", examType=" + examType + ", instructorNetId=" + instructorNetId + ", name=" + examName
 				+ ", testingCenterId=" + testingCenterId + ", numberOfStudents=" + numberOfStudents
-				+ ", numberOfAppointments=" + numberOfAppointments + ", status=" + status + ", startDate=" + startDate
+				+ ", numberOfAppointments=" + numberOfAppointments + ", examStatus=" + examStatus + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", duration=" + duration + "]";
 	}
 

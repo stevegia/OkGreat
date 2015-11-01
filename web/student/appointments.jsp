@@ -1,3 +1,4 @@
+<%@ page import="application.Retriever" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,10 @@
 
 <div class="appointmentsHeader">Appointments</div>
 <%@include file="studentHeader.html"%>
+
+
 <body>
+
 
 
 <div class="appointmentContent">
@@ -42,7 +46,15 @@
     <div class="row">
       <div class="col-md-2">
         <div class="list-group">
-          <a href="#" class="list-group-item active">Biology Final Makeup  </a>
+          <a href="#" class="list-group-item active"><%
+
+            Retriever loginValidator = Retriever.getInstance();
+            loginValidator.testGetAppointment();
+
+
+            out.print(loginValidator.testGetAppointment().getExamId());
+
+          %>  </a>
           <a href="#" class="list-group-item">Dapibus ac faciasis in</a>
           <a href="#" class="list-group-item">Morbi leo risus</a>
           <a href="#" class="list-group-item">Porta ac consectetur ac</a>
@@ -125,6 +137,19 @@
       </div>
 
 
+      <%
+        //if(request.getParameter("buttonName") != null) {
+        if(request.getParameterNames() != null) {
+      %>
+      You clicked
+      <%= request.getParameter("buttonName") %>
+      <%
+        }
+      %>
+
+
+      <%= request.getParameter("buttonName") %>
+
       <div class="row makeAppointmentButton">
         <button type="button" class="btn-block ">Make Appointment</button>
       </div>
@@ -133,10 +158,27 @@
 
 
   </div>
+  <FORM NAME="form1" METHOD="POST">
+    <INPUT TYPE="HIDDEN" NAME="buttonName">
+    <INPUT TYPE="BUTTON" VALUE="Button 1" ONCLICK="button1()">
+    <INPUT TYPE="BUTTON" VALUE="Button 2" ONCLICK="button2()">
+  </FORM>
 
 
-
-
+  <SCRIPT LANGUAGE="JavaScript">
+    <!--
+    function button1()
+    {
+      document.form1.buttonName.value = "button 1"
+      form1.submit()
+    }
+    function button2()
+    {
+      document.form1.buttonName.value = "button 2"
+      form1.submit()
+    }
+    // -->
+  </SCRIPT>
 
 
 
