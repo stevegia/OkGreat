@@ -10,6 +10,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="../js/underscore.js"></script>
   <script type="text/javascript" src="../js/calendar.min.js"></script>
+  <script type="text/javascript" src="../js/student/calendarControl.js"></script>
   <link rel="stylesheet" href="../css/calendar.min.css">
   <link rel="stylesheet" href="../css/student/student.css">
 
@@ -20,10 +21,10 @@
 
 <div class="calendarHeader">Calendar</div>
 <%@include file="studentHeader.html"%>
-<body>
+<body onload="initiate()">
 
 
-<div class="appointmnetContent">
+<div class="appointmnetContent" >
 
 
   <div class="dropdown">
@@ -41,20 +42,31 @@
   </div>
 </div>
 
-<div id="calenderChart">
+<div class="pull-right form-inline">
+  <div class="btn-group">
+    <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
+    <button class="btn btn-default" data-calendar-nav="today">Today</button>
+    <button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-warning" data-calendar-view="year">Year</button>
+    <button class="btn btn-warning active" data-calendar-view="month">Month</button>
+    <button class="btn btn-warning" data-calendar-view="week">Week</button>
+    <button class="btn btn-warning" data-calendar-view="day">Day</button>
+  </div>
+</div>
+
+
 
 
 
 <script type="text/javascript">
-  var calendar = $("#calenderChart").calendar(
-          {
-            tmpl_path: "../tmpls/",
-            events_source: function () { return []; }
-          });
+
 </script>
 
 
-</div>s
+
+<div id="calenderChart">
 
 
 </body>
