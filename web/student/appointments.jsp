@@ -5,22 +5,32 @@
     <meta name="viewport" content="width=device-width" charset="UTF-8">
 
     <title>Appointments</title>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="../css/student/student.css">
-
-
+    <link rel="stylesheet" href="../css/student/student.css">
 
 
 </head>
 
 <div class="appointmentsHeader">Appointments</div>
+<<<<<<< HEAD
 <%@include file="studentHeader.html"%>
 
 
+=======
+<%@include file="studentHeader.html" %>
+<%@ page import="application.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="jpaentities.Appointment" %>
+<%
+    Student student = (Student) session.getAttribute("user");
+    Retriever retriever = Retriever.getInstance();
+    List<Appointment> appointments = retriever.getAppointmentsForStudent(student.getNetId());
+%>
+>>>>>>> origin/haseeb_dev
 <body>
 
 
@@ -28,6 +38,7 @@
 <div class="appointmentContent">
 
 
+<<<<<<< HEAD
   <div class="dropdown">
     Term:
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -88,55 +99,107 @@
               <div class="col-md-3" id ="sectionLabel">Section:</div>
               <div class="col-md-4" id ="section">2</div>
 
+=======
+    <div class="dropdown">
+        Term:
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            Fall 2015
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Spring 2016</a></li>
+            <li><a href="#">Spring 2015</a></li>
+            <li><a href="#">Fall 2014</a></li>
+>>>>>>> origin/haseeb_dev
+
+        </ul>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+
+                <%
+                    if (appointments != null) {
+                %>
+
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th> Date and Time</th>
+                            <th> Exam</th>
+                            <th> Duration</th>
+                            <th> Status</th>
+                            <th> Term</th>
+                            <th> Seat Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (Appointment appt : appointments) {
+                        %>
+                        <tr>
+                            <td><%= appt.getAppointmentDate() %>
+                            </td>
+                            <td><%= appt.getExamRefinedId() %>
+                            </td>
+                            <td><%= appt.getDuration() %>
+                            </td>
+                            <td><%= appt.getAppointmentStatus() %>
+                            </td>
+                            <td><%= appt.getTermId() %>
+                            </td>
+                            <td><%= appt.getSeatNumber() %>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <%
+                    }
+                %>
+
 
             </div>
-            <div class="row">
-              <div class="" id=""></div>
 
-            </div>
-
-
-          </div>
-
-          <div class="col-md-5">
-
-            <div class="row">
-
-              <div class="col-md-3" id ="startLabel">Start:</div>
-              <div class="col-md-4" id ="start">now</div>
-
-            </div>
-
-            <div class="row">
-              <div class="col-md-3" id ="endTimeLabel">End Time:</div>
-              <div class="col-md-4" id ="endTime">December 2st</div>
-            </div>
+            <div class="col-md-8 examInfo">
+                <div id="TestTitle">Biology Final Makeups</div>
 
 
+                <div class="">
+                    <div class="col-md-5">
+
+                        <div class="row ">
+
+                            <div class="col-md-3" id="classLabel">Class:</div>
+                            <div class="col-md-4" id="class">CHE-131</div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3" id="dateLabel">Date:</div>
+                            <div class="col-md-4" id="date">December 1st</div>
+                        </div>
 
 
-            <div class="row ">
-              <div class="col-md-3" id ="examTimeLabel">Exam Time: </div>
-              <div class="col-md-4" id ="examTime">alot</div>
+                        <div class="row">
+                            <div class="col-md-3" id="sectionLabel">Section:</div>
+                            <div class="col-md-4" id="section">2</div>
 
 
-            </div>
+                        </div>
+                        <div class="row">
+                            <div class="" id=""></div>
 
-            <div class="row paddingBox">Additional Info</div>
-            <div class="row paddingBox"></div>
-            asdasda
+                        </div>
 
-
-          </div>
-          <div class="row paddingBox">
-            <button type="button" class="btn-block ">Cancel Appointment</button>
-          </div>
-        </div>
-
-
-      </div>
-
-
+<<<<<<< HEAD
       <%
         //if(request.getParameter("buttonName") != null) {
         if(request.getParameterNames() != null) {
@@ -155,8 +218,12 @@
       </div>
 
     </div>
+=======
+>>>>>>> origin/haseeb_dev
 
+                    </div>
 
+<<<<<<< HEAD
   </div>
   <FORM NAME="form1" METHOD="POST">
     <INPUT TYPE="HIDDEN" NAME="buttonName">
@@ -179,23 +246,56 @@
     }
     // -->
   </SCRIPT>
+=======
+                    <div class="col-md-5">
+
+                        <div class="row">
+
+                            <div class="col-md-3" id="startLabel">Start:</div>
+                            <div class="col-md-4" id="start">now</div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3" id="endTimeLabel">End Time:</div>
+                            <div class="col-md-4" id="endTime">December 2st</div>
+                        </div>
+>>>>>>> origin/haseeb_dev
 
 
-
-  </div>
-
-
-
+                        <div class="row ">
+                            <div class="col-md-3" id="examTimeLabel">Exam Time:</div>
+                            <div class="col-md-4" id="examTime">alot</div>
 
 
+                        </div>
+
+                        <div class="row paddingBox">Additional Info</div>
+                        <div class="row paddingBox"></div>
+                        asdasda
 
 
+                    </div>
+                    <div class="row paddingBox">
+                        <button type="button" class="btn-block ">Cancel Appointment</button>
+                    </div>
+                </div>
 
 
+            </div>
 
 
+            <div class="row makeAppointmentButton">
+                <button type="button" class="btn-block ">Make Appointment</button>
+            </div>
+
+        </div>
 
 
+    </div>
+
+
+</div>
 
 
 </body>
