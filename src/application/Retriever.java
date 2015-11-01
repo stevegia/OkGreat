@@ -51,10 +51,24 @@ public class Retriever {
 		return singleton;
 	}
 
-	public List<Appointment> getAppointmentsForStudent(String netId) {
+	public List<Appointment> getAppointmentsForStudent(String netId, int termId) {
 		try {
-			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1");
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1 AND a.termId = ?2");
 			query.setParameter(1, netId);
+			query.setParameter(2, termId);
+
+			// appointment(s) exists in database
+			return query.getResultList();
+		} catch(Exception e) {
+			// user not found in database
+			return null;
+		}
+	}
+
+	public List<Appointment> getAppointmentsInTerm(int termId) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.termId = ?1");
+			query.setParameter(1, termId);
 
 			// appointment(s) exists in database
 			return query.getResultList();
