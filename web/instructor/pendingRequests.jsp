@@ -92,10 +92,6 @@
                             <div class="col-md-4" id="class"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3" id="dateLabel">Date:</div>
-                            <div class="col-md-4" id="date"></div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3" id="sectionLabel">Section:</div>
                             <div class="col-md-4" id="section"></div>
                         </div>
@@ -113,20 +109,45 @@
                             <div class="col-md-4" id="status"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3" id="startLabel">Start:</div>
-                            <div class="col-md-4" id="start"></div>
+                            <div class="col-md-3" id="startLabel">Start Date:</div>
+                            <div class="col-md-7" id="start"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3" id="endTimeLabel">End Time:</div>
-                            <div class="col-md-4" id="endTime"></div>
+                            <div class="col-md-3" id="endTimeLabel">End Date:</div>
+                            <div class="col-md-7" id="end"></div>
                         </div>
                         <div class="row ">
-                            <div class="col-md-3" id="examTimeLabel">Exam Time:</div>
+                            <div class="col-md-4" id="examTimeLabel">Exam Duration:</div>
                             <div class="col-md-4" id="examTime"></div>
                         </div>
                     </div>
                 </div>
                 </div>
+                <div class="row">
+                    <div class ="studentAppointmentsTitle">Student Appointments</div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Net Id</th>
+                            <th>Date</th>
+                            <th>Seat</th>
+                            <th>Status</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="studentAppointments">
+
+                        </tbody>
+                    </table>
+
+
+
+
+
+                </div>
+
+
                 <div class="row bottomrow">
                     <button type="button" class="cancelButton btn-primary ">Cancel Request</button>
                 </div>
@@ -154,15 +175,36 @@
             $("#start").html("");
             $("#end").html("");
             $("#examTime").html("");
+            $("#studentAppointments").html("");
 
 
             $("#TestTitle").html(dataToUpdate.examName);
-            $("#class").html(dataToUpdate.subject);
+            $("#class").html(dataToUpdate.subject + " " + dataToUpdate.catalogNumber);
             $("#section").html(dataToUpdate.section);
             $("#status").html(dataToUpdate.examStatus);
             $("#start").html(dataToUpdate.startDate);
-            $("#end").html(dataToUpdate.endTime);
+            $("#end").html(dataToUpdate.endDate);
             $("#examTime").html(dataToUpdate.duration);
+
+
+            console.log("got to before loop");
+
+           for(var i = 0; i<dataToUpdate.appointments.length; i++){
+               console.log("got to into the loop");
+
+               var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";
+               var netid = thopen + dataToUpdate.appointments[i].netId + thclose;
+               var date = thopen + dataToUpdate.appointments[i].appointmentDate + thclose;
+               var status = thopen +  dataToUpdate.appointments[i].appointmentStatus + thclose;
+               var seatnum = thopen + dataToUpdate.appointments[i].seatNumber + thclose;
+
+               var tableRowToAppend = trOpen + netid + date + seatnum +status +  trclose;
+
+
+
+               $("#studentAppointments").append(tableRowToAppend);
+           }
+
 
 
         }
