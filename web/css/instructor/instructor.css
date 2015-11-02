@@ -51,12 +51,12 @@
 
 .pendingRequestsContent {
   padding: 20px 20px 20px 20px;
-  border: 1px;
-  border-color: black; }
+  border: 1px; }
 
 .examInfo {
   border: 1px;
-  border-color: black; }
+  border-color: black;
+  border-style: solid; }
 
 #TestTitle {
   text-align: center;
@@ -65,8 +65,11 @@
 .TermButton {
   padding: 20px 20px 20px 20px; }
 
+.toprow {
+  padding-bottom: 20px; }
+
 .bottomrow {
-  padding-top: 20px; }
+  padding: 20px 20px 20px 20px; }
 
 .cancelButton {
   height: 30px;

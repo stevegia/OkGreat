@@ -69,12 +69,14 @@ $primary-color: #375AE0;
 .pendingRequestsContent{
   padding: 20px 20px 20px 20px;
   border: 1px;
-  border-color: black;
+
 }
 
 .examInfo{
   border: 1px;
   border-color: black;
+  border-style: solid;
+
 }
 
 #TestTitle{
@@ -87,8 +89,12 @@ $primary-color: #375AE0;
   padding: 20px 20px 20px 20px;
 }
 
+.toprow{
+  padding-bottom: 20px;
+}
+
 .bottomrow{
-  padding-top: 20px;
+  padding: 20px 20px 20px 20px;
 }
 
 .cancelButton{

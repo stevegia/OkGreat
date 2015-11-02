@@ -83,7 +83,7 @@
 
             <div class="col-lg-8 examInfo">
                 <div id="row">
-                <div id="TestTitle">Default</div>
+                <div class="toprow" id="TestTitle">No Exam Selected</div>
                 <div class="container-fluid">
                     <div class="col-md-5">
                         <!--Left column -->
