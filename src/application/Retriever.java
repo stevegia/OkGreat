@@ -8,10 +8,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import jpaentities.Appointment;
-import jpaentities.Exam;
-import jpaentities.TCSUser;
-import jpaentities.Term;
+import jpaentities.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -125,20 +124,102 @@ public class Retriever {
 	}
 
 	public String getExamsInTermString(String netId, int termId){
-		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
-		query.setParameter(1, termId);
-		query.setParameter(2, netId);
+		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
+			query.setParameter(1, termId);
+			query.setParameter(2, netId);
 
-		String JSONTORETURN = "[";
 
-		List<Exam> returnedList = query.getResultList();
+			JSONArray arrayToReturn = new JSONArray();
 
-		for(Exam element : returnedList){
-			System.out.println(element.toString());
+
+			List<Exam> returnedExamList = query.getResultList();
+
+			for(Exam exam : returnedExamList){
+				JSONObject examJson = new JSONObject();
+
+
+
+				examJson.put("examName",exam.getExamName());
+				examJson.put("id",exam.getId());
+				examJson.put("refinedId",exam.getRefinedId());
+				examJson.put("startDate",exam.getStartDate().toString());
+				examJson.put("endDate",exam.getEndDate().toString());
+				examJson.put("examStatus",exam.getExamStatus());
+				examJson.put("duration",exam.getDuration());
+
+
+
+
+				CourseExam courseExam = new CourseExam();
+				try{
+					query = em.createQuery("SELECT t FROM CourseExam t WHERE t.examRefinedId = ?1");
+					query.setParameter(1, exam.getRefinedId());
+					courseExam = (CourseExam)query.getSingleResult();
+				}
+				catch(Exception ex){
+
+					System.out.println("courseExam error block");
+					System.out.println(ex.toString());
+				}
+
+
+
+
+				System.out.println("got here");
+				System.out.println(courseExam.getExamRefinedId());
+
+				TcsClass tcsclass = new TcsClass();
+				try{
+					query = em.createQuery("SELECT t FROM TcsClass t WHERE t.refinedId = ?1");
+					query.setParameter(1, courseExam.getTCSClassRefinedId());
+					tcsclass = (TcsClass)query.getSingleResult();
+					examJson.put("subject",tcsclass.getSubject());
+					examJson.put("section",tcsclass.getSection());
+					examJson.put("catalogNumber",tcsclass.getCatalogNumber());
+
+
+
+				}catch(Exception ex){
+					System.out.println("TCSclass error block");
+					System.out.println(ex.toString());
+				}
+
+
+
+
+
+				System.out.println(tcsclass.toString());
+
+
+				query = em.createQuery("SELECT t FROM Appointment t WHERE t.examRefinedId = ?1");
+				query.setParameter(1, exam.getRefinedId());
+				List<Appointment> returnedAppointmentList = query.getResultList();
+				JSONArray appointmentListJson = new JSONArray();
+				for(Appointment appointment: returnedAppointmentList){
+					JSONObject jsonAppointment = new JSONObject();
+					jsonAppointment.put("id",appointment.getId());
+					jsonAppointment.put("netId",appointment.getStudentNetId());
+					jsonAppointment.put("seatNumber",appointment.getSeatNumber());
+					jsonAppointment.put("appointmentStatus",appointment.getAppointmentStatus());
+					jsonAppointment.put("appointmentDate",appointment.getAppointmentDate());
+					appointmentListJson.put(jsonAppointment);
+				}
+				examJson.put("appointments", appointmentListJson);
+				arrayToReturn.put(examJson);
+
+			}
+			System.out.print(arrayToReturn.toString());
+			System.out.println("RETURN");
+			return arrayToReturn.toString();
+		}catch(Exception ex){
+			System.out.println("outer error block");
+			System.out.println(ex.toString());
+			return ex.toString();
+
+
 		}
 
 
-		return "";
 	}
 
 
