@@ -3,112 +3,94 @@ package jpaentities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
 /**
  * The persistent class for the testingcenter database table.
- * @author Haseeb Shahid
+ * 
  */
 @Entity
 @Table(name = "testingcenter")
+@NamedQuery(name="Testingcenter.findAll", query="SELECT t FROM TestingCenter t")
 public class TestingCenter implements Serializable {
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int numberOfSeats;
-	private int numberOfSetAsideSeats;
+	
+	private int currentTerm;
+
 	private int gapTime;
+
+	private int numberOfSeats;
+
+	private int numberofSetAsideSeats;
+
 	private int reminderInterval;
 
-	/**
-	 * 
-	 */
 	public TestingCenter() {
 	}
-	
+
 	/**
-	 * @param id
-	 * @param numberOfSeats
-	 * @param numberOfSetAsideSeats
+	 * @param currentTerm
 	 * @param gapTime
+	 * @param numberOfSeats
+	 * @param numberofSetAsideSeats
 	 * @param reminderInterval
 	 */
-	public TestingCenter(int id, int numberOfSeats, int numberOfSetAsideSeats, int gapTime, int reminderInterval) {
-		this.id = id;
-		this.numberOfSeats = numberOfSeats;
-		this.numberOfSetAsideSeats = numberOfSetAsideSeats;
+	public TestingCenter(int currentTerm, int gapTime, int numberOfSeats, int numberofSetAsideSeats,
+			int reminderInterval) {
+		this.currentTerm = currentTerm;
 		this.gapTime = gapTime;
+		this.numberOfSeats = numberOfSeats;
+		this.numberofSetAsideSeats = numberofSetAsideSeats;
 		this.reminderInterval = reminderInterval;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
+	public int getCurrentTerm() {
+		return this.currentTerm;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setCurrentTerm(int currentTerm) {
+		this.currentTerm = currentTerm;
 	}
 
-	/**
-	 * @return the numberOfSeats
-	 */
-	public int getNumberOfSeats() {
-		return numberOfSeats;
-	}
-
-	/**
-	 * @param numberOfSeats the numberOfSeats to set
-	 */
-	public void setNumberOfSeats(int numberOfSeats) {
-		this.numberOfSeats = numberOfSeats;
-	}
-
-	/**
-	 * @return the numberOfSetAsideSeats
-	 */
-	public int getNumberOfSetAsideSeats() {
-		return numberOfSetAsideSeats;
-	}
-
-	/**
-	 * @param numberOfSetAsideSeats the numberOfSetAsideSeats to set
-	 */
-	public void setNumberOfSetAsideSeats(int numberOfSetAsideSeats) {
-		this.numberOfSetAsideSeats = numberOfSetAsideSeats;
-	}
-
-	/**
-	 * @return the gapTime
-	 */
 	public int getGapTime() {
-		return gapTime;
+		return this.gapTime;
 	}
 
-	/**
-	 * @param gapTime the gapTime to set
-	 */
 	public void setGapTime(int gapTime) {
 		this.gapTime = gapTime;
 	}
 
-	/**
-	 * @return the reminderInterval
-	 */
-	public int getReminderInterval() {
-		return reminderInterval;
+	public int getId() {
+		return this.id;
 	}
 
-	/**
-	 * @param reminderInterval the reminderInterval to set
-	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getNumberOfSeats() {
+		return this.numberOfSeats;
+	}
+
+	public void setNumberOfSeats(int numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public int getNumberofSetAsideSeats() {
+		return this.numberofSetAsideSeats;
+	}
+
+	public void setNumberofSetAsideSeats(int numberofSetAsideSeats) {
+		this.numberofSetAsideSeats = numberofSetAsideSeats;
+	}
+
+	public int getReminderInterval() {
+		return this.reminderInterval;
+	}
+
 	public void setReminderInterval(int reminderInterval) {
 		this.reminderInterval = reminderInterval;
 	}
@@ -118,8 +100,9 @@ public class TestingCenter implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "TestingCenter [id=" + id + ", numberOfSeats=" + numberOfSeats + ", numberOfSetAsideSeats="
-				+ numberOfSetAsideSeats + ", gapTime=" + gapTime + ", reminderInterval=" + reminderInterval + "]";
+		return "TestingCenter [id=" + id + ", currentTerm=" + currentTerm + ", gapTime=" + gapTime + ", numberOfSeats="
+				+ numberOfSeats + ", numberofSetAsideSeats=" + numberofSetAsideSeats + ", reminderInterval="
+				+ reminderInterval + "]";
 	}
-   
+
 }
