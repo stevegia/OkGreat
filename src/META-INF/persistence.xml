@@ -5,6 +5,9 @@
         <class>jpaentities.TestingCenter</class>
         <class>jpaentities.TestingCenterHour</class>
         <class>jpaentities.TestingCenterHourPK</class>
+        <class>jpaentities.Course</class>
+        <class>jpaentities.CourseExam</class>
+        <class>jpaentities.TcsClass</class>
         <class>jpaentities.Roster</class>
         <class>jpaentities.RosterPK</class>
         <class>jpaentities.ClosedDate</class>
