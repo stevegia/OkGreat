@@ -149,7 +149,8 @@
 
 
                 <div class="row bottomrow">
-                    <button type="button" class="cancelButton btn-primary ">Cancel Request</button>
+                    <div id="cancel" class="cancelButton btn-primary "></div>
+
                 </div>
 
             </div>
@@ -186,6 +187,13 @@
             $("#end").html(dataToUpdate.endDate);
             $("#examTime").html(dataToUpdate.duration);
 
+
+            var buttonToAdd = "<input type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' >Cancel Reques</input>";
+
+
+
+
+            $("#cancel").html(buttonToAdd);
 
             console.log("got to before loop");
 

@@ -3,8 +3,11 @@
  */
 package application;
 
+import jpaentities.Appointment;
 import jpaentities.TCSUser;
 import utils.Constants;
+
+import javax.persistence.EntityManager;
 
 /**
  * @author Haseeb Shahid
@@ -43,4 +46,13 @@ public class Administrator extends TCSUser {
 		this.setUserType(Constants.UserType.ADMINISTRATOR);
 	}
 
+	public void checkInStudent(int appointmentId){
+		Retriever retriever = Retriever.getInstance();
+		Appointment appointment = retriever.getAppointmentByID(appointmentId);
+		System.out.println("Before: " + appointment);
+		appointment.checkInStudent();
+		System.out.println("After: " + appointment);
+
+		retriever.persist(appointment);
+	}
 }

@@ -9,10 +9,9 @@ import jpaentities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Date;
-import java.util.List;
 
-import java.util.List;
 
 /**
  * @author Haseeb Shahid
@@ -48,6 +47,13 @@ public class Retriever {
 		return singleton;
 	}
 
+	public void persist(Object o){
+		em.getTransaction().begin();
+		em.persist(o);
+		em.getTransaction().commit();
+	}
+
+
 	public List<Appointment> getAppointmentsForStudent(String netId, int termId) {
 		try {
 			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1 AND a.termId = ?2");
@@ -58,6 +64,18 @@ public class Retriever {
 			return query.getResultList();
 		} catch(Exception e) {
 			// user not found in database
+			return null;
+		}
+	}
+
+	public Appointment getAppointmentByID(int appointmentID){
+		try{
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.id = ?1");
+			query.setParameter(1, appointmentID);
+
+			return (Appointment) query.getSingleResult();
+		}catch (Exception e){
+			//appointment not found in database
 			return null;
 		}
 	}
