@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Login Failed</title>
+<title>Error</title>
 </head>
 <body>
 	<div>Error</div>

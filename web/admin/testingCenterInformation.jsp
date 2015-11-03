@@ -65,43 +65,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% //for (TestingCenterHour hour : hours) {
-                    for (;ty < 9; ty++) {
+                <% for (TestingCenterHour hour : hours) {
                 %>
                 <tr>
-                    <form name="frm" action="editTestingCenterHour.jsp" method="post">
-                        <td>
-                            <input name="date" type="text" class="form-control" placeholder=""
-                                   value="1955-10-11 10:05:05" required readonly>
-                        </td>
-                        <td>
-                            <input name="starttime" type="text" class="form-control" placeholder=""
-                                   value="05:11:11" required>
-                        </td>
-                        <td>
-                            <input name="endtime" type="text" class="form-control" placeholder=""
-                                   value="05:11:11" required>
-                        </td>
-                        <td>
-                            <input type="submit" value="Submit"/>
-                        </td>
-                        <!--
-                        <td>
-                            <input name="date" type="text" class="form-control" placeholder=""
-                                   value="" required readonly>
-                        </td>
-                        <td>
-                            <input name="starttime" type="text" class="form-control" placeholder=""
-                                   value="" required>
-                        </td>
-                        <td>
-                            <input name="endtime" type="text" class="form-control" placeholder=""
-                                   value="" required>
-                        </td>
-                        <td>
-                            <input type="submit" value="Submit"/>
-                        </td>
-                        -->
+                    <td>
+                        <input name="date" type="text" class="form-control" placeholder="<%=hour.getId().getOpenDate() %>"
+                               value="<%=hour.getId().getOpenDate() %>" required readonly>
+                    </td>
+                    <td>
+                        <input name="starttime" type="text" class="form-control" placeholder="<%=hour.getStartTime()%> "
+                               value="<%=hour.getStartTime()%>" required>
+                    </td>
+                    <td>
+                        <input name="endtime" type="text" class="form-control" placeholder="<%=hour.getEndTime()%>"
+                               value="<%=hour.getEndTime()%>" required>
+                    </td>
+                    <td>
+                        <input type="submit" value="Submit"/>
+                    </td>
                 </tr>
                 <%
                     }
