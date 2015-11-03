@@ -1,170 +1,151 @@
 package jpaentities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-
 import javax.persistence.*;
+import java.util.Date;
+
 
 /**
  * The persistent class for the appointment database table.
- * @author Haseeb Shahid
+ * 
  */
 @Entity
 @Table(name = "appointment")
+@NamedQuery(name="Appointment.findAll", query="SELECT a FROM Appointment a")
 public class Appointment implements Serializable {
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
-	private int id;
-	private String studentNetId;
-	private Timestamp appointmentDate;
-	private String examId;
-	private int testingCenterId;
-	private int duration;
-	private int gapTime;
-	private String status;
 
-	/**
-	 * 
-	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date appointmentDate;
+
+	private String appointmentStatus;
+
+	private int duration;
+
+	private String examRefinedId;
+
+	private int gapTime;
+
+	private int seatNumber;
+
+	private String studentNetId;
+
+	private int termId;
+
+	private int testingCenterId;
+	private static EntityManagerFactory emf;
+	private static EntityManager em;
+	private static Query query;
+
 	public Appointment() {
 	}
 
 	/**
-	 * @param id
-	 * @param studentNetId
 	 * @param appointmentDate
-	 * @param examId
-	 * @param testingCenterId
+	 * @param appointmentStatus
 	 * @param duration
+	 * @param examRefinedId
 	 * @param gapTime
-	 * @param status
+	 * @param seatNumber
+	 * @param studentNetId
+	 * @param termId
+	 * @param testingCenterId
 	 */
-	public Appointment(int id, String studentNetId, Timestamp appointmentDate, String examId, int testingCenterId,
-			int duration, int gapTime, String status) {
-		this.id = id;
-		this.studentNetId = studentNetId;
+	public Appointment(Date appointmentDate, String appointmentStatus, int duration, String examRefinedId, int gapTime,
+			int seatNumber, String studentNetId, int termId, int testingCenterId) {
 		this.appointmentDate = appointmentDate;
-		this.examId = examId;
-		this.testingCenterId = testingCenterId;
+		this.appointmentStatus = appointmentStatus;
 		this.duration = duration;
+		this.examRefinedId = examRefinedId;
 		this.gapTime = gapTime;
-		this.status = status;
+		this.seatNumber = seatNumber;
+		this.studentNetId = studentNetId;
+		this.termId = termId;
+		this.testingCenterId = testingCenterId;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the studentNetId
-	 */
-	public String getStudentNetId() {
-		return studentNetId;
+	public Date getAppointmentDate() {
+		return this.appointmentDate;
 	}
 
-	/**
-	 * @param studentNetId the studentNetId to set
-	 */
-	public void setStudentNetId(String studentNetId) {
-		this.studentNetId = studentNetId;
-	}
-
-	/**
-	 * @return the appointmentDate
-	 */
-	public Timestamp getAppointmentDate() {
-		return appointmentDate;
-	}
-
-	/**
-	 * @param appointmentDate the appointmentDate to set
-	 */
-	public void setAppointmentDate(Timestamp appointmentDate) {
+	public void setAppointmentDate(Date appointmentDate) {
 		this.appointmentDate = appointmentDate;
 	}
 
-	/**
-	 * @return the examId
-	 */
-	public String getExamId() {
-		return examId;
+	public String getAppointmentStatus() {
+		return this.appointmentStatus;
 	}
 
-	/**
-	 * @param examId the examId to set
-	 */
-	public void setExamId(String examId) {
-		this.examId = examId;
+	public void setAppointmentStatus(String appointmentStatus) {
+		this.appointmentStatus = appointmentStatus;
 	}
 
-	/**
-	 * @return the testingCenterId
-	 */
-	public int getTestingCenterId() {
-		return testingCenterId;
-	}
-
-	/**
-	 * @param testingCenterId the testingCenterId to set
-	 */
-	public void setTestingCenterId(int testingCenterId) {
-		this.testingCenterId = testingCenterId;
-	}
-
-	/**
-	 * @return the duration
-	 */
 	public int getDuration() {
-		return duration;
+		return this.duration;
 	}
 
-	/**
-	 * @param duration the duration to set
-	 */
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
-	/**
-	 * @return the gapTime
-	 */
-	public int getGapTime() {
-		return gapTime;
+	public String getExamRefinedId() {
+		return this.examRefinedId;
 	}
 
-	/**
-	 * @param gapTime the gapTime to set
-	 */
+	public void setExamRefinedId(String examRefinedId) {
+		this.examRefinedId = examRefinedId;
+	}
+
+	public int getGapTime() {
+		return this.gapTime;
+	}
+
 	public void setGapTime(int gapTime) {
 		this.gapTime = gapTime;
 	}
 
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
+	public int getSeatNumber() {
+		return this.seatNumber;
 	}
 
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSeatNumber(int seatNumber) {
+		this.seatNumber = seatNumber;
+	}
+
+	public String getStudentNetId() {
+		return this.studentNetId;
+	}
+
+	public void setStudentNetId(String studentNetId) {
+		this.studentNetId = studentNetId;
+	}
+
+	public int getTermId() {
+		return this.termId;
+	}
+
+	public void setTermId(int termId) {
+		this.termId = termId;
+	}
+
+	public int getTestingCenterId() {
+		return this.testingCenterId;
+	}
+
+	public void setTestingCenterId(int testingCenterId) {
+		this.testingCenterId = testingCenterId;
 	}
 
 	/**
@@ -172,9 +153,21 @@ public class Appointment implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Appointment [id=" + id + ", studentNetId=" + studentNetId + ", appointmentDate=" + appointmentDate
-				+ ", examId=" + examId + ", testingCenterId=" + testingCenterId + ", duration=" + duration
-				+ ", gapTime=" + gapTime + ", status=" + status + "]";
+		return "Appointment [id=" + id + ", appointmentDate=" + appointmentDate + ", appointmentStatus="
+				+ appointmentStatus + ", duration=" + duration + ", examRefinedId=" + examRefinedId + ", gapTime="
+				+ gapTime + ", seatNumber=" + seatNumber + ", studentNetId=" + studentNetId + ", termId=" + termId
+				+ ", testingCenterId=" + testingCenterId + "]";
+	}
+	public void delete() {
+		try {
+			query = em.createQuery("DELETE a FROM Appointment a WHERE a.Id = "+id);
+			query.executeUpdate();
+			System.out.println("appointment "+id+" deleted");
+		} catch(Exception e) {
+			System.out.println("error deleting appointment"+id);
+			e.printStackTrace();
+			return;
+		}
 	}
 
 }
