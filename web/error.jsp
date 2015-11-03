@@ -8,7 +8,7 @@
 		omit-xml-declaration="true" />
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Login Failed</title>
+<title>Error</title>
 </head>
 <body>
 	<div>Error</div>

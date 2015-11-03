@@ -163,16 +163,8 @@ public class Appointment implements Serializable {
 	public void checkInStudent() {
 		setAppointmentStatus(String.valueOf(Status.CHECKED_IN));
 	}
-	public void delete() {
-		try {
-			query = em.createQuery("DELETE a FROM Appointment a WHERE a.Id = "+id);
-			query.executeUpdate();
-			System.out.println("appointment "+id+" deleted");
-		} catch(Exception e) {
-			System.out.println("error deleting appointment"+id);
-			e.printStackTrace();
-			return;
-		}
+	public void cancel() {
+		this.setAppointmentStatus(String.valueOf(Status.CANCELLED));
 	}
 
 }

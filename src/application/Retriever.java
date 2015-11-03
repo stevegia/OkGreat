@@ -305,6 +305,9 @@ public class Retriever {
 
 
 	}
-
-
+	public void persist(Object o){
+		em.getTransaction().begin();
+		em.persist(o);
+		em.getTransaction().commit();
+	}
 }
