@@ -1,5 +1,7 @@
 package jpaentities;
 
+import utils.Status;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
@@ -157,6 +159,9 @@ public class Appointment implements Serializable {
 				+ appointmentStatus + ", duration=" + duration + ", examRefinedId=" + examRefinedId + ", gapTime="
 				+ gapTime + ", seatNumber=" + seatNumber + ", studentNetId=" + studentNetId + ", termId=" + termId
 				+ ", testingCenterId=" + testingCenterId + "]";
+	}
+	public void checkInStudent() {
+		setAppointmentStatus(String.valueOf(Status.CHECKED_IN));
 	}
 	public void delete() {
 		try {

@@ -148,8 +148,8 @@
                 </div>
 
 
-                <div class="row bottomrow">
-                    <div id="cancel" class="cancelButton btn-primary "></div>
+                <div id="cancel" class="row bottomrow">
+
 
                 </div>
 
@@ -188,7 +188,7 @@
             $("#examTime").html(dataToUpdate.duration);
 
 
-            var buttonToAdd = "<input type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' >Cancel Reques</input>";
+            var buttonToAdd = "<input value='Cancel Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
 
 
 
