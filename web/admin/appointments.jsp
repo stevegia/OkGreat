@@ -1,3 +1,4 @@
+<% String title = "Appointments";%>
 <%@ page import="application.Administrator" %>
 <%@ page import="application.Retriever" %>
 <%@ page import="jpaentities.Appointment" %>
@@ -10,14 +11,14 @@
 
 
 <div>Appointments</div>
-<%@include file="adminHeader.html" %>
+<%@include file="adminHeader.jsp" %>
 <body>
 
 
 <%
 
     Administrator user = (Administrator) session.getAttribute("user");
-    Retriever retriever = Retriever.getInstance();
+
     List<Appointment> appointments = retriever.getAppointmentsInTerm(1158);
     request.setAttribute("appointments", appointments);
     request.setAttribute("termId", 1158);

@@ -22,10 +22,7 @@
 <%
     Student student = (Student) session.getAttribute("user");
     Retriever retriever = Retriever.getInstance();
-    List<Appointment> appointments = retriever.getAppointmentsForStudent(student.getNetId(), 1158);
-    request.setAttribute("appointments", appointments);
-    request.setAttribute("termId", 1158);
-    request.setAttribute("termName", "Fall 2015");
+    List<Appointment> appointments = retriever.getAppointmentsForStudent(student.getNetId());
 %>
 <body>
 
@@ -37,84 +34,75 @@
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">
-
-            <% if (request.getParameter("termName") != null) {
-                out.print(request.getParameter("termName"));
-
-            } else {
-                out.print("Fall 2015");
-            } %>
-
+            Fall 2015
+            <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-
-
-            <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-            <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-            <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-            <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-            <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
-
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Spring 2016</a></li>
+            <li><a href="#">Spring 2015</a></li>
+            <li><a href="#">Fall 2014</a></li>
 
         </ul>
     </div>
 
-    <%
-        if (request.getParameterNames() != null && request.getParameter("termId") != null) {
-            int term = Integer.parseInt(request.getParameter("termId"));
-            appointments = retriever.getAppointmentsForStudent(student.getNetId(), term);
-            request.setAttribute("appointments", appointments);
-
-        }
-    %>
-
-    <form NAME="form1">
-        <INPUT TYPE="HIDDEN" NAME="termId">
-        <INPUT TYPE="HIDDEN" NAME="termName">
-    </form>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <div class="list-group">
 
-                    <%
-                        for (Appointment appointment : appointments) {
-                    %>
-
-                    <a href="#" onclick="
-                            javascript:
-                            $(this).addClass('active').siblings().removeClass('active');
+                <%
+                    if (appointments != null) {
+                %>
 
 
-                            switchView(
-                            {
-                            'dateLabel': '<%= appointment.getAppointmentDate() %>',
-                            'examId': '<%= appointment.getExamRefinedId() %>',
-                            'duration': '<%= appointment.getDuration() %>',
-                            'status': '<%= appointment.getAppointmentStatus() %>',
-                            'termId': '<%= appointment.getTermId() %>',
-                            'seatNumber': '<%= appointment.getSeatNumber() %>'
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th> Date and Time</th>
+                            <th> Exam</th>
+                            <th> Duration</th>
+                            <th> Status</th>
+                            <th> Term</th>
+                            <th> Seat Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (Appointment appt : appointments) {
+                        %>
+                        <tr>
+                            <td><%= appt.getAppointmentDate() %>
+                            </td>
+                            <td><%= appt.getExamRefinedId() %>
+                            </td>
+                            <td><%= appt.getDuration() %>
+                            </td>
+                            <td><%= appt.getAppointmentStatus() %>
+                            </td>
+                            <td><%= appt.getTermId() %>
+                            </td>
+                            <td><%= appt.getSeatNumber() %>
+                            </td>
+                            <td><input type="button" onclick="javascript:
+                                    window.open('cancelAppointment.jsp?AppointmentId=<%=appt.getId()%>', '_self');
 
-
-                            })" class="list-group-item"><%= appointment.getExamRefinedId() %>
-                    </a>
-
-                    <input type="button" onclick="javascript:
-                            window.open('cancelAppointment.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
-                            ;
-                            return;" value="Cancel">
-
-
-                    <% } %>
-
-
+                                    " value="Cancel"></td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                        </tbody>
+                    </table>
                 </div>
+
+                <%
+                    }
+                %>
+
+
             </div>
 
-
-            <div class="col-md-8">
-                <div id="TestTitle">Default</div>
+            <div class="col-md-8 examInfo">
+                <div id="TestTitle">Biology Final Makeups</div>
 
 
                 <div class="">
@@ -122,31 +110,23 @@
 
                         <div class="row ">
 
-                            <div class="col-md-3" id="studentNetId">Student:</div>
-                            <div class="col-md-4" id="class"></div>
+                            <div class="col-md-3" id="classLabel">Class:</div>
+                            <div class="col-md-4" id="class">CHE-131</div>
 
                         </div>
 
                         <div class="row">
                             <div class="col-md-3" id="dateLabel">Date:</div>
-                            <div class="col-md-4" id="date"></div>
+                            <div class="col-md-4" id="date">December 1st</div>
                         </div>
 
 
                         <div class="row">
                             <div class="col-md-3" id="sectionLabel">Section:</div>
-                            <div class="col-md-4" id="section"></div>
-                        </div>
+                            <div class="col-md-4" id="section">2</div>
 
-                        <div class="row">
-                            <div class="col-md-3" id="studentsSignedUpLabel">Students Signed Up:</div>
-                            <div class="row">
-                                <div class="col-md-4" id="studentsSignedUp"></div>
-                            </div>
 
                         </div>
-
-
                         <div class="row">
                             <div class="" id=""></div>
 
@@ -159,27 +139,20 @@
 
                         <div class="row">
 
-                            <div class="col-md-3" id="statusLavel">Status</div>
-                            <div class="col-md-4" id="status"></div>
-
-                        </div>
-
-                        <div class="row">
-
                             <div class="col-md-3" id="startLabel">Start:</div>
-                            <div class="col-md-4" id="start"></div>
+                            <div class="col-md-4" id="start">now</div>
 
                         </div>
 
                         <div class="row">
                             <div class="col-md-3" id="endTimeLabel">End Time:</div>
-                            <div class="col-md-4" id="endTime"></div>
+                            <div class="col-md-4" id="endTime">December 2st</div>
                         </div>
 
 
                         <div class="row ">
                             <div class="col-md-3" id="examTimeLabel">Exam Time:</div>
-                            <div class="col-md-4" id="examTime"></div>
+                            <div class="col-md-4" id="examTime">alot</div>
 
 
                         </div>
@@ -191,7 +164,7 @@
 
                     </div>
                     <div class="row paddingBox">
-                        <button type="button" class="btn-block ">Cancel Request</button>
+                        <button type="button" class="btn-block ">Cancel Appointment</button>
                     </div>
                 </div>
 
@@ -199,42 +172,14 @@
             </div>
 
 
-            <div>
-                <button type="button" class="btn-block ">Make Request</button>
+            <div class="row makeAppointmentButton">
+                <button type="button" class="btn-block ">Make Appointment</button>
             </div>
 
         </div>
 
 
     </div>
-
-    <SCRIPT LANGUAGE="JavaScript">
-        <!--
-        function switchView(x) {
-            console.log(x);
-            $("#TestTitle").html(x.examId);
-
-
-        }
-
-
-        function submitTerm(termId, termName) {
-            document.form1.termId.value = termId;
-            document.form1.termName.value = termName;
-            console.log("here");
-            form1.submit();
-        }
-
-
-        function changeTermName(termName) {
-            if (termName != "" && termName != null) {
-                $("#dropdownMenu1").html(termName);
-            }
-        }
-
-
-        // -->
-    </SCRIPT>
 
 
 </div>

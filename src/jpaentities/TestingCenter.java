@@ -79,11 +79,11 @@ public class TestingCenter implements Serializable {
 		this.numberOfSeats = numberOfSeats;
 	}
 
-	public int getNumberofSetAsideSeats() {
+	public int getNumberOfSetAsideSeats() {
 		return this.numberofSetAsideSeats;
 	}
 
-	public void setNumberofSetAsideSeats(int numberofSetAsideSeats) {
+	public void setNumberOfSetAsideSeats(int numberofSetAsideSeats) {
 		this.numberofSetAsideSeats = numberofSetAsideSeats;
 	}
 

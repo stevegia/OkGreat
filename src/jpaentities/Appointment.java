@@ -1,5 +1,7 @@
 package jpaentities;
 
+import utils.Status;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
@@ -37,6 +39,9 @@ public class Appointment implements Serializable {
 	private int termId;
 
 	private int testingCenterId;
+	private static EntityManagerFactory emf;
+	private static EntityManager em;
+	private static Query query;
 
 	public Appointment() {
 	}
@@ -154,6 +159,12 @@ public class Appointment implements Serializable {
 				+ appointmentStatus + ", duration=" + duration + ", examRefinedId=" + examRefinedId + ", gapTime="
 				+ gapTime + ", seatNumber=" + seatNumber + ", studentNetId=" + studentNetId + ", termId=" + termId
 				+ ", testingCenterId=" + testingCenterId + "]";
+	}
+	public void checkInStudent() {
+		setAppointmentStatus(String.valueOf(Status.CHECKED_IN));
+	}
+	public void cancel() {
+		this.setAppointmentStatus(String.valueOf(Status.CANCELLED));
 	}
 
 }

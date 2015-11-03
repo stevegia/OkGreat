@@ -1,5 +1,5 @@
 <% String title = "Reports"; %>
-<%@include file="adminHeader.html"%>
+<%@include file="adminHeader.jsp"%>
 <body>
 	<div class="container">
       <div class="row">
