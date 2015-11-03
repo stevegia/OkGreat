@@ -169,4 +169,9 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+	public void persist(Object o){
+		em.getTransaction().begin();
+		em.persist(o);
+		em.getTransaction().commit();
+	}
 }

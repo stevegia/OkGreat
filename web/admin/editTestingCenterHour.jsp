@@ -40,6 +40,7 @@
     if(goodie) {
         hour.setStartTime(StartTime);
         hour.setEndTime(EndTime);
+        retriever.persist(hour);
         logger.info("TestingCenterHour of" + date + " has StartTime set to" + StartTime + " and EndTime set to" +
             EndTime);
     }

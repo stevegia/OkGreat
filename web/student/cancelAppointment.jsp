@@ -17,8 +17,10 @@
         appointment = retriever.getAppointment(apptId);
         appointmentDate = appointment.getAppointmentDate();
         diffHours = (appointmentDate.getTime() - todayDate.getTime()) / (60 * 60 * 1000);
-        if(diffHours >= 24)
+        if(diffHours >= 24){
         appointment.cancel();
+        retriever.persist(appointment);
+        }
         else {
             url="../error.jsp";
             session.setAttribute("message", "appointments can only be cancelled prior to 24hours before the appointment ");
