@@ -60,7 +60,9 @@
 
 
                 <li id ="testingCenterInformation"><a href="testingCenterInformation.jsp">Testing Center Information</a></li>
-                <li id="examsAndAppointments"><a href="examsAndAppointments.jsp">Exams and Appointments </a></li>
+               <!-- <li id="examsAndAppointments"><a href="examsAndAppointments.jsp">Exams and Appointments </a></li> -->
+                <li id="appointments"><a href="appointments.jsp">Appointments </a></li>
+                <li id="makeappointments"><a href="makeAppointments.jsp">Make Appointment </a></li>
                 <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>
                 <li id="importData"><a href="importData.jsp">Import Data</a></li>
                 <li class="logout"><a href="../index.jsp">Logout<span class="sr-only">(current)</span></a></li>

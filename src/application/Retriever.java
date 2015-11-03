@@ -117,6 +117,7 @@ public class Retriever {
 		}
 	}
 
+	public static TestingCenter getTestingCenter() {
 		try {
 			query = em.createQuery("SELECT t FROM TestingCenter t");
 			// return the testing center if it exists in the database
@@ -126,8 +127,8 @@ public class Retriever {
 			return null;
 		}
 	}
-		}
-	}
+
+
 	public List<Appointment> getAppointmentsForStudent(String netId) {
 		try {
 			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1");
@@ -137,19 +138,6 @@ public class Retriever {
 			return query.getResultList();
 		} catch(Exception e) {
 			// user not found in database
-			return null;
-		}
-	}
-
-	public Exam getExam(String examRefinedId) {
-		try {
-			query = em.createQuery("SELECT e FROM Exam e WHERE e.refinedId = ?1");
-			query.setParameter(1, examRefinedId);
-
-			// exam exists in database
-			return (Exam) query.getSingleResult();
-		} catch(Exception e) {
-			// exam not found in database
 			return null;
 		}
 	}
@@ -190,22 +178,9 @@ public class Retriever {
 		return result;
 	}
 
-	public List<Exam> getExamsInTerm(String netId, int termId){
-		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
-		query.setParameter(1, termId);
-		query.setParameter(2, netId);
-
-		List<Exam> returnedList = query.getResultList();
-
-		for(Exam element : returnedList){
-			System.out.println(element.toString());
-		}
 
 
-		return returnedList;
 
-
-	}
 
 	public String getExamsInTermString(String netId, int termId){
 		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
@@ -305,9 +280,55 @@ public class Retriever {
 
 
 	}
-	public void persist(Object o){
-		em.getTransaction().begin();
-		em.persist(o);
-		em.getTransaction().commit();
+
+
+
+
+	public List<Exam> getExamsInTerm(String netId, int termId){
+		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
+		query.setParameter(1, termId);
+		query.setParameter(2, netId);
+
+		List<Exam> returnedList = query.getResultList();
+
+		for(Exam element : returnedList){
+			System.out.println(element.toString());
+		}
+
+
+		return returnedList;
+
+
 	}
+
+
+	public List<TestingCenterHour> getTestingCenterHour(){
+		List<TestingCenterHour> returnedList = null;
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenterHour t");
+			returnedList = query.getResultList();
+
+			for (TestingCenterHour element : returnedList) {
+				System.out.println(element.toString());
+			}
+		} catch(Exception e) {
+			return null;
+		}
+		return returnedList;
+	}
+	public TestingCenterHour getTestingCenterHour(Date date){
+		TestingCenterHour returnedList = null;
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenterHour t");
+			returnedList =(TestingCenterHour) query.getSingleResult();
+
+		} catch(Exception e) {
+			return null;
+		}
+		return returnedList;
+	}
+
+
 }
+
+

@@ -1,5 +1,5 @@
 <% String title = "Testing Center Information";%>
-<%@include file="adminHeader.html"%>
+<%@include file="adminHeader.jsp"%>
 <%
     logger.info("at admin's testingCenterInformation.jsp");
     TestingCenter testingCenter = retriever.getTestingCenter();

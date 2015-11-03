@@ -1,5 +1,5 @@
 <% String title = "Import Data"; %>
-<%@include file="adminHeader.html"%>
+<%@include file="adminHeader.jsp"%>
 <body>
 	<div class="container"> 
     <div class="col-5">

@@ -3,7 +3,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Time" %>
 <% String title = "Testing Center Information";%>
-<%@include file="adminHeader.html"%>
+<%@include file="adminHeader.jsp"%>
 <%  logger.info("at editTestingCenterInformation.jsp");
     Date date=null;
     Time StartTime=null;

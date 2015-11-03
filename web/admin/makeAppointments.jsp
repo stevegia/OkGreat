@@ -1,3 +1,4 @@
+<% String title = "Make Appointment"; %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +18,7 @@
 
 <div class="makeAppointmentsHeader">Make Appointments</div>
 
-<%@include file="adminHeader.html"%>
+<%@include file="adminHeader.jsp"%>
 <% 
    //String query="SELECT * FROM Appointment WHERE Date = "+new java.util.Date();
    //java.sql.ResultSet rs = DBConnection.ExecQuery(query);
