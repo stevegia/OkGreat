@@ -1,3 +1,4 @@
+<% String title = "Appointments";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +16,14 @@
 </head>
 
 <div class="appointmentsHeader">Appointments</div>
-<%@include file="studentHeader.html" %>
+<%@include file="studentHeader.jsp" %>
 <%@ page import="application.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="jpaentities.Appointment" %>
 <%
+    logger.info("Now at the appointments.jsp page");
+
     Student student = (Student) session.getAttribute("user");
-    Retriever retriever = Retriever.getInstance();
     List<Appointment> appointments = retriever.getAppointmentsForStudent(student.getNetId());
 %>
 <body>
@@ -67,7 +69,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <% for (Appointment appt : appointments) {
+                        <%
+                            logger.info("About to iterate through appointments");
+                            for (Appointment appt : appointments) {
                         %>
                         <tr>
                             <td><%= appt.getAppointmentDate() %>
@@ -89,6 +93,7 @@
                         </tr>
                         <%
                             }
+                            logger.info("Done iterating through appointments");
                         %>
                         </tbody>
                     </table>

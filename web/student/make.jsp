@@ -1,3 +1,4 @@
+<% String title = "Make Appointment";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +19,13 @@
 </head>
 
 <div class="makeHeader">Make an Appointment</div>
-<%@include file="studentHeader.html" %>
+<%@include file="studentHeader.jsp" %>
 
 <body>
+
+<%
+    logger.info("Now at the make.jsp file");
+%>
 
 <div class="makeAppointmentContent">
 
@@ -75,12 +80,11 @@
             <input type="submit" value="Submit Request">
         </div>
 
+
+    </form>
+
+
 </div>
-
-</form>
-
-
-</div>w
 
 
 </body>

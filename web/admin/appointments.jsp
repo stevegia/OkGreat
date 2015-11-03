@@ -16,6 +16,7 @@
 
 
 <%
+    logger.info("Now at the appointments.jsp page");
 
     Administrator user = (Administrator) session.getAttribute("user");
 
@@ -82,6 +83,7 @@
                 <div class="list-group">
 
                     <%
+                        logger.info("About to iterate through appointments");
                         for (Appointment appointment : appointments) {
                     %>
 
@@ -118,7 +120,9 @@
                             return;" value="Check-In">
 
 
-                    <% } %>
+                    <% }
+                        logger.info("Finished iterating through appointments");
+                    %>
 
 
                 </div>

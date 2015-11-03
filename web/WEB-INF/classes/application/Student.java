@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package application;
 
@@ -39,7 +39,7 @@ public class Student extends TCSUser {
 	public Student(String netId, String email, String password, String firstName, String lastName) {
 		super(netId, email, password, firstName, lastName, "STUDENT");
 	}
-	
+
 	/**
 	 * @param user
 	 */
@@ -114,7 +114,7 @@ public class Student extends TCSUser {
 			query.setParameter(2, apptEndDate, TemporalType.TIMESTAMP);
 			count = (long) query.getSingleResult();
 			// There are no available seats to satisfy the appointment
-			if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberofSetAsideSeats()) return false;
+			if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
 
 			// create seat number that is available and is not next to a seat of the same exam
 			int seatNumber = 1;

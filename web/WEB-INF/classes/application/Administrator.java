@@ -116,7 +116,7 @@ public class Administrator extends TCSUser {
 				query.setParameter(2, apptEndDate, TemporalType.TIMESTAMP);
 				count = (long) query.getSingleResult();
 				// There are no available regular seats to satisfy the appointment
-				if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberofSetAsideSeats()) return false;
+				if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
 
 				// create seat number that is available and is not next to a seat of the same exam
 				if (count > 0) {
@@ -132,7 +132,7 @@ public class Administrator extends TCSUser {
 			}
 			else {
 				// There are no available set-aside seats to satisfy the appointment
-				if (count >= testingCenter.getNumberofSetAsideSeats()) return false;
+				if (count >= testingCenter.getNumberOfSetAsideSeats()) return false;
 
 				// create seat number that is available and is not next to a seat of the same exam
 				if (count > 0) {

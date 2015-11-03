@@ -1,3 +1,4 @@
+<% String title = "Make Appointment";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,13 @@
 </head>
 
 <div class="makeHeader">Make an Appointment</div>
-<%@include file="adminHeader.html" %>
+<%@include file="adminHeader.jsp" %>
 
 <body>
+
+<%
+    logger.info("Now at the makeAppointments.jsp file");
+%>
 
 <div class="makeAppointmentContent">
 
@@ -75,12 +80,11 @@
             </table>
         </div>
 
+
+    </form>
+
+
 </div>
-
-</form>
-
-
-</div>w
 
 
 </body>
