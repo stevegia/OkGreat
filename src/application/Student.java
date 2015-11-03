@@ -52,7 +52,7 @@ public class Student extends TCSUser {
 		this.setUserType(Constants.UserType.STUDENT);
 	}
 
-	public boolean makeAppointment(String netId, int termId, String examRefinedId, String apptDatetime) {
+	public boolean makeAppointment(String netId, String examRefinedId, String apptDatetime) {
 		Retriever retriever = Retriever.getInstance();
 		Exam exam = retriever.getExam(examRefinedId);
 		// Requested exam not found
@@ -68,9 +68,8 @@ public class Student extends TCSUser {
 			if (exam.getExamType().equals("COURSE")) {
 				// Exam is a course exam
 				query = em.createQuery("SELECT COUNT(r) FROM Roster r, TCSClass t, CourseExam c, TestingCenter tc " +
-						"WHERE r.id.netId = ?1 AND r.id.TCSClassUnrefinedId = t.unrefinedId AND t.refinedId = c.id.TCSClassRefinedId AND tc.currentTerm = ?2");
+						"WHERE r.id.netId = ?1 AND r.id.TCSClassUnrefinedId = t.unrefinedId AND t.refinedId = c.id.TCSClassRefinedId");
 				query.setParameter(1, netId);
-				query.setParameter(2, termId);
 
 				count = (long) query.getSingleResult();
 				// student is not registered for the course
@@ -131,7 +130,8 @@ public class Student extends TCSUser {
 			}
 
 			// create appointment in database since it has passed all checks
-			Appointment appointment = new Appointment(apptStartDate, "PENDING", exam.getDuration(), examRefinedId, testingCenter.getGapTime(), seatNumber, netId, termId, testingCenter.getId());
+			Appointment appointment =
+					new Appointment(apptStartDate, "PENDING", exam.getDuration(), examRefinedId, testingCenter.getGapTime(), seatNumber, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
 			em.getTransaction().begin();
 			em.persist(appointment);
 			em.getTransaction().commit();

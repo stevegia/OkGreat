@@ -20,17 +20,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% /*   while(rs.next())
-                  {
-                     %>
                     <tr>
-                        <td><% out.print(rs.getString(1)); %></td>
+                        <td></td>
                     </tr>
-                    <%
-                        }
-                        *
-                        /
-                    %>
                     </tbody>
                 </table>
             </div>
@@ -91,28 +83,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% /*   while(rs.next())
-                      {
-                         %>
                             <tr>
-                                <td><% out
-                                    .
-                                    print
-                                    (
-                                    rs
-                                    .
-                                    getString
-                                    (
-                                    1
-                                    )
-                                    )
-                                    ; %></td>
+                                <td></td>
                             </tr>
-                            <%
-                                }
-                                *
-                                /
-                            %>
                             </tbody>
                         </table>
                     </div>
@@ -141,28 +114,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% /*   while(rs.next())
-                      {
-                         %>
                             <tr>
-                                <td><% out
-                                    .
-                                    print
-                                    (
-                                    rs
-                                    .
-                                    getString
-                                    (
-                                    1
-                                    )
-                                    )
-                                    ; %></td>
+                                <td></td>
                             </tr>
-                            <%
-                                }
-                                *
-                                /
-                            %>
                             </tbody>
                         </table>
                     </div>
@@ -193,28 +147,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% /*   while(rs.next())
-                      {
-                         %>
                     <tr>
-                        <td><% out
-                            .
-                            print
-                            (
-                            rs
-                            .
-                            getString
-                            (
-                            1
-                            )
-                            )
-                            ; %></td>
+                        <td></td>
                     </tr>
-                    <%
-                        }
-                        *
-                        /
-                    %>
                     </tbody>
                 </table>
             </div>
@@ -239,28 +174,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% /*   while(rs.next())
-                      {
-                         %>
                     <tr>
-                        <td><% out
-                            .
-                            print
-                            (
-                            rs
-                            .
-                            getString
-                            (
-                            1
-                            )
-                            )
-                            ; %></td>
+                        <td></td>
                     </tr>
-                    <%
-                        }
-                        *
-                        /
-                    %>
                     </tbody>
                 </table>
             </div>
