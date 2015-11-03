@@ -3,10 +3,7 @@
  */
 package application;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 import jpaentities.*;
 import org.json.JSONArray;
@@ -50,15 +47,42 @@ public class Retriever {
 		return singleton;
 	}
 
-	public List<Appointment> getAppointmentsForStudent(String netId) {
+	public List<Appointment> getAppointmentsForStudent(String netId, int termId) {
 		try {
-			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1");
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1 AND a.termId = ?2");
 			query.setParameter(1, netId);
+			query.setParameter(2, termId);
 
 			// appointment(s) exists in database
 			return query.getResultList();
 		} catch(Exception e) {
 			// user not found in database
+			return null;
+		}
+	}
+
+	public List<Appointment> getAppointmentsInTerm(int termId) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.termId = ?1");
+			query.setParameter(1, termId);
+
+			// appointment(s) exists in database
+			return query.getResultList();
+		} catch(Exception e) {
+			// user not found in database
+			return null;
+		}
+	}
+
+	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentDate BETWEEN ?1 AND ?2");
+			query.setParameter(1, date1, TemporalType.TIMESTAMP);
+			query.setParameter(2, date2, TemporalType.TIMESTAMP);
+
+			// appointment(s) exists in database
+			return query.getResultList();
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -72,6 +96,17 @@ public class Retriever {
 			return (Exam) query.getSingleResult();
 		} catch(Exception e) {
 			// exam not found in database
+			return null;
+		}
+	}
+
+	public static TestingCenter getTestingCenter() {
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenter t");
+			// return the testing center if it exists in the database
+			return (TestingCenter) query.getSingleResult();
+		} catch (Exception e) {
+			// the testing center does not exist in the database
 			return null;
 		}
 	}

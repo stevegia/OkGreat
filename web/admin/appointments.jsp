@@ -1,36 +1,34 @@
+<%@ page import="application.Administrator" %>
+<%@ page import="application.Retriever" %>
+<%@ page import="jpaentities.Appointment" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width" charset="UTF-8">
-
-    <title>Appointments</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="../css/student/student.css">
-
-
 </head>
 
-<div class="appointmentsHeader">Appointments</div>
-<%@include file="studentHeader.html" %>
-<%@ page import="application.*" %>
-<%@ page import="java.util.List" %>
-<%@ page import="jpaentities.Appointment" %>
+
+<div>Appointments</div>
+<%@include file="adminHeader.html" %>
+<body>
+
+
 <%
-    Student student = (Student) session.getAttribute("user");
+
+    Administrator user = (Administrator) session.getAttribute("user");
     Retriever retriever = Retriever.getInstance();
-    List<Appointment> appointments = retriever.getAppointmentsForStudent(student.getNetId(), 1158);
+    List<Appointment> appointments = retriever.getAppointmentsInTerm(1158);
     request.setAttribute("appointments", appointments);
     request.setAttribute("termId", 1158);
     request.setAttribute("termName", "Fall 2015");
 %>
-<body>
 
 
-<div class="appointmentContent">
+<%
+
+%>
+<div>
 
 
     <div class="dropdown">
@@ -46,6 +44,8 @@
             } %>
 
         </button>
+
+
         <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
 
 
@@ -62,16 +62,18 @@
     <%
         if (request.getParameterNames() != null && request.getParameter("termId") != null) {
             int term = Integer.parseInt(request.getParameter("termId"));
-            appointments = retriever.getAppointmentsForStudent(student.getNetId(), term);
+            appointments = retriever.getAppointmentsInTerm(term);
             request.setAttribute("appointments", appointments);
 
         }
     %>
 
+
     <form NAME="form1">
         <INPUT TYPE="HIDDEN" NAME="termId">
         <INPUT TYPE="HIDDEN" NAME="termName">
     </form>
+
 
     <div class="container-fluid">
         <div class="row">
@@ -89,6 +91,7 @@
 
                             switchView(
                             {
+                            'studentNetId' : '<%= appointment.getStudentNetId() %>',
                             'dateLabel': '<%= appointment.getAppointmentDate() %>',
                             'examId': '<%= appointment.getExamRefinedId() %>',
                             'duration': '<%= appointment.getDuration() %>',
@@ -104,6 +107,14 @@
                             window.open('cancelAppointment.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
                             ;
                             return;" value="Cancel">
+                    <input type="button" onclick="javascript:
+                            window.open('editAppointment.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
+                            ;
+                            return;" value="Edit">
+                    <input type="button" onclick="javascript:
+                            window.open('checkInStudent.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
+                            ;
+                            return;" value="Check-In">
 
 
                     <% } %>
@@ -212,7 +223,7 @@
         <!--
         function switchView(x) {
             console.log(x);
-            $("#TestTitle").html(x.examId);
+            $("#TestTitle").html(x.studentNetId);
 
 
         }
