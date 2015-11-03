@@ -9,7 +9,7 @@
     Retriever retriever = Retriever.getInstance();
     try {
         appointment = retriever.getAppointment(apptId);
-        appointment.delete();
+        appointment.cancel();
     } catch(Exception E){
         url="../error.jsp";
         session.setAttribute("message", "error deleting appointment");
