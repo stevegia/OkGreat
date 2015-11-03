@@ -1,108 +1,120 @@
 package jpaentities;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
+
 /**
- * Created by Gartusk on 11/1/2015.
+ * The persistent class for the tcsclass database table.
+ * 
  */
-
-
 @Entity
-@Table(name="tcsclass")
-public class TcsClass {
-    //default serial version id, required for serializable classes.
-    private static final long serialVersionUID = 1L;
-    public TcsClass(){};
+@Table(name = "tcsclass")
+@NamedQuery(name="TCSClass.findAll", query="SELECT t FROM TCSClass t")
+public class TCSClass implements Serializable {
+	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-    private String unrefinedId;
-    private String refinedId;
-    private String subject;
-    private String catalogNumber;
-    private String section;
-    private String InstructorNetId;
+	private int catalogNumber;
 
-    /**
-     *
-     * @param id
-     * @param unrefinedId
-     * @param refinedId
-     * @param subject
-     * @param catalogNumber
-     * @param section
-     * @param instructorNetId
-     */
-    public TcsClass(int id, String unrefinedId, String refinedId, String subject, String catalogNumber, String section, String instructorNetId) {
-        this.id = id;
-        this.unrefinedId = unrefinedId;
-        this.refinedId = refinedId;
-        this.subject = subject;
-        this.catalogNumber = catalogNumber;
-        this.section = section;
-        InstructorNetId = instructorNetId;
-    }
+	private String instructorNetId;
 
+	private String refinedId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+	private String section;
 
-    public int getId() {
-        return id;
-    }
+	private String subject;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	private String unrefinedId;
 
-    public String getUnrefinedId() {
-        return unrefinedId;
-    }
+	public TCSClass() {
+	}
 
-    public void setUnrefinedId(String unrefinedId) {
-        this.unrefinedId = unrefinedId;
-    }
+	/**
+	 * @param catalogNumber
+	 * @param instructorNetId
+	 * @param refinedId
+	 * @param section
+	 * @param subject
+	 * @param unrefinedId
+	 */
+	public TCSClass(int catalogNumber, String instructorNetId, String refinedId, String section, String subject,
+			String unrefinedId) {
+		this.catalogNumber = catalogNumber;
+		this.instructorNetId = instructorNetId;
+		this.refinedId = refinedId;
+		this.section = section;
+		this.subject = subject;
+		this.unrefinedId = unrefinedId;
+	}
 
-    public String getRefinedId() {
-        return refinedId;
-    }
+	public int getId() {
+		return this.id;
+	}
 
-    public void setRefinedId(String refinedId) {
-        this.refinedId = refinedId;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getSubject() {
-        return subject;
-    }
+	public int getCatalogNumber() {
+		return this.catalogNumber;
+	}
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+	public void setCatalogNumber(int catalogNumber) {
+		this.catalogNumber = catalogNumber;
+	}
 
-    public String getCatalogNumber() {
-        return catalogNumber;
-    }
+	public String getInstructorNetId() {
+		return this.instructorNetId;
+	}
 
-    public void setCatalogNumber(String catalogNumber) {
-        this.catalogNumber = catalogNumber;
-    }
+	public void setInstructorNetId(String instructorNetId) {
+		this.instructorNetId = instructorNetId;
+	}
 
-    public String getSection() {
-        return section;
-    }
+	public String getRefinedId() {
+		return this.refinedId;
+	}
 
-    public void setSection(String section) {
-        this.section = section;
-    }
+	public void setRefinedId(String refinedId) {
+		this.refinedId = refinedId;
+	}
 
-    public String getInstructorNetId() {
-        return InstructorNetId;
-    }
+	public String getSection() {
+		return this.section;
+	}
 
-    public void setInstructorNetId(String instructorNetId) {
-        InstructorNetId = instructorNetId;
-    }
+	public void setSection(String section) {
+		this.section = section;
+	}
+
+	public String getSubject() {
+		return this.subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getUnrefinedId() {
+		return this.unrefinedId;
+	}
+
+	public void setUnrefinedId(String unrefinedId) {
+		this.unrefinedId = unrefinedId;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "TCSClass [id=" + id + ", catalogNumber=" + catalogNumber + ", instructorNetId=" + instructorNetId
+				+ ", refinedId=" + refinedId + ", section=" + section + ", subject=" + subject + ", unrefinedId="
+				+ unrefinedId + "]";
+	}
+
 }
