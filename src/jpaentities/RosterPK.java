@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 /**
  * The primary key class for the roster database table.
- * @author Haseeb Shahid
+ * 
  */
 @Embeddable
 public class RosterPK implements Serializable {
@@ -13,55 +13,24 @@ public class RosterPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String netId;
-	private String courseID;
 
-	/**
-	 * 
-	 */
+	private String TCSClassUnrefinedId;
+
 	public RosterPK() {
 	}
-	
-	/**
-	 * @param netId
-	 * @param courseID
-	 */
-	public RosterPK(String netId, String courseID) {
-		this.netId = netId;
-		this.courseID = courseID;
-	}
-
-	/**
-	 * @return the netId
-	 */
 	public String getNetId() {
-		return netId;
+		return this.netId;
 	}
-
-	/**
-	 * @param netId the netId to set
-	 */
 	public void setNetId(String netId) {
 		this.netId = netId;
 	}
-
-	/**
-	 * @return the courseID
-	 */
-	public String getCourseID() {
-		return courseID;
+	public String getTCSClassUnrefinedId() {
+		return this.TCSClassUnrefinedId;
+	}
+	public void setTCSClassUnrefinedId(String TCSClassUnrefinedId) {
+		this.TCSClassUnrefinedId = TCSClassUnrefinedId;
 	}
 
-	/**
-	 * @param courseID the courseID to set
-	 */
-	public void setCourseID(String courseID) {
-		this.courseID = courseID;
-	}
-
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
@@ -72,28 +41,23 @@ public class RosterPK implements Serializable {
 		RosterPK castOther = (RosterPK)other;
 		return 
 			this.netId.equals(castOther.netId)
-			&& this.courseID.equals(castOther.courseID);
+			&& this.TCSClassUnrefinedId.equals(castOther.TCSClassUnrefinedId);
 	}
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.netId.hashCode();
-		hash = hash * prime + this.courseID.hashCode();
+		hash = hash * prime + this.TCSClassUnrefinedId.hashCode();
 		
 		return hash;
 	}
-
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "RosterPK [netId=" + netId + ", courseID=" + courseID + "]";
+		return "RosterPK [netId=" + netId + ", TCSClassUnrefinedId=" + TCSClassUnrefinedId + "]";
 	}
 	
 }

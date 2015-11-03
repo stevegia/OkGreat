@@ -3,17 +3,14 @@
  */
 package application;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 
+import jpaentities.*;
 import jpaentities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
-
 import java.util.List;
 
 /**
@@ -96,6 +93,19 @@ public class Retriever {
 		}
 	}
 
+	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentDate BETWEEN ?1 AND ?2");
+			query.setParameter(1, date1, TemporalType.TIMESTAMP);
+			query.setParameter(2, date2, TemporalType.TIMESTAMP);
+
+			// appointment(s) exists in database
+			return query.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public Exam getExam(String examRefinedId) {
 		try {
 			query = em.createQuery("SELECT e FROM Exam e WHERE e.refinedId = ?1");
@@ -105,6 +115,17 @@ public class Retriever {
 			return (Exam) query.getSingleResult();
 		} catch(Exception e) {
 			// exam not found in database
+			return null;
+		}
+	}
+
+	public static TestingCenter getTestingCenter() {
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenter t");
+			// return the testing center if it exists in the database
+			return (TestingCenter) query.getSingleResult();
+		} catch (Exception e) {
+			// the testing center does not exist in the database
 			return null;
 		}
 	}
