@@ -11,12 +11,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Date;
+import jpaentities.TCSUser;
 
+import java.util.*;
 
-/**
- * @author Haseeb Shahid
- *
- */
 public class Retriever {
 	/*
 	 * The singleton Retriever object. It will only get instantiated once in the lifetime of the program.
@@ -119,7 +117,6 @@ public class Retriever {
 		}
 	}
 
-	public static TestingCenter getTestingCenter() {
 		try {
 			query = em.createQuery("SELECT t FROM TestingCenter t");
 			// return the testing center if it exists in the database
@@ -129,7 +126,34 @@ public class Retriever {
 			return null;
 		}
 	}
-	
+		}
+	}
+	public List<Appointment> getAppointmentsForStudent(String netId) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1");
+			query.setParameter(1, netId);
+
+			// appointment(s) exists in database
+			return query.getResultList();
+		} catch(Exception e) {
+			// user not found in database
+			return null;
+		}
+	}
+
+	public Exam getExam(String examRefinedId) {
+		try {
+			query = em.createQuery("SELECT e FROM Exam e WHERE e.refinedId = ?1");
+			query.setParameter(1, examRefinedId);
+
+			// exam exists in database
+			return (Exam) query.getSingleResult();
+		} catch(Exception e) {
+			// exam not found in database
+			return null;
+		}
+	}
+
 	/**
 	 * Queries the database for a TCSUser object with specified netId and password.
 	 * @param netId
@@ -158,7 +182,13 @@ public class Retriever {
 		System.out.println(result.toString());
 	return result;
 	}
-
+	public Appointment getAppointment(int id){
+		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
+		query.setParameter(1, id);
+		Appointment result = (Appointment) query.getSingleResult();
+		System.out.println(result.toString());
+		return result;
+	}
 
 	public List<Exam> getExamsInTerm(String netId, int termId){
 		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");

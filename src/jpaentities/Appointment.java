@@ -1,7 +1,5 @@
 package jpaentities;
 
-import utils.Status;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
@@ -39,6 +37,9 @@ public class Appointment implements Serializable {
 	private int termId;
 
 	private int testingCenterId;
+	private static EntityManagerFactory emf;
+	private static EntityManager em;
+	private static Query query;
 
 	public Appointment() {
 	}
@@ -157,8 +158,16 @@ public class Appointment implements Serializable {
 				+ gapTime + ", seatNumber=" + seatNumber + ", studentNetId=" + studentNetId + ", termId=" + termId
 				+ ", testingCenterId=" + testingCenterId + "]";
 	}
-
-	public void checkInStudent(){
-		setAppointmentStatus(String.valueOf(Status.CHECKED_IN));
+	public void delete() {
+		try {
+			query = em.createQuery("DELETE a FROM Appointment a WHERE a.Id = "+id);
+			query.executeUpdate();
+			System.out.println("appointment "+id+" deleted");
+		} catch(Exception e) {
+			System.out.println("error deleting appointment"+id);
+			e.printStackTrace();
+			return;
+		}
 	}
+
 }

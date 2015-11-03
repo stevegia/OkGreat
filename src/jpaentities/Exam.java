@@ -1,7 +1,5 @@
 package jpaentities;
 
-import utils.Status;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
@@ -195,10 +193,6 @@ public class Exam implements Serializable {
 				+ ", numberOfAppointments=" + numberOfAppointments + ", numberOfStudents=" + numberOfStudents
 				+ ", refinedId=" + refinedId + ", startDate=" + startDate + ", termId=" + termId + ", testingCenterId="
 				+ testingCenterId + "]";
-	}
-
-	public void cancel(){
-		this.setExamStatus(String.valueOf(Status.CANCELLED));
 	}
 
 }
