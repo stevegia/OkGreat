@@ -50,13 +50,47 @@
     color: white; }
 
 .pendingRequestsContent {
-  padding: 20px 20px 20px 20px; }
+  padding: 20px 20px 20px 20px;
+  border: 1px; }
+
+.examInfo {
+  border: 1px;
+  border-color: black;
+  border-style: solid; }
 
 #TestTitle {
   text-align: center;
   font-size: 20px; }
 
-.createNewRequestContent {
+.TermButton {
   padding: 20px 20px 20px 20px; }
+
+.toprow {
+  padding-bottom: 20px; }
+
+.bottomrow {
+  padding: 20px 20px 20px 20px; }
+
+.cancelButton {
+  height: 30px;
+  width: 200px;
+  margin: -20px -50px;
+  position: relative;
+  top: 50%;
+  left: 50%; }
+
+.studentAppointmentsTitle {
+  padding: 20px 20px 20px 20px;
+  position: relative;
+  top: 50%;
+  left: 50%; }
+
+.studentAppointments {
+  padding: 20px 20px 20px 20px; }
+
+.createNewRequestContent {
+  padding: 20px 20px 20px 20px;
+  border: 1px;
+  border-color: black; }
 
 /*# sourceMappingURL=instructor.css.map */
