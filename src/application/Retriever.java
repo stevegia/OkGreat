@@ -6,10 +6,10 @@ package application;
 import javax.persistence.*;
 
 import jpaentities.*;
-import jpaentities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 import java.util.List;
 
@@ -206,7 +206,7 @@ public class Retriever {
 
 				CourseExam courseExam = new CourseExam();
 				try{
-					query = em.createQuery("SELECT t FROM CourseExam t WHERE t.examRefinedId = ?1");
+					query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
 					query.setParameter(1, exam.getRefinedId());
 					courseExam = (CourseExam)query.getSingleResult();
 				}
@@ -220,13 +220,13 @@ public class Retriever {
 
 
 				System.out.println("got here");
-				System.out.println(courseExam.getExamRefinedId());
+				System.out.println(courseExam.getId().getExamRefinedId());
 
-				TcsClass tcsclass = new TcsClass();
+				TCSClass tcsclass = new TCSClass();
 				try{
-					query = em.createQuery("SELECT t FROM TcsClass t WHERE t.refinedId = ?1");
-					query.setParameter(1, courseExam.getTCSClassRefinedId());
-					tcsclass = (TcsClass)query.getSingleResult();
+					query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
+					query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
+					tcsclass = (TCSClass)query.getSingleResult();
 					examJson.put("subject",tcsclass.getSubject());
 					examJson.put("section",tcsclass.getSection());
 					examJson.put("catalogNumber",tcsclass.getCatalogNumber());
