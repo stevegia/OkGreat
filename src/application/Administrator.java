@@ -159,5 +159,13 @@ public class Administrator extends TCSUser {
 			return false;
 		}
 	}
+	public void checkInStudent(int appointmentId){
+		Retriever retriever = Retriever.getInstance();
+		Appointment appointment = retriever.getAppointmentByID(appointmentId);
+		System.out.println("Before: " + appointment);
+		appointment.checkInStudent();
+		System.out.println("After: " + appointment);
 
+		retriever.persist(appointment);
+	}
 }

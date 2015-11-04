@@ -5,23 +5,13 @@
 <%@ page import="java.util.logging.Logger"%>
 <%@ page import="java.util.logging.FileHandler" %>
 <%@ page import="java.io.File" %>
+<%@ page import="java.util.logging.SimpleFormatter" %>
 <%  Retriever retriever = Retriever.getInstance();
     Logger logger=Logger.getLogger(this.getClass().getName());
-    //File dir = new File("./okgreatlogs",true); //true specify append mode
-    File dir = new File("./okgreatlogs");
-    System.out.println( dir.getAbsolutePath());
-    // Tests whether the directory denoted by this abstract pathname exists.
-    String current = new java.io.File( "." ).getCanonicalPath();
-    boolean exists = dir.exists();
-    System.out.println(current);
-    if(exists == false){
-    File root = new File(current);
-    File newfolder = new File(root, "/okgreatlogs");
-    newfolder.mkdir();
-    }
-    //FileHandler fileHandler = new FileHandler("okgreatlogs/"+(this.getClass().getName()));
-    //logger.addHandler(fileHandler);
-    // fh.close() seems to be needed if it keeps writing to new file
+    FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
+    SimpleFormatter formatter = new SimpleFormatter();
+    fileHandler.setFormatter(formatter);
+    logger.addHandler(fileHandler);
 %>
 <!DOCTYPE html>
 <html lang="en">
