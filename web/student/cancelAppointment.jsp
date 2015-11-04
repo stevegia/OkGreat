@@ -1,3 +1,4 @@
+<% String title = "Make Appointment";%>
 <%@ page import="application.Retriever" %>
 <%@ page import="jpaentities.Appointment" %>
 <%@ page import="java.util.*" %>

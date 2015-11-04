@@ -1,12 +1,21 @@
 <%@ page import="jpaentities.TCSUser" %>
 <%@ page import="application.*" %>
 <%@ page import="java.util.logging.Logger" %>
+<%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="java.util.logging.SimpleFormatter" %>
 <%
 	String netId = request.getParameter("netid");
 	String password = request.getParameter("password");
 	Retriever loginValidator = Retriever.getInstance();
 	TCSUser user = loginValidator.getUser(netId, password);
-	Logger logger= Logger.getLogger(this.getClass().getName());
+
+	FileHandler fileHandler = new FileHandler("okgreatlogs/login.xml");
+	SimpleFormatter formatter = new SimpleFormatter();
+	fileHandler.setFormatter(formatter);
+
+	Logger logger= Logger.getLogger("login.jsp");
+	logger.addHandler(fileHandler);
+
 	logger.info("attempting to login, netId is "+netId+" , password is "+password);
 
 	if (user != null) {

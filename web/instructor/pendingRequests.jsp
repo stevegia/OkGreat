@@ -3,6 +3,8 @@
 <%@ page import="jpaentities.Exam" %>
 <%@ page import="jpaentities.TCSUser" %>
 <%@ page import="java.util.logging.Logger" %>
+<%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="java.util.logging.SimpleFormatter" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +21,10 @@
 
 <%
     Logger logger=Logger.getLogger(this.getClass().getName());
+    FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
+    SimpleFormatter formatter = new SimpleFormatter();
+    fileHandler.setFormatter(formatter);
+    logger.addHandler(fileHandler);
     logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
     TCSUser user = (TCSUser) session.getAttribute("user");

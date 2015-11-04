@@ -1,3 +1,30 @@
+<%@page import="java.util.logging.Logger"%>
+<%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.util.logging.SimpleFormatter" %>
+
+<% Logger logger=Logger.getLogger("index.jsp");%>
+<%
+    File dir = new File("./okgreatlogs");
+    System.out.println( dir.getAbsolutePath());
+    // Tests whether the directory denoted by this abstract pathname exists.
+    String current = new java.io.File( "." ).getCanonicalPath();
+    boolean exists = dir.exists();
+    System.out.println(current);
+    if(exists == false){
+        File root = new File(current);
+        File newfolder = new File(root, "/okgreatlogs");
+        newfolder.mkdir();
+    }
+    FileHandler fileHandler = new FileHandler("okgreatlogs/log.xml");
+	SimpleFormatter formatter = new SimpleFormatter();
+	fileHandler.setFormatter(formatter);
+	logger.addHandler(fileHandler);
+
+	logger.info("info reached index page ");
+	fileHandler.close();
+
+%>
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width" charset="UTF-8">
