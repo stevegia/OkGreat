@@ -19,8 +19,6 @@
 
 
 </head>
-
-<div class="calendarHeader">Calendar</div>
 <%@include file="studentHeader.jsp"%>
 <body onload="initiate()">
 
