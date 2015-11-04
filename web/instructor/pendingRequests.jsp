@@ -2,6 +2,7 @@
 <%@ page import="application.Retriever" %>
 <%@ page import="jpaentities.Exam" %>
 <%@ page import="jpaentities.TCSUser" %>
+<%@ page import="java.util.logging.Logger" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,8 @@
 <%@include file="instructorHeader.html" %>
 
 <%
+    Logger logger=Logger.getLogger(this.getClass().getName());
+    logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
     TCSUser user = (TCSUser) session.getAttribute("user");
     Retriever ListGetter = Retriever.getInstance();
