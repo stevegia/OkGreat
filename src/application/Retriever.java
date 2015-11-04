@@ -9,6 +9,7 @@ import jpaentities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import jpaentities.TCSUser;
@@ -319,7 +320,8 @@ public class Retriever {
 	public TestingCenterHour getTestingCenterHour(Date date){
 		TestingCenterHour returnedList = null;
 		try {
-			query = em.createQuery("SELECT t FROM TestingCenterHour t");
+			query = em.createQuery("SELECT t FROM TestingCenterHour t WHERE t.id.openDate = ?1");
+			query.setParameter(1, date, TemporalType.DATE);
 			returnedList =(TestingCenterHour) query.getSingleResult();
 
 		} catch(Exception e) {
@@ -327,8 +329,6 @@ public class Retriever {
 		}
 		return returnedList;
 	}
-
-
 }
 
 
