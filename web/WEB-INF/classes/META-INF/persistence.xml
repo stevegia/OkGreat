@@ -11,7 +11,6 @@
         <class>jpaentities.Exam</class>
         <class>jpaentities.Roster</class>
         <class>jpaentities.RosterPK</class>
-        <class>jpaentities.Seat</class>
         <class>jpaentities.TCSClass</class>
         <class>jpaentities.TCSUser</class>
         <class>jpaentities.Term</class>

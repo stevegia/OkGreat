@@ -16,6 +16,9 @@ public class ClosedDate implements Serializable {
 	@EmbeddedId
 	private ClosedDatePK id;
 
+	@Version
+	private int version;
+
 	/**
 	 * 
 	 */

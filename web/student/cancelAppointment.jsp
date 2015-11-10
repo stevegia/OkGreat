@@ -19,7 +19,7 @@
     long diffHours = 0;
     try {
         appointment = retriever.getAppointment(apptId);
-        appointmentDate = appointment.getAppointmentDate();
+        appointmentDate = appointment.getStartDate();
         diffHours = (appointmentDate.getTime() - todayDate.getTime()) / (60 * 60 * 1000);
         if (diffHours >= 24) {
             logger.info("Appointment can be successfully canceled");

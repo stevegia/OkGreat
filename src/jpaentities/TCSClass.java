@@ -24,6 +24,8 @@ public class TCSClass {
     private String catalogNumber;
     private String section;
     private String InstructorNetId;
+    @Version
+    private int version;
 
     /**
      *

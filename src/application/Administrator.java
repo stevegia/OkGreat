@@ -99,10 +99,9 @@ public class Administrator extends TCSUser {
 			calendar.add(Calendar.MINUTE, exam.getDuration() + testingCenter.getGapTime());
 			Date apptEndDate = calendar.getTime();
 
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND a.appointmentDate BETWEEN ?2 AND ?3");
+			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND ?2 BETWEEN a.startDate AND a.endDate");
 			query.setParameter(1, netId);
 			query.setParameter(2, apptStartDate, TemporalType.TIMESTAMP);
-			query.setParameter(3, apptEndDate, TemporalType.TIMESTAMP);
 			count = (long) query.getSingleResult();
 			// user has an overlapping appointment for another exam
 			if (count > 0) return false;
@@ -110,11 +109,11 @@ public class Administrator extends TCSUser {
 			// appointment timeslot is out of bounds of exam date range
 			if (apptStartDate.before(exam.getStartDate()) || apptEndDate.after(exam.getEndDate())) return false;
 
+			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE ?1 BETWEEN a.startDate AND a.endDate");
+			query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
+			count = (long) query.getSingleResult();
+
 			if (typeOfSeat.equals("Regular")) {
-				query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentDate BETWEEN ?1 AND ?2");
-				query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
-				query.setParameter(2, apptEndDate, TemporalType.TIMESTAMP);
-				count = (long) query.getSingleResult();
 				// There are no available regular seats to satisfy the appointment
 				if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
 
@@ -149,7 +148,7 @@ public class Administrator extends TCSUser {
 
 			// create appointment in database since it has passed all checks
 			Appointment appointment =
-					new Appointment(apptStartDate, "PENDING", exam.getDuration(), examRefinedId, testingCenter.getGapTime(), seatNumber, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
+					new Appointment("PENDING", apptEndDate, examRefinedId, seatNumber, apptStartDate, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
 			em.getTransaction().begin();
 			em.persist(appointment);
 			em.getTransaction().commit();

@@ -21,6 +21,9 @@ public class AdHocExam implements Serializable {
 
 	private String studentLastName;
 
+	@Version
+	private int version;
+
 	public AdHocExam() {
 	}
 

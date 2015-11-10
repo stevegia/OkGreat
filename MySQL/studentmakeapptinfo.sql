@@ -9,6 +9,3 @@ VALUES ('AAS102-1_1158_ex1', 'COURSE', 'instr', 'AA Exam 1', 1, 10, 0, 'APPROVED
 
 INSERT INTO CourseExam (ExamRefinedId, TCSClassRefinedId)
 VALUES ('AAS102-1_1158_ex1', 'AAS102-1_1158');
-
-INSERT INTO Seat (SetAside)
-VALUES (0);

@@ -45,6 +45,9 @@ public class Exam implements Serializable {
 
 	private int testingCenterId;
 
+	@Version
+	private int version;
+
 	public Exam() {
 	}
 

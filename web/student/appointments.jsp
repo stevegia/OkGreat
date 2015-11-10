@@ -60,9 +60,9 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th> Date and Time</th>
+                            <th> Start Date and Time</th>
                             <th> Exam</th>
-                            <th> Duration</th>
+                            <th> End Date and Time</th>
                             <th> Status</th>
                             <th> Term</th>
                             <th> Seat Number</th>
@@ -74,11 +74,11 @@
                             for (Appointment appt : appointments) {
                         %>
                         <tr>
-                            <td><%= appt.getAppointmentDate() %>
+                            <td><%= appt.getStartDate() %>
                             </td>
                             <td><%= appt.getExamRefinedId() %>
                             </td>
-                            <td><%= appt.getDuration() %>
+                            <td><%= appt.getEndDate() %>
                             </td>
                             <td><%= appt.getAppointmentStatus() %>
                             </td>

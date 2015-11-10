@@ -93,7 +93,7 @@ public class Retriever {
 
 	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
 		try {
-			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentDate BETWEEN ?1 AND ?2");
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.startDate BETWEEN ?1 AND ?2");
 			query.setParameter(1, date1, TemporalType.TIMESTAMP);
 			query.setParameter(2, date2, TemporalType.TIMESTAMP);
 
@@ -260,7 +260,7 @@ public class Retriever {
 					jsonAppointment.put("netId",appointment.getStudentNetId());
 					jsonAppointment.put("seatNumber",appointment.getSeatNumber());
 					jsonAppointment.put("appointmentStatus",appointment.getAppointmentStatus());
-					jsonAppointment.put("appointmentDate",appointment.getAppointmentDate());
+					jsonAppointment.put("appointmentDate",appointment.getStartDate());
 					appointmentListJson.put(jsonAppointment);
 				}
 				examJson.put("appointments", appointmentListJson);

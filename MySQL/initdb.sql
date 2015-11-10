@@ -68,6 +68,7 @@ CREATE TABLE TCSClass (
 	CatalogNumber INT,
 	Section CHAR(4),
 	InstructorNetId VARCHAR(20),
+    Version INT,
 	PRIMARY KEY (Id),
     UNIQUE (UnrefinedId),
     UNIQUE (RefinedId),
@@ -88,6 +89,7 @@ CREATE TABLE Roster (
 	NetId VARCHAR(20) NOT NULL,
 	TCSClassUnrefinedId CHAR(10) NOT NULL,
     TermId INT,
+    Version INT,
 	PRIMARY KEY (NetId, TCSClassUnrefinedId),
 	FOREIGN KEY (NetId)
 		REFERENCES TCSUser (NetId),
@@ -131,6 +133,7 @@ CREATE TABLE TestingCenterHours (
 	OpenDate DATE NOT NULL,
 	StartTime TIME,
 	EndTime TIME,
+    Version INT,
 	PRIMARY KEY (TestingCenterId, OpenDate),
 	FOREIGN KEY (TestingCenterId)
 		REFERENCES TestingCenter (Id)
@@ -141,6 +144,7 @@ CREATE TABLE TestingCenterHours (
 CREATE TABLE ClosedDates (
 	TestingCenterId INT NOT NULL,
 	ClosedDate DATE,
+    Version INT,
 	PRIMARY KEY (TestingCenterId, ClosedDate),
 	FOREIGN KEY (TestingCenterId)
 		REFERENCES TestingCenter (Id)
@@ -162,6 +166,7 @@ CREATE TABLE Exam (
 	EndDate DATETIME,
 	Duration INT,
     TermId INT,
+    Version INT,
 	PRIMARY KEY (Id),
     UNIQUE (RefinedId),
 	FOREIGN KEY (InstructorNetId)
@@ -176,6 +181,7 @@ CREATE TABLE Exam (
 CREATE TABLE CourseExam (
 	ExamRefinedId CHAR(20) NOT NULL,
 	TCSClassRefinedId CHAR(16) NOT NULL,
+    Version INT,
 	PRIMARY KEY (ExamRefinedId, TCSClassRefinedId),
 	FOREIGN KEY (ExamRefinedId)
 		REFERENCES Exam (RefinedId)
@@ -192,6 +198,7 @@ CREATE TABLE AdHocExam (
 	StudentNetId VARCHAR(20) NOT NULL,
     StudentFirstName VARCHAR(20),
 	StudentLastName VARCHAR(20),
+    Version INT,
 	PRIMARY KEY (ExamRefinedId, StudentNetId),
 	FOREIGN KEY (ExamRefinedId)
 		REFERENCES Exam (RefinedId)
@@ -201,25 +208,18 @@ CREATE TABLE AdHocExam (
 		ON DELETE CASCADE
 );
 
-/* Table for Seat information */
-CREATE TABLE Seat (
-	Number INT NOT NULL AUTO_INCREMENT,
-    SetAside BOOLEAN,
-    PRIMARY KEY (Number)
-);
-
 /* Table for Appointment information */
 CREATE TABLE Appointment (
 	Id INT NOT NULL AUTO_INCREMENT,
 	StudentNetId VARCHAR(20),
-	AppointmentDate DATETIME,
+	StartDate DATETIME,
+    EndDate DATETIME,
 	ExamRefinedId CHAR(20),
 	TestingCenterId INT,
-	Duration INT,
-	GapTime INT,
 	AppointmentStatus VARCHAR(15),
     TermId INT,
     SeatNumber INT,
+    Version INT,
 	PRIMARY KEY (Id),
 	FOREIGN KEY (StudentNetId)
 		REFERENCES TCSUser (NetId)
@@ -231,7 +231,5 @@ CREATE TABLE Appointment (
 		REFERENCES TestingCenter (Id)
         ON DELETE CASCADE,
 	FOREIGN KEY (TermId)
-		REFERENCES Term (Id),
-	FOREIGN KEY (SeatNumber)
-		REFERENCES Seat (Number)
+		REFERENCES Term (Id)
 );

@@ -95,9 +95,9 @@
                             switchView(
                             {
                             'studentNetId' : '<%= appointment.getStudentNetId() %>',
-                            'dateLabel': '<%= appointment.getAppointmentDate() %>',
+                            'startDateLabel': '<%= appointment.getStartDate() %>',
+                            'endDateLabel': '<%= appointment.getEndDate() %>',
                             'examId': '<%= appointment.getExamRefinedId() %>',
-                            'duration': '<%= appointment.getDuration() %>',
                             'status': '<%= appointment.getAppointmentStatus() %>',
                             'termId': '<%= appointment.getTermId() %>',
                             'seatNumber': '<%= appointment.getSeatNumber() %>'
@@ -144,7 +144,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3" id="dateLabel">Date:</div>
+                            <div class="col-md-3" id="startDateLabel">Start Date:</div>
                             <div class="col-md-4" id="date"></div>
                         </div>
 
