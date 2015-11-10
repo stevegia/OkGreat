@@ -14,8 +14,6 @@
 
 
 </head>
-
-<div class="appointmentsHeader">Appointments</div>
 <%@include file="studentHeader.jsp" %>
 <%@ page import="application.*" %>
 <%@ page import="java.util.List" %>

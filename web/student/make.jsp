@@ -17,8 +17,6 @@
 
 
 </head>
-
-<div class="makeHeader">Make an Appointment</div>
 <%@include file="studentHeader.jsp" %>
 
 <body>

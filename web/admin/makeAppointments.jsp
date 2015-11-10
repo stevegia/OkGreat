@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width" charset="UTF-8">
 </head>
 
-<div class="makeHeader">Make an Appointment</div>
 <%@include file="adminHeader.jsp" %>
 
 <body>

@@ -1,9 +1,11 @@
+<%@ page import="java.text.SimpleDateFormat" %>
 <% String title = "Testing Center Information";%>
 <%@include file="adminHeader.jsp"%>
 <%
     logger.info("at admin's testingCenterInformation.jsp");
     TestingCenter testingCenter = retriever.getTestingCenter();
     TestingCenterHour testingCenterHour;
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <div class="container">
     <!--
@@ -66,24 +68,27 @@
                 </thead>
                 <tbody>
                 <% for (TestingCenterHour hour : hours) {
+                    String date = dateFormatter.format(hour.getId().getOpenDate());
                 %>
-                <tr>
-                    <td>
-                        <input name="date" type="text" class="form-control" placeholder="<%=hour.getId().getOpenDate() %>"
-                               value="<%=hour.getId().getOpenDate() %>" required readonly>
-                    </td>
-                    <td>
-                        <input name="starttime" type="text" class="form-control" placeholder="<%=hour.getStartTime()%> "
-                               value="<%=hour.getStartTime()%>" required>
-                    </td>
-                    <td>
-                        <input name="endtime" type="text" class="form-control" placeholder="<%=hour.getEndTime()%>"
-                               value="<%=hour.getEndTime()%>" required>
-                    </td>
-                    <td>
-                        <input type="submit" value="Submit"/>
-                    </td>
-                </tr>
+                    <tr>
+                        <form name="frm" action="editTestingCenterHour.jsp" method="post">
+                            <td>
+                                <input name="date" type="text" class="form-control" placeholder="<%=date%>"
+                                       value="<%=date%>" required readonly>
+                            </td>
+                            <td>
+                                <input name="starttime" type="text" class="form-control" placeholder="<%=hour.getStartTime()%> "
+                                       value="<%=hour.getStartTime()%>" required>
+                            </td>
+                            <td>
+                                <input name="endtime" type="text" class="form-control" placeholder="<%=hour.getEndTime()%>"
+                                       value="<%=hour.getEndTime()%>" required>
+                            </td>
+                            <td>
+                                <input type="submit" value="Submit"/>
+                            </td>
+                        </form>
+                    </tr>
                 <%
                     }
                 %>

@@ -9,8 +9,6 @@
     <meta name="viewport" content="width=device-width" charset="UTF-8">
 </head>
 
-
-<div>Appointments</div>
 <%@include file="adminHeader.jsp" %>
 <body>
 
