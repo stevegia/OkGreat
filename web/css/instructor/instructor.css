@@ -62,9 +62,6 @@
   text-align: center;
   font-size: 20px; }
 
-.TermButton {
-  padding: 20px 20px 20px 20px; }
-
 .toprow {
   padding-bottom: 20px; }
 
@@ -86,7 +83,10 @@
   left: 50%; }
 
 .studentAppointments {
-  padding: 20px 20px 20px 20px; }
+  padding: 20px 20px 20px 20px;
+  position: relative;
+  top: 50%;
+  left: 50%; }
 
 .createNewRequestContent {
   padding: 20px 20px 20px 20px;
