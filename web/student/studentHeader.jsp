@@ -25,11 +25,28 @@
     <script type="text/javascript" src="../js/underscore.js"></script>
     <script type="text/javascript" src="../js/calendar.min.js"></script>
     <link rel="stylesheet" href="../css/calendar.min.css">
-    <link rel="stylesheet" href="../css/admin/admin.css">
+    <link rel="stylesheet" href="../css/student/student.css">
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-<div class="header"><%=title%>
-</div>
+<div class="header" id="header"><%=title%></div>
+<script>
+
+    window.onload = function(){
+        var header = $("#header");
+        if(header.html() == "Make Appointment"){
+            header.attr("class","makeAppointmentHeader");
+        }
+        if(header.html() == "Appointments"){
+            header.attr("class","appointmentsHeader");
+        }
+        if(header.html() == "Calendar") {
+            header.attr("class", "calendarHeader");
+        }
+    }
+
+</script>
+
 
 <nav role="navigation" class="navbar navbar-default">
     <div class="container-fluid">
@@ -50,11 +67,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="appointments"><a href="appointments.jsp">Appointments</a></li>
-                <li id="makeAppointment"><a href="make.jsp">Make an Appointment<span class="sr-only">(current)</span>
+                <li id="makeAppointment"><a href="make.jsp">Make Appointment<span class="sr-only">(current)</span>
                 </a></li>
                 <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
-                <li class="logout"><a href="../index.jsp">Logout<span class="sr-only">(current)</span></a></li>
-
+            </ul>
+            <ul class="nav navbar-right logout">
+                <li><a class="logout" href="../index.jsp">Logout</a></li>
             </ul>
 
 

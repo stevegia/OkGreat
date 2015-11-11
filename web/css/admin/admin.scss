@@ -2,7 +2,8 @@ $testingCenterInformation-color: #4458A7;
 $makeAppointment-color: #09BCD4;
 $calendar-color: #4DAF4E;
 $reports-color: #EF4438;
-$blackoutDates-color: #795649;
+$importData: #795649;
+$appointments-color: #8800E0;
 $primary-color: #375AE0;
 
 
@@ -39,6 +40,14 @@ $primary-color: #375AE0;
   font-size: 30px;
 }
 
+.appointments{
+  color: white;
+  background-color: $appointments-color;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
 .calendarHeader{
   color: white;
   background-color: $calendar-color;
@@ -59,7 +68,7 @@ $primary-color: #375AE0;
 
 .blackoutDatesHeader{
   color: white;
-  background-color: $blackoutDates-color;
+  background-color: $importData;
   padding: 20px;
   text-align : center;
   font-size: 30px;
@@ -68,6 +77,13 @@ $primary-color: #375AE0;
 
 #testingCenterInformation{
   background-color: $testingCenterInformation-color;
+  a{
+    color: white;
+  }
+}
+
+#appointments{
+  background-color: $appointments-color;
   a{
     color: white;
   }
@@ -95,8 +111,20 @@ $primary-color: #375AE0;
 }
 
 #blackoutDates{
-  background-color: $blackoutDates-color;
+  background-color: $importData;
   a{
     color: white;
   }
+}
+
+#importData{
+  background-color: $importData;
+  a{
+    color: white;
+  }
+}
+.logout{
+  font-size: 14px;
+  color: white;
+  padding-right: 30px;
 }

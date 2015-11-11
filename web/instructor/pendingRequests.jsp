@@ -1,29 +1,10 @@
-<%@ page import="java.util.List" %>
-<%@ page import="application.Retriever" %>
-<%@ page import="jpaentities.Exam" %>
 <%@ page import="jpaentities.TCSUser" %>
-<%@ page import="java.util.logging.Logger" %>
-<%@ page import="java.util.logging.FileHandler" %>
-<%@ page import="java.util.logging.SimpleFormatter" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
-    <title>Exams</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/instructor/instructor.css">
-</head>
-
-<div class="pendingRequestsHeader">Exams</div>
-<%@include file="instructorHeader.html" %>
+<%@ page import="jpaentities.Exam" %>
+<%@ page import="java.util.List" %>
+<% String title = "Exams";%>
+<%@include file="instructorHeader.jsp"%>
 
 <%
-    Logger logger=Logger.getLogger(this.getClass().getName());
-    FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
-    SimpleFormatter formatter = new SimpleFormatter();
-    fileHandler.setFormatter(formatter);
     logger.addHandler(fileHandler);
     logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
@@ -178,14 +159,6 @@
             console.log(dataToUpdate);
 
 
-            $("#TestTitle").html("");
-            $("#class").html("");
-            $("#section").html("");
-            $("#status").html("");
-            $("#start").html("");
-            $("#end").html("");
-            $("#examTime").html("");
-            $("#studentAppointments").html("");
 
 
             $("#TestTitle").html(dataToUpdate.examName);
