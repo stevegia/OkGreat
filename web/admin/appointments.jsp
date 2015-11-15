@@ -16,244 +16,188 @@
 <%
     logger.info("Now at the appointments.jsp page");
 
-    Administrator user = (Administrator) session.getAttribute("user");
-
-    List<Appointment> appointments = retriever.getAppointmentsInTerm(1158);
-    request.setAttribute("appointments", appointments);
-    request.setAttribute("termId", 1158);
-    request.setAttribute("termName", "Fall 2015");
+    Administrator admin = (Administrator) session.getAttribute("user");
+    String appointmentsList = retriever.getAppointmentsInTermString(1158);
+    request.setAttribute("appointmentsList", appointmentsList);
+    if (request.getParameter("termId") == null) {
+        request.setAttribute("termId", 1158);
+        request.setAttribute("termName", "Fall 2015");
+    }
 %>
-
 
 <%
-
+    //This code runs to switch info depeding on term
+    if (request.getParameterNames() != null && request.getParameter("termId") != null) {
+        int term = Integer.parseInt(request.getParameter("termId"));
+        appointmentsList = retriever.getAppointmentsInTermString(term);
+        request.setAttribute("appointmentsList", appointmentsList);
+    }
 %>
-<div>
+
+<body onload='createList(<%=appointmentsList%>)'>
 
 
+<div class="TermButton">
     <div class="dropdown">
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">
-
             <% if (request.getParameter("termName") != null) {
                 out.print(request.getParameter("termName"));
-
             } else {
                 out.print("Fall 2015");
             } %>
-
         </button>
-
-
         <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-
-
             <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
             <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
             <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
             <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
             <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
-
-
         </ul>
     </div>
+</div>
 
-    <%
-        if (request.getParameterNames() != null && request.getParameter("termId") != null) {
-            int term = Integer.parseInt(request.getParameter("termId"));
-            appointments = retriever.getAppointmentsInTerm(term);
-            request.setAttribute("appointments", appointments);
-
-        }
-    %>
-
-
+<div class="generalContent">
+    <!--This is a hidden form that enables term changing -->
     <form NAME="form1">
         <INPUT TYPE="HIDDEN" NAME="termId">
         <INPUT TYPE="HIDDEN" NAME="termName">
     </form>
 
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <div class="list-group">
-
-                    <%
-                        logger.info("About to iterate through appointments");
-                        for (Appointment appointment : appointments) {
-                    %>
-
-                    <a href="#" onclick="
-                            javascript:
-                            $(this).addClass('active').siblings().removeClass('active');
-
-
-                            switchView(
-                            {
-                            'studentNetId' : '<%= appointment.getStudentNetId() %>',
-                            'startDateLabel': '<%= appointment.getStartDate() %>',
-                            'endDateLabel': '<%= appointment.getEndDate() %>',
-                            'examId': '<%= appointment.getExamRefinedId() %>',
-                            'status': '<%= appointment.getAppointmentStatus() %>',
-                            'termId': '<%= appointment.getTermId() %>',
-                            'seatNumber': '<%= appointment.getSeatNumber() %>'
-
-
-                            })" class="list-group-item"><%= appointment.getExamRefinedId() %>
-                    </a>
-
-                    <input type="button" onclick="javascript:
-                            window.open('cancelAppointment.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
-                            ;
-                            return;" value="Cancel">
-                    <input type="button" onclick="javascript:
-                            window.open('editAppointment.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
-                            ;
-                            return;" value="Edit">
-                    <input type="button" onclick="javascript:
-                            window.open('checkInStudent.jsp?AppointmentId=<%=appointment.getId()%>', '_self');
-                            ;
-                            return;" value="Check-In">
-
-
-                    <% }
-                        logger.info("Finished iterating through appointments");
-                    %>
-
-
+                <div class="list-group" id="appointmentList">
+                    <!--Appointments go here and are generated by javascript function createList() -->
                 </div>
             </div>
-
-
-            <div class="col-md-8">
-                <div id="TestTitle">Default</div>
-
-
-                <div class="">
-                    <div class="col-md-5">
-
-                        <div class="row ">
-
-                            <div class="col-md-3" id="studentNetId">Student:</div>
-                            <div class="col-md-4" id="class"></div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3" id="startDateLabel">Start Date:</div>
-                            <div class="col-md-4" id="date"></div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-3" id="sectionLabel">Section:</div>
-                            <div class="col-md-4" id="section"></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3" id="studentsSignedUpLabel">Students Signed Up:</div>
-                            <div class="row">
-                                <div class="col-md-4" id="studentsSignedUp"></div>
+            <div class="col-lg-8 appointmentInfo">
+                <div id="row">
+                    <div class="toprow" id="appointmentTitle">No Exam Selected</div>
+                    <div class="container-fluid">
+                        <div class="col-md-5">
+                            <!--Left column -->
+                            <div class="row ">
+                                <div class="col-md-3" id="classLabel">Class:</div>
+                                <div class="col-md-4" id="class"></div>
                             </div>
+                            <div class="row ">
+                                <div class="col-md-3" id="netIdLabel">Instructor Netid:</div>
+                                <div class="col-md-4" id="netId"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" id="sectionLabel">Section:</div>
+                                <div class="col-md-4" id="section"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" id="seatNumberLabel">SeatNumber:</div>
 
+                                <div class="col-md-4" id="seatNumber"></div>
+
+                            </div>
                         </div>
-
-
-                        <div class="row">
-                            <div class="" id=""></div>
-
+                        <div class="col-md-5">
+                            <!--Right column -->
+                            <div class="row">
+                                <div class="col-md-3" id="statusLavel">Status</div>
+                                <div class="col-md-4" id="status"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" id="startLabel">Start Date:</div>
+                                <div class="col-md-7" id="start"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" id="endTimeLabel">End Date:</div>
+                                <div class="col-md-7" id="end"></div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-4" id="examTimeLabel">Exam Duration:</div>
+                                <div class="col-md-4" id="examTime"></div>
+                            </div>
                         </div>
-
-
-                    </div>
-
-                    <div class="col-md-5">
-
-                        <div class="row">
-
-                            <div class="col-md-3" id="statusLavel">Status</div>
-                            <div class="col-md-4" id="status"></div>
-
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-3" id="startLabel">Start:</div>
-                            <div class="col-md-4" id="start"></div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3" id="endTimeLabel">End Time:</div>
-                            <div class="col-md-4" id="endTime"></div>
-                        </div>
-
-
-                        <div class="row ">
-                            <div class="col-md-3" id="examTimeLabel">Exam Time:</div>
-                            <div class="col-md-4" id="examTime"></div>
-
-
-                        </div>
-
-                        <div class="row paddingBox">Additional Info</div>
-                        <div class="row paddingBox"></div>
-                        asdasda
-
-
-                    </div>
-                    <div class="row paddingBox">
-                        <button type="button" class="btn-block ">Cancel Request</button>
                     </div>
                 </div>
 
 
-            </div>
+                <div style="padding-top:10px"></div>
 
+                <div class="container">
+                    <div class="col-sm-3"><div id="cancel"></div></div>
+                    <div class="col-sm-3"><div id="edit"></div></div>
+                    <div class="col-sm-3"><div id="checkin"></div></div>
+                </div>
+                <div style="padding-top:10px"></div>
+                </div>
 
-            <div>
-                <button type="button" class="btn-block ">Make Request</button>
             </div>
 
         </div>
 
-
     </div>
-
-    <SCRIPT LANGUAGE="JavaScript">
-        <!--
-        function switchView(x) {
-            console.log(x);
-            $("#TestTitle").html(x.studentNetId);
-
-
-        }
-
-
-        function submitTerm(termId, termName) {
-            document.form1.termId.value = termId;
-            document.form1.termName.value = termName;
-            console.log("here");
-            form1.submit();
-        }
-
-
-        function changeTermName(termName) {
-            if (termName != "" && termName != null) {
-                $("#dropdownMenu1").html(termName);
-            }
-        }
-
-
-        // -->
-    </SCRIPT>
 
 
 </div>
 
 
+
+<SCRIPT LANGUAGE="JavaScript">
+    <!--
+    function switchView(obj, x) {
+
+        $(obj).addClass('active').siblings().removeClass('active');
+
+        var appointmentJson = JSON.parse(decodeURI(x));
+
+        $("#appointmentTitle").html(appointmentJson.examName);
+        $("#class").html(appointmentJson.subject + " " + appointmentJson.catalogNumber);
+        $("#section").html(appointmentJson.section);
+        $("#status").html(appointmentJson.appointmentStatus);
+        $("#start").html(appointmentJson.startDate);
+        $("#end").html(appointmentJson.endDate);
+        $("#examTime").html(appointmentJson.duration);
+        $("#seatNumber").html(appointmentJson.seatNumber);
+        $("#netId").html(appointmentJson.instructorNetId);
+        console.log(appointmentJson.id);
+
+        var cancelButtonToAdd = "<input value='Cancel Appointment' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22cancelAppointment.jsp?AppointmentId="+appointmentJson.id+"\x22, \x22_self\x22);'>";
+        var editButtonToAdd = "<input value='Edit Appointment' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22editAppointment.jsp?AppointmentId="+appointmentJson.id+"\x22, \x22_self\x22);'>";
+        var checkinButtonToAdd = "<input value='Check In' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22checkInStudent.jsp?AppointmentId="+appointmentJson.id+"\x22, \x22_self\x22);'>";
+
+
+
+        $("#cancel").html(cancelButtonToAdd);
+        $("#edit").html(editButtonToAdd);
+        $("#checkin").html(checkinButtonToAdd);
+
+
+    }
+
+    function createList(x) {
+
+        for (var i = 0; i < x.length; i++) {
+            var appointmentObject = x[i];
+            var test = "<a  class='list-group-item' onclick='switchView(this, \x22 " + encodeURI(JSON.stringify(appointmentObject)) + "\x22 ) ' > " + appointmentObject.examName + "</a>";
+            $("#appointmentList").append(test);
+        }
+    }
+
+    function submitTerm(termId, termName) {
+        document.form1.termId.value = termId;
+        document.form1.termName.value = termName;
+        form1.submit();
+    }
+
+    function changeTermName(termName) {
+        if (termName != "" && termName != null) {
+            $("#dropdownMenu1").html(termName);
+        }
+    }
+
+
+    // -->
+</SCRIPT>
 </body>
 
-</html>
+
+

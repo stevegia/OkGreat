@@ -52,7 +52,7 @@
 </div>
 
 
-<div class="pendingRequestsContent">
+<div class="generalBorderedContent">
 
     <!--This is a hidden form that enables term changing -->
     <form NAME="form1">

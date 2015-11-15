@@ -53,6 +53,9 @@
         if(header.html() == "Import Data"){
             header.attr("class","blackoutDatesHeader",true);
         }
+        if(header.html() == "Edit Appointment"){
+            header.attr("class","basicHeader",true);
+        }
     }
 
 </script>

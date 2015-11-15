@@ -21,24 +21,41 @@
     response.sendRedirect(url);
   }
   %>
-  <form name="frm" action="editAppointmentProcess.jsp" method="post">
-    <input name="AppointmentId" type="text" class="form-control" placeholder="<%=apptId%>" value="<%=apptId%>" required readonly>
-    <input name="StudentNetId" type="text" class="form-control" placeholder="<%=appointment.getStudentNetId()%> "
-             value="<%=appointment.getStudentNetId()%> " required>
-    <input name="StartDate" type="text" class="form-control" placeholder="<%=datetimeFormatter.format(appointment.getStartDate())%>"
-             value="<%=datetimeFormatter.format(appointment.getStartDate())%>" required>
-    <input name="EndDate" type="text" class="form-control" placeholder="<%=datetimeFormatter.format(appointment.getEndDate())%>"
-           value="<%=datetimeFormatter.format(appointment.getEndDate())%>" required>
-    <input name="ExamRefinedId" type="text" class="form-control" placeholder="<%=appointment.getExamRefinedId()%>"
-           value="<%=appointment.getExamRefinedId()%>" required>
-    <input name="TestingCenterId" type="text" class="form-control" placeholder="<%=appointment.getTestingCenterId()%>"
-           value="<%=appointment.getTestingCenterId()%>" required>
-    <input name="AppointmentStatus" type="text" class="form-control" placeholder="<%=appointment.getAppointmentStatus()%>"
-           value="<%=appointment.getAppointmentStatus()%>" required>
-    <input name="TermId" type="text" class="form-control" placeholder="<%=appointment.getTermId()%>"
-           value="<%=appointment.getTermId()%>" required>
-    <input name="SeatNumber" type="text" class="form-control" placeholder="<%=appointment.getSeatNumber()%>"
-           value="<%=appointment.getSeatNumber()%>" required>
-    <input type="submit" value="Submit"/>
-  </form>
 
+<div class="container">
+  <form name="frm" action="editAppointmentProcess.jsp" method="post">
+
+
+
+         Appointment Id <input name="AppointmentId" type="text" class="form-control" placeholder="<%=apptId%>" value="<%=apptId%>" required readonly>
+
+         Student Net Id<input name="StudentNetId" type="text" class="form-control" placeholder="<%=appointment.getStudentNetId()%> "
+                 value="<%=appointment.getStudentNetId()%> " required>
+
+          Start Date<input name="StartDate" type="text" class="form-control" placeholder="<%=datetimeFormatter.format(appointment.getStartDate())%>"
+                 value="<%=datetimeFormatter.format(appointment.getStartDate())%>" required>
+          End Date
+          <input name="EndDate" type="text" class="form-control" placeholder="<%=datetimeFormatter.format(appointment.getEndDate())%>"
+                 value="<%=datetimeFormatter.format(appointment.getEndDate())%>" required>
+          Exam Refined Id
+          <input name="ExamRefinedId" type="text" class="form-control" placeholder="<%=appointment.getExamRefinedId()%>"
+                 value="<%=appointment.getExamRefinedId()%>" required>
+          Testing Center Id
+          <input name="TestingCenterId" type="text" class="form-control" placeholder="<%=appointment.getTestingCenterId()%>"
+                 value="<%=appointment.getTestingCenterId()%>" required>
+          Appointment Status
+          <input name="AppointmentStatus" type="text" class="form-control" placeholder="<%=appointment.getAppointmentStatus()%>"
+                 value="<%=appointment.getAppointmentStatus()%>" required>
+          Term Id
+          <input name="TermId" type="text" class="form-control" placeholder="<%=appointment.getTermId()%>"
+                 value="<%=appointment.getTermId()%>" required>
+          Seat Number
+          <input name="SeatNumber" type="text" class="form-control" placeholder="<%=appointment.getSeatNumber()%>"
+                 value="<%=appointment.getSeatNumber()%>" required>
+
+          <input type="submit" value="Submit"/></div>
+
+
+
+  </form>
+</div>

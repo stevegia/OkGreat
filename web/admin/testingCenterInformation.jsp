@@ -7,7 +7,7 @@
     TestingCenterHour testingCenterHour;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 %>
-<div class="container">
+<div class="generalContent container">
     <!--
     <div class="row">
         <div class="left">

@@ -14,4 +14,24 @@
 .TermButton {
   padding: 20px 20px 20px 20px; }
 
+.cancelButton {
+  height: 30px;
+  width: 200px;
+  margin: -20px -50px;
+  position: relative;
+  top: 50%;
+  left: 50%; }
+
+.generalBorderedContent {
+  padding: 20px 20px 20px 20px;
+  border: 1px;
+  border-color: black; }
+
+.basicHeader {
+  color: white;
+  background-color: dimgrey;
+  padding: 20px;
+  text-align: center;
+  font-size: 30px; }
+
 /*# sourceMappingURL=main.css.map */
