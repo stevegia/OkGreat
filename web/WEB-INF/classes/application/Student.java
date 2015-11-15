@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package application;
 
@@ -39,7 +39,7 @@ public class Student extends TCSUser {
 	public Student(String netId, String email, String password, String firstName, String lastName) {
 		super(netId, email, password, firstName, lastName, "STUDENT");
 	}
-	
+
 	/**
 	 * @param user
 	 */
@@ -52,7 +52,7 @@ public class Student extends TCSUser {
 		this.setUserType(Constants.UserType.STUDENT);
 	}
 
-	public boolean makeAppointment(String netId, int termId, String examRefinedId, String apptDatetime) {
+	public boolean makeAppointment(String netId, String examRefinedId, String apptDatetime) {
 		Retriever retriever = Retriever.getInstance();
 		Exam exam = retriever.getExam(examRefinedId);
 		// Requested exam not found
@@ -68,9 +68,8 @@ public class Student extends TCSUser {
 			if (exam.getExamType().equals("COURSE")) {
 				// Exam is a course exam
 				query = em.createQuery("SELECT COUNT(r) FROM Roster r, TCSClass t, CourseExam c, TestingCenter tc " +
-						"WHERE r.id.netId = ?1 AND r.id.TCSClassUnrefinedId = t.unrefinedId AND t.refinedId = c.id.TCSClassRefinedId AND tc.currentTerm = ?2");
+						"WHERE r.id.netId = ?1 AND r.id.TCSClassUnrefinedId = t.unrefinedId AND t.refinedId = c.id.TCSClassRefinedId");
 				query.setParameter(1, netId);
-				query.setParameter(2, termId);
 
 				count = (long) query.getSingleResult();
 				// student is not registered for the course
@@ -99,10 +98,9 @@ public class Student extends TCSUser {
 			calendar.add(Calendar.MINUTE, exam.getDuration() + testingCenter.getGapTime());
 			Date apptEndDate = calendar.getTime();
 
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND a.appointmentDate BETWEEN ?2 AND ?3");
+			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND ?2 BETWEEN a.startDate AND a.endDate");
 			query.setParameter(1, netId);
 			query.setParameter(2, apptStartDate, TemporalType.TIMESTAMP);
-			query.setParameter(3, apptEndDate, TemporalType.TIMESTAMP);
 			count = (long) query.getSingleResult();
 			// user has an overlapping appointment for another exam
 			if (count > 0) return false;
@@ -110,12 +108,11 @@ public class Student extends TCSUser {
 			// appointment timeslot is out of bounds of exam date range
 			if (apptStartDate.before(exam.getStartDate()) || apptEndDate.after(exam.getEndDate())) return false;
 
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentDate BETWEEN ?1 AND ?2");
+			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE ?1 BETWEEN a.startDate AND a.endDate");
 			query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
-			query.setParameter(2, apptEndDate, TemporalType.TIMESTAMP);
 			count = (long) query.getSingleResult();
 			// There are no available seats to satisfy the appointment
-			if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberofSetAsideSeats()) return false;
+			if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
 
 			// create seat number that is available and is not next to a seat of the same exam
 			int seatNumber = 1;
@@ -131,7 +128,8 @@ public class Student extends TCSUser {
 			}
 
 			// create appointment in database since it has passed all checks
-			Appointment appointment = new Appointment(apptStartDate, "PENDING", exam.getDuration(), examRefinedId, testingCenter.getGapTime(), seatNumber, netId, termId, testingCenter.getId());
+			Appointment appointment =
+					new Appointment("PENDING", apptEndDate, examRefinedId, seatNumber, apptStartDate, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
 			em.getTransaction().begin();
 			em.persist(appointment);
 			em.getTransaction().commit();

@@ -32,5 +32,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JPA 2.1-JPA 2.1" level="project" />
     <orderEntry type="library" name="JPA 2.1-JPA 2.1" level="project" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="json-20140107" level="project" />
   </component>
 </module>

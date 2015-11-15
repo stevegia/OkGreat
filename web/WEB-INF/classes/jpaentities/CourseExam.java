@@ -17,6 +17,9 @@ public class CourseExam implements Serializable {
 	@EmbeddedId
 	private CourseExamPK id;
 
+	@Version
+	private int version;
+
 	public CourseExam() {
 	}
 

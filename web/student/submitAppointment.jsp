@@ -1,14 +1,20 @@
+<% String title = "Submit Appointment";%>
 <%@ page import="application.*"%>
+<%@include file="studentHeader.jsp" %>
 <%
-	Student student = (Student) session.getAttribute("user");
+	logger.info("Now at the aubmitAppointments.jsp file from the make.jsp file");
 
-	int termId = Integer.parseInt(request.getParameter("termId"));
+	Student student = (Student) session.getAttribute("user");
 	String examRefinedId = request.getParameter("examRefinedId");
 	String apptDatetime = request.getParameter("appointmentDatetime");
-	boolean apptSuccessful = student.makeAppointment(student.getNetId(), termId, examRefinedId, apptDatetime);
+	boolean apptSuccessful = student.makeAppointment(student.getNetId(), examRefinedId, apptDatetime);
 
-	if (apptSuccessful)
-		response.sendRedirect("appointments.jsp");
-	else
-		System.out.println("There was an error making your appointment. Make sure your inputs are correct.");
+	if (apptSuccessful) {
+        logger.info("Making appointment was a success, returning to appointments.jsp...");
+        response.sendRedirect("appointments.jsp");
+    }
+	else {
+        logger.info("There was an error making the appointment. Make sure the inputs are correct. Going to error.jsp...");
+		response.sendRedirect("../error.jsp");
+	}
 %>

@@ -1,29 +1,17 @@
-<%@ page import="java.util.List" %>
-<%@ page import="application.Retriever" %>
-<%@ page import="jpaentities.Exam" %>
 <%@ page import="jpaentities.TCSUser" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
-    <title>Exams</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/instructor/instructor.css">
-</head>
-
-<div class="pendingRequestsHeader">Exams</div>
-<%@include file="instructorHeader.html" %>
+<%@ page import="jpaentities.Exam" %>
+<%@ page import="java.util.List" %>
+<% String title = "Exams";%>
+<%@include file="instructorHeader.jsp"%>
 
 <%
+    logger.addHandler(fileHandler);
+    logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
     TCSUser user = (TCSUser) session.getAttribute("user");
-    Retriever ListGetter = Retriever.getInstance();
-    List<Exam> eList = ListGetter.getExamsInTerm(user.getNetId(), 1158);
-    String newList = ListGetter.getExamsInTermString(user.getNetId(), 1158);
-    request.setAttribute("eList", eList);
-    request.setAttribute("newList", newList);
+
+    String examList = retriever.getExamsInTermString(user.getNetId(), 1158);
+    request.setAttribute("examList", examList);
     if (request.getParameter("termId") == null) {
         request.setAttribute("termId", 1158);
         request.setAttribute("termName", "Fall 2015");
@@ -34,12 +22,12 @@
     //This code runs to switch info depeding on term
     if (request.getParameterNames() != null && request.getParameter("termId") != null) {
         int term = Integer.parseInt(request.getParameter("termId"));
-        newList = ListGetter.getExamsInTermString(user.getNetId(), term);
-        request.setAttribute("newList", newList);
+        examList = retriever.getExamsInTermString(user.getNetId(), term);
+        request.setAttribute("examList", examList);
     }
 %>
 <!-- On load make sure the list of exams is updated-->
-<body onload='createList(<%=newList%>)'>
+<body onload='createList(<%=examList%>)'>
 
 
 <div class="TermButton">
@@ -64,7 +52,7 @@
 </div>
 
 
-<div class="pendingRequestsContent">
+<div class="generalBorderedContent">
 
     <!--This is a hidden form that enables term changing -->
     <form NAME="form1">
@@ -140,19 +128,11 @@
 
                         </tbody>
                     </table>
-
-
-
-
-
                 </div>
-
 
                 <div id="cancel" class="row bottomrow">
 
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -163,21 +143,7 @@
 
             $(obj).addClass('active').siblings().removeClass('active');
 
-
             var dataToUpdate = JSON.parse(decodeURI(x));
-
-            console.log(dataToUpdate);
-
-
-            $("#TestTitle").html("");
-            $("#class").html("");
-            $("#section").html("");
-            $("#status").html("");
-            $("#start").html("");
-            $("#end").html("");
-            $("#examTime").html("");
-            $("#studentAppointments").html("");
-
 
             $("#TestTitle").html(dataToUpdate.examName);
             $("#class").html(dataToUpdate.subject + " " + dataToUpdate.catalogNumber);
@@ -187,73 +153,49 @@
             $("#end").html(dataToUpdate.endDate);
             $("#examTime").html(dataToUpdate.duration);
 
-
             var buttonToAdd = "<input value='Cancel Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
-
-
-
 
             $("#cancel").html(buttonToAdd);
 
-            console.log("got to before loop");
-
            for(var i = 0; i<dataToUpdate.appointments.length; i++){
-               console.log("got to into the loop");
 
                var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";
                var netid = thopen + dataToUpdate.appointments[i].netId + thclose;
                var date = thopen + dataToUpdate.appointments[i].appointmentDate + thclose;
                var status = thopen +  dataToUpdate.appointments[i].appointmentStatus + thclose;
                var seatnum = thopen + dataToUpdate.appointments[i].seatNumber + thclose;
-
                var tableRowToAppend = trOpen + netid + date + seatnum +status +  trclose;
-
-
-
                $("#studentAppointments").append(tableRowToAppend);
            }
-
-
-
         }
 
         function createList(x) {
-
+            console.log("Create List");
+            console.log(x);
 
             for (var i = 0; i < x.length; i++) {
                 var examObject = x[i];
                 var test = "<a  class='list-group-item' onclick='switchView(this, \x22 " + encodeURI(JSON.stringify(examObject)) + "\x22 ) ' > " + examObject.examName + "</a>";
-
-
                 $("#examList").append(test);
             }
-
-
         }
-
 
         function submitTerm(termId, termName) {
             document.form1.termId.value = termId;
             document.form1.termName.value = termName;
-            console.log("here");
             form1.submit();
         }
-
 
         function changeTermName(termName) {
             if (termName != "" && termName != null) {
                 $("#dropdownMenu1").html(termName);
             }
         }
-
-
         // -->
     </SCRIPT>
-
 
 </div>
 
 
 </body>
 
-</html>

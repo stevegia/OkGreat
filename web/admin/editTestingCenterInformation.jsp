@@ -1,5 +1,5 @@
 <% String title = "Testing Center Information";%>
-<%@include file="adminHeader.html"%>
+<%@include file="adminHeader.jsp"%>
 <%  logger.info("at editTestingCenterInformation.jsp");
     int numberOfSeats=0;
     int numberOfSetAsideSeats=0;
@@ -16,8 +16,8 @@
     }catch(NumberFormatException e){
         logger.info("error parsing input fields into int");
         goodie=false;
-        request.setAttribute("message", "invalid field input");
-        request.setAttribute("url", "admin/testingCenterInformation.jsp");
+        session.setAttribute("message", "invalid field input");
+        session.setAttribute("url", "admin/testingCenterInformation.jsp");
         url="../error.jsp";
     }
     if(goodie) {
@@ -26,6 +26,7 @@
         testingCenter.setNumberOfSetAsideSeats(numberOfSetAsideSeats);
         testingCenter.setGapTime(gapTime);
         testingCenter.setReminderInterval(reminderInterval);
+        retriever.persist(testingCenter);
         logger.info("numberofseats set to" + numberOfSeats + "/nnumberofsetasideseats set to" + numberOfSetAsideSeats + "/ngaptime set to" +
                 gapTime + "/nremainderinterval set to" + reminderInterval);
     }

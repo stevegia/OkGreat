@@ -3,7 +3,7 @@ package jpaentities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-
+import utils.Status;
 
 /**
  * The persistent class for the exam database table.
@@ -44,6 +44,9 @@ public class Exam implements Serializable {
 	private int termId;
 
 	private int testingCenterId;
+
+	@Version
+	private int version;
 
 	public Exam() {
 	}
@@ -182,6 +185,12 @@ public class Exam implements Serializable {
 	public void setTestingCenterId(int testingCenterId) {
 		this.testingCenterId = testingCenterId;
 	}
+
+
+	public void cancel(){
+		this.setExamStatus(String.valueOf(Status.CANCELLED));
+	}
+
 
 	/**
 	 * @see java.lang.Object#toString()

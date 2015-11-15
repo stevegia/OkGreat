@@ -1,3 +1,4 @@
+<% String title = "Calendar";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +19,12 @@
 
 
 </head>
-
-<div class="calendarHeader">Calendar</div>
-<%@include file="studentHeader.html"%>
+<%@include file="studentHeader.jsp"%>
 <body onload="initiate()">
+
+<%
+    logger.info("On the calendar.jsp page");
+%>
 
 
 <div class="appointmnetContent" >

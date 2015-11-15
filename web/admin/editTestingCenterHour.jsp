@@ -8,15 +8,16 @@
     Date date=null;
     Time StartTime=null;
     Time EndTime=null;
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+    timeFormatter.setLenient(false);
     TestingCenterHour hour = null;
 
     boolean goodie=true;
     String url = "testingCenterInformation.jsp";
     try {
-        hour = retriever.getTestingCenterHour(date);
         date = dateFormatter.parse(request.getParameter("date"));
+        hour = retriever.getTestingCenterHour(date);
         Date startTime = timeFormatter.parse(request.getParameter("starttime"));
         Date endTime =timeFormatter.parse(request.getParameter("endtime"));
         StartTime = new Time(startTime.getTime());
@@ -33,7 +34,7 @@
     if(hour==null){
         logger.info("date not found in DB");
         goodie=false;
-        session.setAttribute("message", "invalid field input");
+        session.setAttribute("message", "date "+request.getParameter("date")+" not found in DB");
         session.setAttribute("url", "admin/testingCenterInformation.jsp");
         url="../error.jsp";
     }

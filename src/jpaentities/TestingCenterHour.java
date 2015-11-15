@@ -18,6 +18,8 @@ public class TestingCenterHour implements Serializable {
 	private TestingCenterHourPK id;
 	private Time endTime;
 	private Time startTime;
+	@Version
+	private int version;
 
 	/**
 	 * 

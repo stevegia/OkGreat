@@ -1,17 +1,16 @@
-<%@ page import="jpaentities.*" %>
-<%@ page import="application.*" %>
-<%@ page import="utils.Constants" %>
-<%@ page import="java.util.*"%>
-<%@ page import="java.util.logging.Logger"%>
-<%@ page import="java.util.logging.FileHandler" %>
 <%@ page import="java.io.File" %>
+<%@ page import="application.Retriever" %>
+<%@ page import="java.util.logging.Logger" %>
 <%@ page import="java.util.logging.SimpleFormatter" %>
-<%  Retriever retriever = Retriever.getInstance();
+<%@ page import="java.util.logging.FileHandler" %>
+<%
     Logger logger=Logger.getLogger(this.getClass().getName());
     FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
     SimpleFormatter formatter = new SimpleFormatter();
     fileHandler.setFormatter(formatter);
     logger.addHandler(fileHandler);
+    Retriever retriever = Retriever.getInstance();
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +25,8 @@
     <script type="text/javascript" src="../js/underscore.js"></script>
     <script type="text/javascript" src="../js/calendar.min.js"></script>
     <link rel="stylesheet" href="../css/calendar.min.css">
+    <link rel="stylesheet" href="../css/student/student.css">
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/admin/admin.css">
 </head>
 <body>
 <div class="header" id="header"><%=title%></div>
@@ -35,37 +34,28 @@
 
     window.onload = function(){
         var header = $("#header");
-        console.log("#header");
-        console.log(header);
-        console.log(header.html());
-        if(header.html() == "Testing Center Information"){
-            header.attr("class","testingCenterInformationHeader",true);
-        }
         if(header.html() == "Make Appointment"){
-            header.attr("class","makeAppointmentsHeader",true);
+            header.attr("class","makeAppointmentHeader");
         }
         if(header.html() == "Appointments"){
-            header.attr("class","appointments",true);
+            header.attr("class","appointmentsHeader");
         }
-        if(header.html() == "Reports") {
-            header.attr("class", "reportsHeader", true);
-        }
-        if(header.html() == "Import Data"){
-            header.attr("class","blackoutDatesHeader",true);
-        }
-        if(header.html() == "Edit Appointment"){
-            header.attr("class","basicHeader",true);
+        if(header.html() == "Calendar") {
+            header.attr("class", "calendarHeader");
         }
     }
 
 </script>
 
+
 <nav role="navigation" class="navbar navbar-default">
     <div class="container-fluid">
 
+
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -76,22 +66,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-
-
-                <li id ="testingCenterInformation"><a href="testingCenterInformation.jsp">Testing Center Information</a></li>
-               <!-- <li id="examsAndAppointments"><a href="examsAndAppointments.jsp">Exams and Appointments </a></li> -->
-                <li id="appointments"><a href="appointments.jsp">Appointments </a></li>
-                <li id="makeAppointments"><a href="makeAppointments.jsp">Make Appointment </a></li>
-                <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>
-                <li id="importData"><a href="importData.jsp">Import Data</a></li>
-
-
-
+                <li id="appointments"><a href="appointments.jsp">Appointments</a></li>
+                <li id="makeAppointment"><a href="make.jsp">Make Appointment<span class="sr-only">(current)</span>
+                </a></li>
+                <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
             </ul>
             <ul class="nav navbar-right logout">
-               <li><a class="logout" href="../index.jsp">Logout</a></li>
+                <li><a class="logout" href="../index.jsp">Logout</a></li>
             </ul>
 
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
 </nav>

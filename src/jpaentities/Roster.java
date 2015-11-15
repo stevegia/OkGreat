@@ -19,6 +19,9 @@ public class Roster implements Serializable {
 
 	private int termId;
 
+	@Version
+	private int version;
+
 	public Roster() {
 	}
 

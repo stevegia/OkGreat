@@ -1,5 +1,7 @@
 package jpaentities;
 
+import utils.Status;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
@@ -19,18 +21,17 @@ public class Appointment implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date appointmentDate;
-
 	private String appointmentStatus;
 
-	private int duration;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date endDate;
 
 	private String examRefinedId;
 
-	private int gapTime;
-
 	private int seatNumber;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date startDate;
 
 	private String studentNetId;
 
@@ -38,28 +39,29 @@ public class Appointment implements Serializable {
 
 	private int testingCenterId;
 
+    @Version
+    private int version;
+
 	public Appointment() {
 	}
 
 	/**
-	 * @param appointmentDate
 	 * @param appointmentStatus
-	 * @param duration
+	 * @param endDate
 	 * @param examRefinedId
-	 * @param gapTime
 	 * @param seatNumber
+	 * @param startDate
 	 * @param studentNetId
 	 * @param termId
 	 * @param testingCenterId
 	 */
-	public Appointment(Date appointmentDate, String appointmentStatus, int duration, String examRefinedId, int gapTime,
-			int seatNumber, String studentNetId, int termId, int testingCenterId) {
-		this.appointmentDate = appointmentDate;
+	public Appointment(String appointmentStatus, Date endDate, String examRefinedId, int seatNumber, Date startDate,
+					   String studentNetId, int termId, int testingCenterId) {
 		this.appointmentStatus = appointmentStatus;
-		this.duration = duration;
+		this.endDate = endDate;
 		this.examRefinedId = examRefinedId;
-		this.gapTime = gapTime;
 		this.seatNumber = seatNumber;
+		this.startDate = startDate;
 		this.studentNetId = studentNetId;
 		this.termId = termId;
 		this.testingCenterId = testingCenterId;
@@ -73,14 +75,6 @@ public class Appointment implements Serializable {
 		this.id = id;
 	}
 
-	public Date getAppointmentDate() {
-		return this.appointmentDate;
-	}
-
-	public void setAppointmentDate(Date appointmentDate) {
-		this.appointmentDate = appointmentDate;
-	}
-
 	public String getAppointmentStatus() {
 		return this.appointmentStatus;
 	}
@@ -89,12 +83,12 @@ public class Appointment implements Serializable {
 		this.appointmentStatus = appointmentStatus;
 	}
 
-	public int getDuration() {
-		return this.duration;
+	public Date getEndDate() {
+		return this.endDate;
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getExamRefinedId() {
@@ -105,20 +99,20 @@ public class Appointment implements Serializable {
 		this.examRefinedId = examRefinedId;
 	}
 
-	public int getGapTime() {
-		return this.gapTime;
-	}
-
-	public void setGapTime(int gapTime) {
-		this.gapTime = gapTime;
-	}
-
 	public int getSeatNumber() {
 		return this.seatNumber;
 	}
 
 	public void setSeatNumber(int seatNumber) {
 		this.seatNumber = seatNumber;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	public String getStudentNetId() {
@@ -150,10 +144,17 @@ public class Appointment implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Appointment [id=" + id + ", appointmentDate=" + appointmentDate + ", appointmentStatus="
-				+ appointmentStatus + ", duration=" + duration + ", examRefinedId=" + examRefinedId + ", gapTime="
-				+ gapTime + ", seatNumber=" + seatNumber + ", studentNetId=" + studentNetId + ", termId=" + termId
-				+ ", testingCenterId=" + testingCenterId + "]";
+		return "Appointment [id=" + id + ", appointmentStatus=" + appointmentStatus + ", endDate=" + endDate
+				+ ", examRefinedId=" + examRefinedId + ", seatNumber=" + seatNumber + ", startDate=" + startDate
+				+ ", studentNetId=" + studentNetId + ", termId=" + termId + ", testingCenterId=" + testingCenterId
+				+ "]";
+	}
+
+	public void checkInStudent() {
+		setAppointmentStatus(String.valueOf(Status.CHECKED_IN));
+	}
+	public void cancel() {
+		this.setAppointmentStatus(String.valueOf(Status.CANCELLED));
 	}
 
 }
