@@ -46,10 +46,10 @@
     			<div class="col-sm-6 col-md-4 col-md-offset-4 login-offset">
       				<h1 class="text-center login-title">Welcome to the Testing Center</h1>
 					<div style="padding-top:20px" ></div>
-        			<form action="login.jsp" method="post">
-        				<input type="text" class="form-control netid" placeholder="NetID" name="netid" required autofocus>
+        			<form action="j_security_check" method="post">
+        				<input type="text" class="form-control netid" placeholder="NetID" name="j_username" required autofocus>
 						<div class="buffer"></div>
-          					<input type="password" class="form-control password" placeholder="password" name="password" required>
+          					<input type="password" class="form-control password" placeholder="password" name="j_password" required>
         				<div class="buffer"></div>
 						<button class="btn btn-lg btn-primary btn-block login-button" type="submit">Log In</button>
         			</form>

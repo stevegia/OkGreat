@@ -3,4 +3,70 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+    <resource-ref>
+        <description>DB Connection</description>
+        <res-ref-name>testing_center_scheduler</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    <welcome-file-list>
+        <welcome-file>/web/index.jsp</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>adminStuff</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMINISTRATOR</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>instructorStuff</web-resource-name>
+            <url-pattern>/instructor/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>INSTRUCTOR</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>studentStuff</web-resource-name>
+            <url-pattern>/student/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>STUDENT</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-role>
+        <description>Web Site Administrator</description>
+        <role-name>ADMINISTRATOR</role-name>
+    </security-role>
+    <security-role>
+        <description>Instructor</description>
+        <role-name>INSTRUCTOR</role-name>
+    </security-role>
+    <security-role>
+        <description>Student</description>
+        <role-name>STUDENT</role-name>
+    </security-role>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>testing_center_scheduler</realm-name>
+        <form-login-config>
+            <form-login-page>/WEB-INF/index.jsp</form-login-page>
+            <form-error-page>/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
 </web-app>

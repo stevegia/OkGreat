@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/testing_center_scheduler" allowCasualMultipartParsing="true" >
+    <Realm className="org.apache.catalina.realm.CombinedRealm" >
+        <Realm className="org.apache.catalina.realm.JDBCRealm" driverName="com.mysql.jdbc.Driver"
+               name="testing_center_scheduler" type="javax.sql.DataSource"
+               connectionURL="jdbc:mysql://localhost:3306/testing_center_scheduler"
+               connectionName="root" connectionPassword="admin"
+               userTable="tcsuser" userNameCol="NetId" userCredCol="Password"
+               userRoleTable="user_roles" roleNameCol="UserType"
+               auth="Container" maxTotal="100" maxIdle="30" maxWaitMillis="10000" digest="MD5"/>
+         </Realm>
+</Context>
