@@ -25,9 +25,9 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/underscore.js"></script>
     <script type="text/javascript" src="../js/calendar.min.js"></script>
-    <link rel="stylesheet" href="../css/calendar.min.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/admin/admin.css">
+    <link rel="stylesheet" href="/web/css/admin/calendar.min.css">
+    <link rel="stylesheet" href="/web/css/admin/main.css">
+    <link rel="stylesheet" href="/web/css/admin/admin.css">
 </head>
 <body>
 <div class="header" id="header"><%=title%></div>
@@ -89,7 +89,7 @@
 
             </ul>
             <ul class="nav navbar-right logout">
-               <li><a class="logout" href="../index.jsp">Logout</a></li>
+               <li><a class="logout" href="../logon.jsp">Logout</a></li>
             </ul>
 
         </div><!-- /.navbar-collapse -->

@@ -4,14 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <resource-ref>
-        <description>DB Connection</description>
-        <res-ref-name>testing_center_scheduler</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-    </resource-ref>
+
     <welcome-file-list>
         <welcome-file>/web/index.jsp</welcome-file>
+        <welcome-file>/web/css/*</welcome-file>
+        <welcome-file>/web/css/admin/*</welcome-file>
+        <welcome-file>/web/css/student/*</welcome-file>
+        <welcome-file>/web/css/instructor/*</welcome-file>
     </welcome-file-list>
     <security-constraint>
         <web-resource-collection>
@@ -19,11 +18,8 @@
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>ADMINISTRATOR</role-name>
+            <role-name>admin</role-name>
         </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
     </security-constraint>
     <security-constraint>
         <web-resource-collection>
@@ -31,11 +27,8 @@
             <url-pattern>/instructor/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>INSTRUCTOR</role-name>
+            <role-name>instructor</role-name>
         </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
     </security-constraint>
     <security-constraint>
         <web-resource-collection>
@@ -43,29 +36,25 @@
             <url-pattern>/student/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>STUDENT</role-name>
+            <role-name>student</role-name>
         </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
     </security-constraint>
     <security-role>
         <description>Web Site Administrator</description>
-        <role-name>ADMINISTRATOR</role-name>
+        <role-name>admin</role-name>
     </security-role>
     <security-role>
         <description>Instructor</description>
-        <role-name>INSTRUCTOR</role-name>
+        <role-name>instructor</role-name>
     </security-role>
     <security-role>
         <description>Student</description>
-        <role-name>STUDENT</role-name>
+        <role-name>student</role-name>
     </security-role>
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>testing_center_scheduler</realm-name>
         <form-login-config>
-            <form-login-page>/WEB-INF/index.jsp</form-login-page>
+            <form-login-page>/logon.jsp</form-login-page>
             <form-error-page>/error.jsp</form-error-page>
         </form-login-config>
     </login-config>

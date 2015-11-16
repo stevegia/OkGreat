@@ -3,7 +3,7 @@
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.logging.SimpleFormatter" %>
 
-<% Logger logger=Logger.getLogger("index.jsp");%>
+<% Logger logger=Logger.getLogger("logon.jsp");%>
 <%
     File dir = new File("./okgreatlogs");
     System.out.println( dir.getAbsolutePath());
@@ -34,8 +34,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-		<link rel="stylesheet" href="css/login.css">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="/web/css/login.css">
+		<link rel="stylesheet" href="/web/css/main.css">
 		<script type="text/javascript"></script>
 	</head>
 	<body>
@@ -57,5 +57,8 @@
     			</div>
   			</div>
 		</div>
+	<script>setInterval(function(){
+		location.reload(true);
+	},5*60*1000);</script>
 	</body>
 </html>
