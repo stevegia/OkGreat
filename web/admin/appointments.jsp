@@ -18,6 +18,7 @@
 
 
     String appointmentsList = retriever.getAppointmentsInTermString(1158);
+    System.out.println(appointmentsList);
     request.setAttribute("appointmentsList", appointmentsList);
     if (request.getParameter("termId") == null) {
         request.setAttribute("termId", 1158);

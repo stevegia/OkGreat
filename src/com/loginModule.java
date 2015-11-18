@@ -18,7 +18,7 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
-public class loginModule implements LoginModule {
+ public class loginModule implements javax.security.auth.spi.LoginModule {
 
     private CallbackHandler handler;
     private Subject subject;
@@ -26,7 +26,9 @@ public class loginModule implements LoginModule {
     private RolePrincipal rolePrincipal;
     private String login;
     private List<String> userGroups;
+    public loginModule(){
 
+    }
     @Override
     public void initialize(Subject subject,
                            CallbackHandler callbackHandler,
@@ -36,6 +38,8 @@ public class loginModule implements LoginModule {
         handler = callbackHandler;
         this.subject = subject;
     }
+
+
 
     @Override
     public boolean login() throws LoginException {
@@ -90,11 +94,6 @@ public class loginModule implements LoginModule {
 
                 }
             }
-
-
-
-
-
             // If credentials are NOT OK we throw a LoginException
             System.out.println("Atleast we got here3");
             throw new LoginException("Authentication failed");

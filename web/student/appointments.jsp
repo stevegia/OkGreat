@@ -6,9 +6,9 @@
 <%
     logger.info("Now at the appointments.jsp page");
 
-    Student student = (Student) session.getAttribute("user");
 
-    String appointmentsList = retriever.getAppointmentsForStudentString(student.getNetId(),1158);
+
+    String appointmentsList = retriever.getAppointmentsForStudentString(request.getRemoteUser(),1158);
     request.setAttribute("appointmentsList", appointmentsList);
     if (request.getParameter("termId") == null) {
         request.setAttribute("termId", 1158);
