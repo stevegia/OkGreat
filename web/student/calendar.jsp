@@ -27,7 +27,7 @@
 %>
 
 
-<div class="appointmnetContent" >
+<div class="generalContent" >
 
 
   <div class="dropdown">
@@ -43,33 +43,49 @@
 
     </ul>
   </div>
+
+
+  <div class="pull-right form-inline">
+    <div class="btn-group">
+      <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
+      <button class="btn btn-default" data-calendar-nav="today">Today</button>
+      <button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-warning" data-calendar-view="year">Year</button>
+      <button class="btn btn-warning active" data-calendar-view="month">Month</button>
+      <button class="btn btn-warning" data-calendar-view="week">Week</button>
+      <button class="btn btn-warning" data-calendar-view="day">Day</button>
+    </div>
+  </div>
+
+
+  <div style="padding-top: 20px"></div>
+  <div id="calendarChart"></div>
+
+
+
+
 </div>
 
-<div class="pull-right form-inline">
-  <div class="btn-group">
-    <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
-    <button class="btn btn-default" data-calendar-nav="today">Today</button>
-    <button class="btn btn-primary" data-calendar-nav="next">Next >></button>
-  </div>
-  <div class="btn-group">
-    <button class="btn btn-warning" data-calendar-view="year">Year</button>
-    <button class="btn btn-warning active" data-calendar-view="month">Month</button>
-    <button class="btn btn-warning" data-calendar-view="week">Week</button>
-    <button class="btn btn-warning" data-calendar-view="day">Day</button>
-  </div>
-</div>
 
+<script>
+  function test(){
+    var calendar = $('#calendarChart').calendar({
+      tmpl_path: "../tmpls/",
+      events_source: [
+        {
+          "id": 293,
+          "title": "Event 1",
+          "url": "http://example.com",
+          "class": "event-important",
+          "start": 1447113600000, // Milliseconds
+          "end": 1447113600000 // Milliseconds
+        }
 
-
-
-
-<script type="text/javascript">
-
+      ]});
+  }
 </script>
-
-
-
-<div id="calenderChart">
 
 
 </body>

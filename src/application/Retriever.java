@@ -427,6 +427,7 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+
 	public TestingCenterHour getTestingCenterHour(Date date){
 		TestingCenterHour returnedList = null;
 		try {
@@ -438,6 +439,8 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+
+
 }
 
 
