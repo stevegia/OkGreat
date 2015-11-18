@@ -84,6 +84,10 @@
         }
 
       ]});
+
+    $("#cal-slide-content").append("<button type='button' class='btn-block'>Submit New Request</button>");
+    $("#cal-slide-content").append("DERKS");
+    $("#cal-slide-content").remove();
   }
 </script>
 
