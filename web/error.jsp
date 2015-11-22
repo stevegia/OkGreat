@@ -11,13 +11,14 @@
 	if((String) session.getAttribute("message")!=null) {
 %><%=(String) session.getAttribute("message")%>
 <%	logger.info("error message is "+ (String) session.getAttribute("message"));
+	session.setAttribute("message", "");
 	}
 %>
 <% if((String) session.getAttribute("url")!=null) {
 %>  <a href="<%=(String) session.getAttribute("url")%>">
 	<button>Return</button>
 </a>
-<%
+<%  session.setAttribute("url", "index.jsp");
 } else{
 %>	<button>Return</button>
 <% }
