@@ -1,56 +1,69 @@
 <%@ page import="application.Student" %>
 <% String title = "Calendar";%>
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width" charset="UTF-8">
 
   <title>calendar</title>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="../js/underscore.js"></script>
-  <script type="text/javascript" src="../js/calendar.min.js"></script>
-  <script type="text/javascript" src="../js/student/calendarControl.js"></script>
-  <link rel="stylesheet" href="../css/calendar.min.css">
-  <link rel="stylesheet" href="../css/student/student.css">
+
+
+
 
 
 
 
 </head>
 <%@include file="studentHeader.jsp"%>
-
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script type="text/javascript" src="../js/underscore.js"></script>
+<script type="text/javascript" src="../js/calendar.min.js"></script>
+<script type="text/javascript" src="../js/student/calendarControl.js"></script>
+<link rel="stylesheet" href="../css/calendar.min.css">
+<link rel="stylesheet" href="../css/student/student.css">
 
 <%
-
-
   Student student = (Student) session.getAttribute("user");
 
   String calenderEvents = retriever.getExamsForCalender(student.getNetId(), 1158);
-
+  if (request.getParameter("termId") == null) {
+    request.setAttribute("termId", 1158);
+    request.setAttribute("termName", "Fall 2015");
+  }
     logger.info("On the calendar.jsp page");
 %>
 <body onload='initiate(<%=calenderEvents%>)'>
 
-<div class="generalContent" >
 
-
+<!--
+<div class="TermButton">
   <div class="dropdown">
     Term:
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      Fall 2015
-      <span class="caret"></span>
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+      <%
+      if (request.getParameter("termName") != null) {
+      //  out.print(request.getParameter("termName"));
+      } else {
+     //   out.print("Fall 2015");
+      } %>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <li><a href="#">Spring 2016</a></li>
-      <li><a href="#">Spring 2015</a></li>
-      <li><a href="#">Fall 2014</a></li>
-
+    <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
+      <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
+      <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
+      <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
+      <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
+      <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
     </ul>
   </div>
-
+</div>
+-->
+<div class="generalContent" >
+  <!--This is a hidden form that enables term changing -->
+  <form NAME="form1">
+    <INPUT TYPE="HIDDEN" NAME="termId">
+    <INPUT TYPE="HIDDEN" NAME="termName">
+  </form>
+<div style="margin-top: 20px"></div>
 
   <div class="pull-right form-inline">
     <div class="btn-group">
@@ -75,7 +88,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3>Event</h3>
+          <h3>Appointment</h3>
         </div>
         <div class="modal-body" style="height: 400px">
         </div>
@@ -85,34 +98,16 @@
       </div>
     </div>
   </div>
-
-
 </div>
-
-
 <script>
-  function test(){
-    var calendar = $('#calendarChart').calendar({
-      tmpl_path: "../tmpls/",
-      events_source: [
-        {
-          "id": 293,
-          "title": "Event 1",
-          "url": "http://example.com",
-          "class": "event-important",
-          "start": 1447113600000, // Milliseconds
-          "end": 1447113600000 // Milliseconds
-        }
 
-      ]});
 
-    $("#cal-slide-content").append("<button type='button' class='btn-block'>Submit New Request</button>");
-    $("#cal-slide-content").append("DERKS");
-    $("#cal-slide-content").remove();
+  function submitTerm(termId, termName) {
+    console.log("test");
+    document.form1.termId.value = termId;
+    document.form1.termName.value = termName;
+    form1.submit();
   }
 </script>
 
-
 </body>
-
-</html>

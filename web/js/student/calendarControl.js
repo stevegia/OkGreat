@@ -9,7 +9,7 @@ function initiate(eventsString) {
     console.log(eventsString);
 
     var calendar = $('#calendarChart').calendar({
-            modal : "#events-modal", modal_type : "template",
+            modal : "#events-modal", modal_type : "ajax",
             tmpl_path: "../tmpls/",
         events_source: eventsString,
             onAfterEventsLoad: function(events) {
@@ -52,6 +52,9 @@ function initiate(eventsString) {
 
         });
     });
+
+
+
 
 
 
