@@ -335,7 +335,9 @@ public class Retriever {
 	}
 
 	public String getExamsInTermString(String netId, int termId){
-		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
+		try{
+
+			query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
 			query.setParameter(1, termId);
 			query.setParameter(2, netId);
 
@@ -399,6 +401,44 @@ public class Retriever {
 		}catch(Exception ex){
 			return ex.toString();
 		}
+	}
+
+	public String getExamsForCalender(		String netId, int termId){
+
+		query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1 AND a.termId = ?2");
+		query.setParameter(1, netId);
+		query.setParameter(2, termId);
+		JSONArray arrayToReturn = new JSONArray();
+
+		List<Appointment> returnedAppointmentList = query.getResultList();
+
+
+		for(Appointment appointment: returnedAppointmentList){
+			JSONObject eventJson = new JSONObject();
+
+
+			try{
+				query = em.createQuery("SELECT t FROM Exam t WHERE t.refinedId  = ?1");
+				query.setParameter(1, appointment.getExamRefinedId());
+				Exam exam = (Exam)query.getSingleResult();
+				eventJson.put("id",appointment.getId());
+				eventJson.put("title",exam.getExamName());
+				eventJson.put("url","");
+				eventJson.put("class","event-important");
+				long startInMiliseconds = appointment.getStartDate().getTime();
+				long endInMiliseconds = appointment.getEndDate().getTime();
+
+				eventJson.put("start", startInMiliseconds);
+				eventJson.put("end", endInMiliseconds);
+
+				arrayToReturn.put(eventJson);
+
+			}catch(Exception ex){
+
+			}
+
+		}
+		return arrayToReturn.toString();
 	}
 
 	public List<Exam> getExamsInTerm(String netId, int termId){

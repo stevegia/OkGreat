@@ -1,3 +1,4 @@
+<%@ page import="application.Student" %>
 <% String title = "Calendar";%>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,12 +21,18 @@
 
 </head>
 <%@include file="studentHeader.jsp"%>
-<body onload="initiate()">
+
 
 <%
+
+
+  Student student = (Student) session.getAttribute("user");
+
+  String calenderEvents = retriever.getExamsForCalender(student.getNetId(), 1158);
+
     logger.info("On the calendar.jsp page");
 %>
-
+<body onload='initiate(<%=calenderEvents%>)'>
 
 <div class="generalContent" >
 
@@ -63,7 +70,21 @@
   <div style="padding-top: 20px"></div>
   <div id="calendarChart"></div>
 
-
+  <div class="modal fade" id="events-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Event</h3>
+        </div>
+        <div class="modal-body" style="height: 400px">
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 </div>

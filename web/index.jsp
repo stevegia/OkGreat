@@ -41,21 +41,26 @@
 	<body>
 		<div class="loginHeader">Testing Center</div>
 
-		<div class="container">
-  			<div class="row">
-    			<div class="col-sm-6 col-md-4 col-md-offset-4 login-offset">
-      				<h1 class="text-center login-title">Welcome to the Testing Center</h1>
-					<div style="padding-top:20px" ></div>
-        			<form action="login.jsp" method="post">
-        				<input type="text" class="form-control netid" placeholder="NetID" name="netid" required autofocus>
-						<div class="buffer"></div>
-          					<input type="password" class="form-control password" placeholder="password" name="password" required>
-        				<div class="buffer"></div>
-						<button class="btn btn-lg btn-primary btn-block login-button" type="submit">Log In</button>
-        			</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-md-4 col-md-offset-4 login-offset">
 
-    			</div>
-  			</div>
+
+				<h1 class="text-center login-title">Welcome to the Testing Center</h1>
+
+				<form action="login.jsp" method="post">
+					<input type="text" class="form-control netid" placeholder="NetID" name="netid" required autofocus>
+					<div class="buffer"></div>
+					<input type="password" class="form-control password" placeholder="password" name="password" required>
+					<div class="buffer"></div>
+					<button class="btn btn-lg btn-primary btn-block login-button" type="submit">Log In</button>
+				</form>
+
+			</div>
 		</div>
+
+
+</div>
+
 	</body>
 </html>

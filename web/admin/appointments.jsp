@@ -10,7 +10,7 @@
 </head>
 
 <%@include file="adminHeader.jsp" %>
-<body>
+
 
 
 <%

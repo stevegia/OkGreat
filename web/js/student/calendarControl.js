@@ -2,23 +2,17 @@
  * Created by Steve on 10/22/2015.
  */
 
-function initiate() {
+function initiate(eventsString) {
 
     console.log("got here");
 
-    var calendar = $('#calendarChart').calendar({
-        tmpl_path: "../tmpls/",
-        events_source: [
-            {
-                "id": 293,
-                "title": "Event 1",
-                "url": "http://example.com",
-                "class": "event-important",
-                "start": 1447836521000, // Milliseconds
-                "end": 1447836525000 // Milliseconds
-            }
+    console.log(eventsString);
 
-        ],  onAfterEventsLoad: function(events) {
+    var calendar = $('#calendarChart').calendar({
+            modal : "#events-modal", modal_type : "template",
+            tmpl_path: "../tmpls/",
+        events_source: eventsString,
+            onAfterEventsLoad: function(events) {
                 if(!events) {
                     return;
                 }
