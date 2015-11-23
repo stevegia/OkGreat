@@ -51,12 +51,24 @@ $primary-color: #375AE0;
 
 .login-title
 {
-  color: #555;
-  font-size: 18px;
+  color: rgb(255, 253, 253);
+  font-size: 24px;
   font-weight: 400;
   display: block;
 }
 
 .login-button{
   padding-top:10px;
+}
+
+.login-offset{
+    margin-top:200px;
+  background: $primary-color;
+}
+
+body {
+
+  background: $primary-color url("../img/Stony-Brook-University.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }

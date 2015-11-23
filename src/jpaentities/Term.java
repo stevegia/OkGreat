@@ -18,7 +18,7 @@ public class Term implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private String id;
+    private int id;
     private String termName;
     private Timestamp startDate;
     private Timestamp endDate;
@@ -33,7 +33,7 @@ public class Term implements Serializable {
      * @param endDate
      *
      */
-    public Term(String id,String termName,Timestamp startDate, Timestamp endDate){
+    public Term(int id,String termName,Timestamp startDate, Timestamp endDate){
         this.id= id;
         this.termName = termName;
         this.startDate = startDate;
@@ -41,11 +41,11 @@ public class Term implements Serializable {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

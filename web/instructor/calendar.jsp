@@ -5,7 +5,7 @@
 <%@include file="instructorHeader.jsp"%>
 <body>
 
-<div class="appointmnetContent">
+<div class="mainContent">
 
 
   <div class="dropdown">
