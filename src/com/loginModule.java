@@ -55,8 +55,6 @@ import javax.security.auth.spi.LoginModule;
             String password = String.valueOf(((PasswordCallback) callbacks[1])
                     .getPassword());
 
-
-
             Retriever loginValidator = Retriever.getInstance();
             TCSUser user = loginValidator.getUser(name, password);
 
@@ -66,7 +64,7 @@ import javax.security.auth.spi.LoginModule;
             // a Web Service, etc.
             // For this tutorial we are just checking if
             // user is "user123" and password is "pass123"
-            System.out.println(user.getUserType().toString());
+
             if (user != null) {
                 switch (user.getUserType()) {
                     case ADMINISTRATOR:
@@ -95,7 +93,6 @@ import javax.security.auth.spi.LoginModule;
                 }
             }
             // If credentials are NOT OK we throw a LoginException
-            System.out.println("Atleast we got here3");
             throw new LoginException("Authentication failed");
 
         } catch (IOException e) {
@@ -103,22 +100,19 @@ import javax.security.auth.spi.LoginModule;
         } catch (UnsupportedCallbackException e) {
             throw new LoginException(e.getMessage());
         }
-
     }
 
     @Override
-    public boolean commit() throws LoginException {
 
+    public boolean commit() throws LoginException {
         userPrincipal = new UserPrincipal(login);
         subject.getPrincipals().add(userPrincipal);
-
         if (userGroups != null && userGroups.size() > 0) {
             for (String groupName : userGroups) {
                 rolePrincipal = new RolePrincipal(groupName);
                 subject.getPrincipals().add(rolePrincipal);
             }
         }
-
         return true;
     }
 
@@ -133,5 +127,4 @@ import javax.security.auth.spi.LoginModule;
         subject.getPrincipals().remove(rolePrincipal);
         return true;
     }
-
 }

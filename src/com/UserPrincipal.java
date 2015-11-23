@@ -13,7 +13,6 @@ public class UserPrincipal implements Principal {
     public UserPrincipal(String name) {
         super();
         this.name = name;
-        this.test = "3";
     }
 
     public void setName(String name) {
@@ -23,10 +22,6 @@ public class UserPrincipal implements Principal {
     @Override
     public String getName() {
         return name;
-    }
-
-    public String getTest() {
-        return test;
     }
 
 }

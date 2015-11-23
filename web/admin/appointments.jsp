@@ -3,19 +3,13 @@
 <%@ page import="application.Retriever" %>
 <%@ page import="jpaentities.Appointment" %>
 <%@ page import="java.util.List" %>
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width" charset="UTF-8">
 </head>
-
-<%@include file="adminHeader.jsp" %>
+<%@include file="adminHeader.jsp"%>
 <body>
-
-
 <%
     logger.info("Now at the appointments.jsp page");
-
 
     String appointmentsList = retriever.getAppointmentsInTermString(1158);
     System.out.println(appointmentsList);
@@ -24,9 +18,6 @@
         request.setAttribute("termId", 1158);
         request.setAttribute("termName", "Fall 2015");
     }
-%>
-
-<%
     //This code runs to switch info depeding on term
     if (request.getParameterNames() != null && request.getParameter("termId") != null) {
         int term = Integer.parseInt(request.getParameter("termId"));
@@ -34,7 +25,6 @@
         request.setAttribute("appointmentsList", appointmentsList);
     }
 %>
-
 <body onload='createList(<%=appointmentsList%>)'>
 
 
@@ -119,10 +109,7 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div style="padding-top:10px"></div>
-
                 <div class="container">
                     <div class="col-sm-3"><div id="cancel"></div></div>
                     <div class="col-sm-3"><div id="edit"></div></div>
@@ -130,22 +117,16 @@
                 </div>
                 <div style="padding-top:10px"></div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-
 </div>
 
 
-
 <SCRIPT LANGUAGE="JavaScript">
-    <!--
-    function switchView(obj, x) {
 
+    function switchView(obj, x) {
+        //Make the button you pressed active and all the others not
         $(obj).addClass('active').siblings().removeClass('active');
 
         var appointmentJson = JSON.parse(decodeURI(x));
@@ -170,12 +151,10 @@
         $("#cancel").html(cancelButtonToAdd);
         $("#edit").html(editButtonToAdd);
         $("#checkin").html(checkinButtonToAdd);
-
-
     }
 
     function createList(x) {
-
+        //Create the list of appointments
         for (var i = 0; i < x.length; i++) {
             var appointmentObject = x[i];
             var test = "<a  class='list-group-item' onclick='switchView(this, \x22 " + encodeURI(JSON.stringify(appointmentObject)) + "\x22 ) ' > " + appointmentObject.examName + "</a>";
@@ -194,10 +173,7 @@
             $("#dropdownMenu1").html(termName);
         }
     }
-
-
-    // -->
-</SCRIPT>
+ </SCRIPT>
 </body>
 
 

@@ -22,9 +22,9 @@
 <link rel="stylesheet" href="../css/student/student.css">
 
 <%
-  Student student = (Student) session.getAttribute("user");
+  String netId = request.getRemoteUser();
 
-  String calenderEvents = retriever.getExamsForCalender(student.getNetId(), 1158);
+  String calenderEvents = retriever.getExamsForCalender(netId, 1158);
   if (request.getParameter("termId") == null) {
     request.setAttribute("termId", 1158);
     request.setAttribute("termName", "Fall 2015");

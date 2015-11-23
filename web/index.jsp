@@ -42,12 +42,10 @@
 <div class="loginHeader">Testing Center</div>
 
 <div class="container">
-    <div class="row">
+    <div class="row login-offset">
         <a class="btn btn-lg btn-primary btn-block login-button" href="admin/appointments.jsp" >Admin</a>
         <a class="btn btn-lg btn-primary btn-block login-button" href="instructor/pendingRequests.jsp">Instructor</a>
         <a class="btn btn-lg btn-primary btn-block login-button" href="student/appointments.jsp">Student</a>
-
-
         </div>
     </div>
 </div>
