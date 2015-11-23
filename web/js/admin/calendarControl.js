@@ -3,7 +3,6 @@
  */
 function initiate(eventsString) {
 
-    console.log("got here");
 
     console.log(eventsString);
 

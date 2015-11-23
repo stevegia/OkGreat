@@ -32,31 +32,6 @@
     logger.info("On the calendar.jsp page");
 %>
 <body onload='initiate(<%=calenderEvents%>)'>
-
-
-<!--
-<div class="TermButton">
-  <div class="dropdown">
-    Term:
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="true">
-      <%
-      if (request.getParameter("termName") != null) {
-      //  out.print(request.getParameter("termName"));
-      } else {
-     //   out.print("Fall 2015");
-      } %>
-    </button>
-    <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-      <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-      <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-      <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-      <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-      <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
-    </ul>
-  </div>
-</div>
--->
 <div class="generalContent" >
   <!--This is a hidden form that enables term changing -->
   <form NAME="form1">
@@ -64,7 +39,6 @@
     <INPUT TYPE="HIDDEN" NAME="termName">
   </form>
 <div style="margin-top: 20px"></div>
-
   <div class="pull-right form-inline">
     <div class="btn-group">
       <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
@@ -78,11 +52,8 @@
       <button class="btn btn-warning" data-calendar-view="day">Day</button>
     </div>
   </div>
-
-
   <div style="padding-top: 20px"></div>
   <div id="calendarChart"></div>
-
   <div class="modal fade" id="events-modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -99,15 +70,5 @@
     </div>
   </div>
 </div>
-<script>
-
-
-  function submitTerm(termId, termName) {
-    console.log("test");
-    document.form1.termId.value = termId;
-    document.form1.termName.value = termName;
-    form1.submit();
-  }
-</script>
 
 </body>
