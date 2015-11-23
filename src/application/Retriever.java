@@ -9,6 +9,8 @@ import jpaentities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
@@ -520,6 +522,86 @@ public class Retriever {
 			return null;
 		}
 		return returnedList;
+	}
+
+	public String getTestingCenterHourForCalender(){
+		JSONArray arrayToReturn = new JSONArray();
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenterHour t");
+			List  <TestingCenterHour> returnedList = query.getResultList();
+
+			for (TestingCenterHour element : returnedList) {
+				JSONObject hoursJson = new JSONObject();
+
+				try{
+					query = em.createQuery("SELECT c FROM ClosedDate c WHERE c.id.testingCenterId = ?1 AND c.id.closedDate = ?2 ");
+					query.setParameter(1, element.getId().getTestingCenterId());
+					query.setParameter(2, element.getId().getOpenDate());
+					ClosedDate closedDate = (ClosedDate) query.getSingleResult();
+
+
+					if(closedDate !=null){
+						hoursJson.put("class","event-warning ");
+
+
+					}else{
+						hoursJson.put("class","event-info");
+					}
+
+
+				}catch(Exception ex){
+					hoursJson.put("class","event-info");
+					System.out.println(ex.toString());
+				}
+				hoursJson.put("id",element.getId().getTestingCenterId()+"and"+element.getId().getOpenDate());
+				hoursJson.put("title","Testing Center Hours");
+				hoursJson.put("url","timeModal.jsp?testingCenterId=" + element.getId().getTestingCenterId() +"&openDate="+element.getId().getOpenDate());
+				System.out.println(element.getId().getOpenDate().getTime());
+				long startInMiliseconds = element.getId().getOpenDate().getTime() + element.getStartTime().getTime()-18000000;
+				long endInMiliseconds = element.getId().getOpenDate().getTime() +element.getEndTime().getTime()-18000000;
+				hoursJson.put("start", startInMiliseconds);
+				hoursJson.put("end", endInMiliseconds);
+				arrayToReturn.put(hoursJson);
+
+
+			}
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+		return arrayToReturn.toString();
+	}
+
+
+	public String getTestingCenterHour(String incomingDate) throws ParseException {
+		TestingCenterHour returnedList = null;
+		JSONObject hoursJson = new JSONObject();
+
+		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyy");
+
+		Date date = formatter.parse(incomingDate);
+		System.out.println(incomingDate);
+		System.out.println(date.toString());
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenterHour t WHERE t.id.openDate = ?1");
+			query.setParameter(1, date);
+			returnedList =(TestingCenterHour) query.getSingleResult();
+			long startInMiliseconds = returnedList.getId().getOpenDate().getTime() + returnedList.getStartTime().getTime()-18000000;
+			long endInMiliseconds = returnedList.getId().getOpenDate().getTime() +returnedList.getEndTime().getTime()-18000000;
+			hoursJson.put("date", date);
+			hoursJson.put("start", new Date(startInMiliseconds));
+			hoursJson.put("end", new Date(endInMiliseconds));
+			hoursJson.put("startTime", returnedList.getStartTime());
+			hoursJson.put("endTime", returnedList.getEndTime());
+
+
+		} catch(Exception e) {
+			System.out.println("Testing Center Hour date" + e.toString());
+			return null;
+		}
+
+
+		return hoursJson.toString();
 	}
 
 	public TestingCenterHour getTestingCenterHour(Date date){
