@@ -1,17 +1,15 @@
 /**
- * Created by Steve on 10/22/2015.
+ * Created by Gartusk on 11/22/2015.
  */
-
 function initiate(eventsString) {
 
-    console.log("got here");
 
     console.log(eventsString);
 
     var calendar = $('#calendarChart').calendar({
             modal : "#events-modal", modal_type : "ajax",
             tmpl_path: "../tmpls/",
-        events_source: eventsString,
+            events_source: eventsString,
             onAfterEventsLoad: function(events) {
                 if(!events) {
                     return;

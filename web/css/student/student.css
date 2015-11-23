@@ -66,6 +66,10 @@
   border-color: black;
   border-style: solid; }
 
+.generalTitle {
+  text-align: center;
+  font-size: 20px; }
+
 #appointmentTitle {
   text-align: center;
   font-size: 20px; }
@@ -89,5 +93,11 @@
   position: relative;
   top: 50%;
   left: 50%; }
+
+.modalAppointmentInfo {
+  margin-left: 50px;
+  border: 1px;
+  border-color: black;
+  border-style: solid; }
 
 /*# sourceMappingURL=student.css.map */

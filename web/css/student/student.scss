@@ -93,6 +93,11 @@ $primary-color: #375AE0;
 
 }
 
+.generalTitle{
+  text-align : center;
+  font-size: 20px
+}
+
 #appointmentTitle{
   text-align : center;
   font-size: 20px
@@ -127,7 +132,12 @@ $primary-color: #375AE0;
 
 
 
-
+.modalAppointmentInfo{
+  margin-left: 50px;
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+}
 
 
 //calender.jsp
