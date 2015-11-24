@@ -1,16 +1,13 @@
 <% String title = "Import Data"; %>
 <%@include file="adminHeader.jsp"%>
 <% logger.info("at admin's importData page");
-    String report = "<u>over 9000</u>" +
-            "<br>Utilization";
+    List<Term> terms = retriever.getTerms();
     int termId = 1158;
     String termName = "Fall 2015";
     if (request.getParameter("termId") != null) {
         termId = Integer.parseInt(request.getParameter("termId"));
         termName = request.getParameter("termName");
     }
-    report = retriever.getReportInTerm(termId);
-    request.setAttribute("report", report);
 %>
 <body>
 	<div class="container"> 
@@ -24,11 +21,10 @@
                         %>
                     </button>
                     <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-                        <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-                        <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-                        <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-                        <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-                        <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016</li>
+                        <%for(Term term : terms){
+                        %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+                        <%}
+                        %>
                     </ul>
                 </div>
             </div>
