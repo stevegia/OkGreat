@@ -443,6 +443,54 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+
+	public String getTestingCenterHourForCalender(){
+		JSONArray arrayToReturn = new JSONArray();
+		try {
+			query = em.createQuery("SELECT t FROM TestingCenterHour t");
+			List  <TestingCenterHour> returnedList = query.getResultList();
+
+			for (TestingCenterHour element : returnedList) {
+				JSONObject hoursJson = new JSONObject();
+
+				try{
+					query = em.createQuery("SELECT c FROM ClosedDate c WHERE c.id.testingCenterId = ?1 AND c.id.closedDate = ?2 ");
+					query.setParameter(1, element.getId().getTestingCenterId());
+					query.setParameter(2, element.getId().getOpenDate());
+					ClosedDate closedDate = (ClosedDate) query.getSingleResult();
+
+
+					if(closedDate !=null){
+						hoursJson.put("class","event-warning ");
+
+
+					}else{
+						hoursJson.put("class","event-info");
+					}
+
+
+				}catch(Exception ex){
+					hoursJson.put("class","event-info");
+					System.out.println(ex.toString());
+				}
+				hoursJson.put("id",element.getId().getTestingCenterId()+"and"+element.getId().getOpenDate());
+				hoursJson.put("title","Testing Center Hours");
+				hoursJson.put("url","timeModal.jsp?testingCenterId=" + element.getId().getTestingCenterId() +"&openDate="+element.getId().getOpenDate());
+				System.out.println(element.getId().getOpenDate().getTime());
+				long startInMiliseconds = element.getId().getOpenDate().getTime() + element.getStartTime().getTime()-18000000;
+				long endInMiliseconds = element.getId().getOpenDate().getTime() +element.getEndTime().getTime()-18000000;
+				hoursJson.put("start", startInMiliseconds);
+				hoursJson.put("end", endInMiliseconds);
+				arrayToReturn.put(hoursJson);
+
+
+			}
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+		return arrayToReturn.toString();
+	}
 	public TestingCenterHour getTestingCenterHour(Date date){
 		TestingCenterHour returnedList = null;
 		try {
@@ -453,6 +501,122 @@ public class Retriever {
 			return null;
 		}
 		return returnedList;
+	}
+
+	public String getReportInTerm(int termId){
+		String report="";
+		Date startDate=null;
+		Date endDate=null;
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		GregorianCalendar cal = new GregorianCalendar();
+		int classId;
+		try{
+			query = em.createQuery("SELECT t.startDate FROM Term t WHERE t.id = ?1");
+			query.setParameter(1, termId);
+			startDate = (Date) query.getSingleResult();
+			query = em.createQuery("SELECT t.endDate FROM Term t WHERE t.id = ?1");
+			query.setParameter(1, termId);
+			endDate = (Date) query.getSingleResult();
+			/* Day */
+			cal.setTime(startDate);
+			report+="<U><h3>Day</h3></U><br>";
+			while (!cal.getTime().after(endDate)) {
+				Date d = cal.getTime();
+				cal.add(Calendar.DAY_OF_YEAR, 1);
+				query = em.createQuery("SELECT COUNT(a.id) FROM Appointment a WHERE a.startDate BETWEEN ?1 AND ?2 AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED')");
+				query.setParameter(1, d, TemporalType.DATE);
+				query.setParameter(2, cal.getTime(), TemporalType.DATE);
+				long count = (long) query.getSingleResult();
+				if(count==1)
+					report+=dateFormatter.format(d)+": "+count+" appointment<br>";
+				else
+					report+=dateFormatter.format(d)+": "+count+" appointments<br>";
+			}
+			/* Week */
+			cal.setTime(startDate);
+			report+="<U><h3>Week</h3></U><br>";
+			while (!cal.getTime().after(endDate)) {
+				Date startD = cal.getTime();
+				int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+				cal.add(Calendar.DAY_OF_YEAR, 7-dayOfWeek);  //to get end date of week
+				Date endD = cal.getTime();
+				query = em.createQuery("SELECT COUNT(a.id) FROM Appointment a WHERE a.startDate BETWEEN ?1 AND ?2 AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED')");
+				query.setParameter(1, startD, TemporalType.DATE);
+				query.setParameter(2, endD, TemporalType.DATE);
+				long count = (long)query.getSingleResult();
+				if(count==1)
+					report+=dateFormatter.format(startD)+": "+count+" appointment<br>";
+				else
+					report+=dateFormatter.format(startD)+": "+count+" appointments<br>";
+
+				query = em.createQuery("SELECT DISTINCT c.id FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.startDate BETWEEN ?1 AND ?2 " +
+						"AND a.examRefinedId=e.refinedId AND e.refinedId=ce.id.examRefinedId AND ce.id.TCSClassRefinedId =c.refinedId " +
+						"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED') ORDER BY c.id ASC");
+				query.setParameter(1, startD, TemporalType.DATE);
+				query.setParameter(2, endD, TemporalType.DATE);
+				report+="&nbsp&nbsp&nbsp&nbsp&nbsp Courses: ";
+				List<Integer> courseIds = query.getResultList();
+				for(Integer id : courseIds){
+					report+=id+" ";
+				}
+				report+="<br>";
+				cal.add(Calendar.DAY_OF_YEAR, 1);
+			}
+
+			/* Term */
+			report+="<U><h3>Term</h3></U><br>";
+			query = em.createQuery("SELECT DISTINCT c.id FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.termId = ?1 " +
+					"AND a.examRefinedId=e.refinedId AND e.refinedId=ce.id.examRefinedId AND ce.id.TCSClassRefinedId =c.refinedId " +
+					"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED') ORDER BY c.id ASC");
+			query.setParameter(1, termId);
+			query.getResultList();
+			report+="Courses: ";
+			List<Integer> courseIds = query.getResultList();
+			for(Integer id : courseIds){
+				report+=id+" ";
+			}
+			report+="<br>";
+			return report;
+		}catch(Exception ex){
+			return ex.toString();
+		}
+	}
+	public String getReportBetweenTerms(int termId1, int termId2){
+		String report="";
+		Date startDate1=null;
+		Date startDate2=null;
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date d=null;
+		try{
+			query = em.createQuery("SELECT t.startDate FROM Term t WHERE t.id = ?1");
+			query.setParameter(1, termId1);
+			startDate1 = (Date) query.getSingleResult();
+			query = em.createQuery("SELECT t.startDate FROM Term t WHERE t.id = ?1");
+			query.setParameter(1, termId2);
+			startDate2 = (Date) query.getSingleResult();
+			if((startDate1.after(startDate2))){  //swap end and start if needed
+				d = startDate1;
+				startDate1 = startDate2;
+				startDate2 = d;
+			}
+			query = em.createQuery("SELECT t.id FROM Term t WHERE t.startDate >= ?1 AND t.startDate <= ?2 ORDER BY t.id ASC");  //get termIds of all terms in range
+			query.setParameter(1, startDate1);
+			query.setParameter(2, startDate2);
+			List<Integer> termIds = query.getResultList();
+			for(Integer id : termIds){
+				query = em.createQuery("SELECT COUNT(a.id) FROM Appointment a WHERE a.termId = ?1 AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED')");
+				query.setParameter(1, id);
+				long count = (long) query.getSingleResult();
+				if(count==1)
+					report+="Term "+ id+": "+count+" Appointments<br>";
+				else
+					report+="Term "+ id+": "+count+" Appointments<br>";
+			}
+			return report;
+
+		}catch(Exception ex){
+			return ex.toString();
+		}
 	}
 }
 

@@ -82,7 +82,7 @@ public class Administrator extends TCSUser {
         long seatsAvailable = retriever.seatsAvailable(apptStartDate);
 
         int seatNumber = 1;
-        
+
         if (typeOfSeat.equals("Regular")) {
             // There are no available regular seats to satisfy the appointment
             if (seatsAvailable >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats())
