@@ -22,7 +22,7 @@
     //This code runs to switch info depeding on term
     if (request.getParameterNames() != null && request.getParameter("termId") != null) {
         int term = Integer.parseInt(request.getParameter("termId"));
-        examList = retriever.getExamsInTermString(user.getNetId(), term);
+        examList = retriever.getExamsInTermString(request.getRemoteUser(), term);
         request.setAttribute("examList", examList);
     }
 %>

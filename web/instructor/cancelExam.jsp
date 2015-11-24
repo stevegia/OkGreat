@@ -9,12 +9,13 @@
   FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
   SimpleFormatter formatter = new SimpleFormatter();
   fileHandler.setFormatter(formatter);
-  logger.addHandler(fileHandler););
+  logger.addHandler(fileHandler);
   logger.info("at instructor's cancelExam");
   // use this apptId to link back to the appointment in the database
   String examRefinedId = request.getParameter("ExamRefinedId");
-  Instructor user = (Instructor) session.getAttribute("user");
-  user.cancelExam(examRefinedId);
+  Retriever retriever = Retriever.getInstance();
+  Instructor instructor = new Instructor(retriever.getUser(request.getRemoteUser()));
+  instructor.cancelExam(examRefinedId);
   logger.info("Exam "+ examRefinedId+" cancelled");
   response.sendRedirect("pendingRequests.jsp");
 %>

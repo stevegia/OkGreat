@@ -574,6 +574,17 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+	public TCSUser getUser(String netid){
+		query = em.createQuery("SELECT u FROM TCSUser u WHERE u.netId = ?1");
+		query.setParameter(1, netid);
+
+
+
+		TCSUser user = (TCSUser) query.getSingleResult();
+		return user;
+	}
+
+
 	public String getReportInTerm(int termId){
 		String report="";
 		Date startDate=null;
