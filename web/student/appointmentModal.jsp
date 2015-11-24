@@ -1,19 +1,27 @@
 <%@ page import="application.Retriever" %>
 <%--
   Created by IntelliJ IDEA.
-  User: Steve Gia
+  User: Gartusk
   Date: 11/22/2015
   Time: 12:11 AM
   To change this template use File | Settings | File Templates.
 --%>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
     Retriever retriever = Retriever.getInstance();
     String x = (String) request.getParameter("id");
     System.out.println(x);
     String examInfo = retriever.getExamByIdString(x);
+
+
 %>
+<html>
+
 <body>
+
 <div class="container-fluid">
     <div style="margin-left:20px"></div>
     <div class="row">
@@ -66,42 +74,64 @@
 
                     <div class="container-fluid">
                         <div style="padding-top: 20px"></div>
-                        <div class="row">
-                            <div id="cancel"></div>
-                        </div>
+                        <div class="row"><div id="cancel"></div></div>
                         <div style="padding-bottom: 20px"></div>
+                  <!--
+                        <div style="padding-top: 20px"></div>
+                        <div class="row"><div id="edit"></div></div>
+                        <div style="padding-top: 20px"></div>
+                        <div class="row"><div id="checkin"></div></div>
+                        <div style="padding-top: 20px"></div>
                     </div>
-                </div>
+-->
+
+
+
+            </div>
+
+            </div>
 
             </div>
         </div>
     </div>
-</div>
 </body>
 
-<script>
+            <script>
 
-    loadResults('<%=examInfo%>');
+                loadResults('<%=examInfo%>');
 
-    function loadResults(examInfo) {
+                function loadResults(examInfo) {
 
-        var exam = JSON.parse(decodeURI(examInfo));
-        console.log(exam);
-        console.log("exam");
+                    var exam = JSON.parse(decodeURI(examInfo));
+                    console.log(exam);
+                    console.log("exam");
 
-        $("#appointmentTitle").html(exam.examName);
-        $("#class").html(exam.subject + " " + exam.catalogNumber);
-        $("#section").html(exam.section);
-        $("#status").html(exam.appointmentStatus);
-        $("#start").html(exam.startDate);
-        $("#end").html(exam.endDate);
-        $("#examTime").html(exam.duration);
-        $("#seatNumber").html(exam.seatNumber);
-        $("#netId").html(exam.instructorNetId);
-        console.log(exam.id);
 
-        var cancelButtonToAdd = "<input value='Cancel Appointment' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22cancelAppointment.jsp?AppointmentId=" + exam.id + "\x22, \x22_self\x22);'>";
 
-        $("#cancel").html(cancelButtonToAdd);
-    }
-</script>
+                    $("#appointmentTitle").html(exam.examName);
+                    $("#class").html(exam.subject + " " + exam.catalogNumber);
+                    $("#section").html(exam.section);
+                    $("#status").html(exam.appointmentStatus);
+                    $("#start").html(exam.startDate);
+                    $("#end").html(exam.endDate);
+                    $("#examTime").html(exam.duration);
+                    $("#seatNumber").html(exam.seatNumber);
+                    $("#netId").html(exam.instructorNetId);
+                    console.log(exam.id);
+
+                    var cancelButtonToAdd = "<input value='Cancel Appointment' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22cancelAppointment.jsp?AppointmentId="+exam.id+"\x22, \x22_self\x22);'>";
+                //    var editButtonToAdd = "<input value='Edit Appointment' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22editAppointment.jsp?AppointmentId="+exam.id+"\x22, \x22_self\x22);'>";
+                //    var checkinButtonToAdd = "<input value='Check In' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22checkInStudent.jsp?AppointmentId="+exam.id+"\x22, \x22_self\x22);'>";
+
+
+
+                    $("#cancel").html(cancelButtonToAdd);
+                //    $("#edit").html(editButtonToAdd);
+                 //   $("#checkin").html(checkinButtonToAdd);
+
+
+                }
+                </script>
+
+
+</html>

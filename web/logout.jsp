@@ -4,5 +4,5 @@
     logger.info("logging out");
     session.removeAttribute("user");
 	session.invalidate();
-    response.sendRedirect("logon.jsp");
+    response.sendRedirect("index.jsp");
 %>
