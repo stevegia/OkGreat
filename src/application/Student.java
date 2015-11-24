@@ -84,8 +84,9 @@ public class Student extends TCSUser {
 				if (count == 0) return false;
 			}
 
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.examRefinedId = ?1");
-			query.setParameter(1, examRefinedId);
+			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND a.examRefinedId = ?2");
+			query.setParameter(1, netId);
+			query.setParameter(2, examRefinedId);
 			count = (long) query.getSingleResult();
 			// Student already has an appointment for the exam
 			if (count > 0) return false;
