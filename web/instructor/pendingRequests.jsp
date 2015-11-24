@@ -8,9 +8,9 @@
     logger.addHandler(fileHandler);
     logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
-    TCSUser user = (TCSUser) session.getAttribute("user");
 
-    String examList = retriever.getExamsInTermString(user.getNetId(), 1158);
+
+    String examList = retriever.getExamsInTermString(request.getRemoteUser(), 1158);
     request.setAttribute("examList", examList);
     if (request.getParameter("termId") == null) {
         request.setAttribute("termId", 1158);

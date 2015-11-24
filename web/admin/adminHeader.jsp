@@ -89,7 +89,7 @@
 
             </ul>
             <ul class="nav navbar-right logout">
-               <li><a class="logout" href="../index.jsp">Logout</a></li>
+               <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </ul>
 
         </div><!-- /.navbar-collapse -->
