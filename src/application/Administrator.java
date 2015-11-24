@@ -21,7 +21,7 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public class Administrator extends TCSUser {
-	
+
 	/**
 	 * Default constructor
 	 */

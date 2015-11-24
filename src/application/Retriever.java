@@ -320,7 +320,25 @@ public class Retriever {
         	return null;
         }
 	}
+	/**
+	 * Queries the database for a TCSUser object with specified netId and password.
+	 * @param netId
+	 * @return the TCSUser matching the parameters if present or null if not present
+	 */
+	public TCSUser getUser(String netId) {
+		try {
+			query = em.createQuery("SELECT t FROM TCSUser t WHERE t.netId = ?1");
+			query.setParameter(1, netId);
 
+			System.out.println(netId);
+
+			// user exists in database
+			return (TCSUser) query.getSingleResult();
+		} catch(Exception e) {
+			// user not found in database
+			return null;
+		}
+	}
 	public Appointment testGetAppointment(){
 		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
 		query.setParameter(1, 0);

@@ -85,11 +85,9 @@
                 <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>
                 <li id="importData"><a href="importData.jsp">Import Data</a></li>
 
-
-
             </ul>
             <ul class="nav navbar-right logout">
-               <li><a class="logout" href="../index.jsp">Logout</a></li>
+               <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </ul>
 
         </div><!-- /.navbar-collapse -->
