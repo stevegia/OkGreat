@@ -331,7 +331,7 @@ public class Retriever {
 	 * @return true if there are seats available, false otherwise
 	 */
 	public long seatsAvailable(Date apptStartDate) {
-		query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE ?1 BETWEEN a.startDate AND a.endDate");
+		query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND ?1 BETWEEN a.startDate AND a.endDate");
 		query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
 		return (long) query.getSingleResult();
 	}
