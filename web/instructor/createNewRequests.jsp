@@ -1,6 +1,7 @@
 <% String title = "Create New Requests";%>
 <%@include file="instructorHeader.jsp"%>
-
+<% List<Term> terms = retriever.getTerms();
+%>
 <body>
 
 
@@ -14,10 +15,10 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <li><a href="#">Spring 2016</a></li>
-      <li><a href="#">Spring 2015</a></li>
-      <li><a href="#">Fall 2014</a></li>
-
+      <%for(Term term : terms){
+      %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+      <%}
+      %>
     </ul>
   </div>
 

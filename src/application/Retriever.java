@@ -634,7 +634,6 @@ public class Retriever {
 		Date endDate=null;
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		GregorianCalendar cal = new GregorianCalendar();
-		int classId;
 		try{
 			query = em.createQuery("SELECT t.startDate FROM Term t WHERE t.id = ?1");
 			query.setParameter(1, termId);
@@ -674,32 +673,34 @@ public class Retriever {
 				else
 					report+=dateFormatter.format(startD)+": "+count+" appointments<br>";
 
-				query = em.createQuery("SELECT DISTINCT c.id FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.startDate BETWEEN ?1 AND ?2 " +
+				query = em.createQuery("SELECT DISTINCT c.subject, c.catalogNumber, c.section FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.startDate BETWEEN ?1 AND ?2 " +
 						"AND a.examRefinedId=e.refinedId AND e.refinedId=ce.id.examRefinedId AND ce.id.TCSClassRefinedId =c.refinedId " +
-						"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED') ORDER BY c.id ASC");
+						"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED')");
 				query.setParameter(1, startD, TemporalType.DATE);
 				query.setParameter(2, endD, TemporalType.DATE);
 				report+="&nbsp&nbsp&nbsp&nbsp&nbsp Courses: ";
-				List<Integer> courseIds = query.getResultList();
-				for(Integer id : courseIds){
-					report+=id+" ";
+				List<Object[]> courseInfos = query.getResultList();
+				for(Object[] courseInfo : courseInfos) {
+					report+=(String) courseInfo[0]+courseInfo[1]+courseInfo[2]+"_"+termId+", ";
 				}
+				report=report.substring(0, report.length()-2);    //remove final ", "
 				report+="<br>";
 				cal.add(Calendar.DAY_OF_YEAR, 1);
 			}
 
 			/* Term */
 			report+="<U><h3>Term</h3></U><br>";
-			query = em.createQuery("SELECT DISTINCT c.id FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.termId = ?1 " +
+			query = em.createQuery("SELECT DISTINCT c.subject, c.catalogNumber, c.section FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.termId = ?1 " +
 					"AND a.examRefinedId=e.refinedId AND e.refinedId=ce.id.examRefinedId AND ce.id.TCSClassRefinedId =c.refinedId " +
 					"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED') ORDER BY c.id ASC");
 			query.setParameter(1, termId);
 			query.getResultList();
 			report+="Courses: ";
-			List<Integer> courseIds = query.getResultList();
-			for(Integer id : courseIds){
-				report+=id+" ";
+			List<Object[]> courseInfos = query.getResultList();
+			for(Object[] courseInfo : courseInfos) {
+				report+=(String) courseInfo[0]+courseInfo[1]+courseInfo[2]+"_"+termId+", ";
 			}
+			report=report.substring(0, report.length()-2);    //remove final ", "
 			report+="<br>";
 			return report;
 		}catch(Exception ex){
@@ -741,6 +742,14 @@ public class Retriever {
 
 		}catch(Exception ex){
 			return ex.toString();
+		}
+	}
+	public List<Term> getTerms() {
+		try {
+			query = em.createQuery("SELECT t FROM Term t");
+			return query.getResultList();
+		} catch(Exception e) {
+			return null;
 		}
 	}
 }

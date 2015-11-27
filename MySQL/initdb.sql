@@ -75,6 +75,7 @@ CREATE TABLE TCSClass (
 	FOREIGN KEY (InstructorNetId)
 		REFERENCES TCSUser (NetId)
 );
+INSERT INTO TCSClass VALUES (1, 1, 1, 'Cheese', 1, 'DNE', 'instr', 1);
 
 /* Query for importing information from class.csv */
 /*LOAD DATA LOCAL INFILE 'C:/Users/Haseeb/Desktop/class.csv'
@@ -139,6 +140,12 @@ CREATE TABLE TestingCenterHours (
 		REFERENCES TestingCenter (Id)
 		ON DELETE CASCADE
 );
+INSERT INTO TestingCenterHours VALUES (1, '2015-08-28', '00:00:00', '23:00:00', 1);
+INSERT INTO TestingCenterHours VALUES (1, '2015-08-29', '00:00:00', '23:00:00', 1);
+INSERT INTO TestingCenterHours VALUES (1, '2015-08-30', '00:00:00', '23:00:00', 1);
+INSERT INTO TestingCenterHours VALUES (1, '2015-11-28', '00:00:00', '23:00:00', 1);
+INSERT INTO TestingCenterHours VALUES (1, '2015-11-29', '00:00:00', '23:00:00', 1);
+
 
 /* Table for the dates in which the testing center is closed */
 CREATE TABLE ClosedDates (
@@ -176,7 +183,7 @@ CREATE TABLE Exam (
 	FOREIGN KEY (TermId)
 		REFERENCES Term (Id)
 );
-
+INSERT INTO Exam VALUES (1, 1, 'COURSE', 'instr', 'Sup', 1, 5, 6, 'APPROVED', '2015-08-24', '2015-12-16', 77, 1158, 1);
 /* Table for course exam information */
 CREATE TABLE CourseExam (
 	ExamRefinedId CHAR(20) NOT NULL,
@@ -190,7 +197,7 @@ CREATE TABLE CourseExam (
 		REFERENCES TCSClass (RefinedId)
 		ON DELETE CASCADE
 );
-
+INSERT INTO CourseExam VALUES (1, 1, 1);
 /* Table for Ad-Hoc Exam information.
 Since Ad-Hoc Exams require a list of students, each student is a tuple in this table */
 CREATE TABLE AdHocExam (
@@ -231,5 +238,8 @@ CREATE TABLE Appointment (
 		REFERENCES TestingCenter (Id)
         ON DELETE CASCADE,
 	FOREIGN KEY (TermId)
-		REFERENCES Term (Id)
-);
+		REFERENCES Term (Id));
+INSERT INTO Appointment (Id, StudentNetId, StartDate, EndDate, ExamRefinedId, TestingCenterId, AppointmentStatus, TermId, SeatNumber, Version)
+VALUES (1, 'student', '2015-08-28 00:00:00', '2015-12-02 00:00:00', 1, 1, 'APPROVED', 1158, 1, 1);
+INSERT INTO Appointment (Id, StudentNetId, StartDate, EndDate, ExamRefinedId, TestingCenterId, AppointmentStatus, TermId, SeatNumber, Version)
+VALUES (2, 'student', '2015-08-30 00:00:00', '2015-10-02 00:00:00', 1, 1, 'APPROVED', 1158, 1, 1);
