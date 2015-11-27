@@ -18,6 +18,7 @@ public class CourseExamPK implements Serializable {
 
 	public CourseExamPK() {
 	}
+
 	public String getExamRefinedId() {
 		return this.examRefinedId;
 	}

@@ -491,22 +491,17 @@ public class Retriever {
 
 			for (TestingCenterHour element : returnedList) {
 				JSONObject hoursJson = new JSONObject();
-
 				try{
 					query = em.createQuery("SELECT c FROM ClosedDate c WHERE c.id.testingCenterId = ?1 AND c.id.closedDate = ?2 ");
 					query.setParameter(1, element.getId().getTestingCenterId());
 					query.setParameter(2, element.getId().getOpenDate());
 					ClosedDate closedDate = (ClosedDate) query.getSingleResult();
 
-
 					if(closedDate !=null){
 						hoursJson.put("class","event-warning ");
-
-
 					}else{
 						hoursJson.put("class","event-info");
 					}
-
 
 				}catch(Exception ex){
 					hoursJson.put("class","event-info");
@@ -577,9 +572,6 @@ public class Retriever {
 	public TCSUser getUser(String netid){
 		query = em.createQuery("SELECT u FROM TCSUser u WHERE u.netId = ?1");
 		query.setParameter(1, netid);
-
-
-
 		TCSUser user = (TCSUser) query.getSingleResult();
 		return user;
 	}
@@ -663,6 +655,7 @@ public class Retriever {
 			return ex.toString();
 		}
 	}
+
 	public String getReportBetweenTerms(int termId1, int termId2){
 		String report="";
 		Date startDate1=null;
@@ -700,6 +693,9 @@ public class Retriever {
 			return ex.toString();
 		}
 	}
+
+
+
 }
 
 

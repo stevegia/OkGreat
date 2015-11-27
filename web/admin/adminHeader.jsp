@@ -25,6 +25,8 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/underscore.js"></script>
     <script type="text/javascript" src="../js/calendar.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.standalone.min.css">
     <link rel="stylesheet" href="../css/calendar.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/admin/admin.css">
@@ -35,9 +37,7 @@
 
     window.onload = function(){
         var header = $("#header");
-        console.log("#header");
-        console.log(header);
-        console.log(header.html());
+
         if(header.html() == "Testing Center Information"){
             header.attr("class","testingCenterInformationHeader",true);
         }

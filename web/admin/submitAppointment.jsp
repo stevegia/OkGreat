@@ -4,7 +4,7 @@
 <%
     logger.info("Now at the aubmitAppointments.jsp file from the makeAppointments.jsp file");
 
-    Administrator admin = (Administrator) session.getAttribute("user");
+    Administrator admin = new Administrator(retriever.getUser(request.getRemoteUser()));
     String studentNetId = request.getParameter("studentNetId");
     String examRefinedId = request.getParameter("examRefinedId");
     String typeOfSeat = request.getParameter("seatRadio");

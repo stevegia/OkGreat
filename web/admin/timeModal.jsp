@@ -11,14 +11,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-  Retriever retriever = Retriever.getInstance();
-  String testingCenterId = (String) request.getParameter("testingCenterId");
-  String openDate = (String) request.getParameter("openDate");
-  System.out.println(testingCenterId);
+    Retriever retriever = Retriever.getInstance();
+    String testingCenterId = (String) request.getParameter("testingCenterId");
+    String openDate = (String) request.getParameter("openDate");
+    System.out.println(testingCenterId);
 
-  String dateInfo = retriever.getTestingCenterHour(openDate);
-
-
+    String dateInfo = retriever.getTestingCenterHour(openDate);
 
 
 %>
@@ -31,20 +29,16 @@
 <div id="startTime"></div>
 <div>End:</div>
 <div id="endTime"></div>
-<div style ="margin-top: 20px"></div>
+<div style="margin-top: 20px"></div>
 
 <form NAME="form1" action="editTestingCenterHour.jsp" method="post">
-  <INPUT TYPE="HIDDEN" NAME="date">
-  Start Time:<input name="starttime" type="text" class="form-control" placeholder=""
-         value="Start Time" required>
-  End Time:<input name="endtime" type="text" class="form-control" placeholder=""
-         value="End Time" required>
-  <input type="submit" value="Submit"/>
+    <INPUT TYPE="HIDDEN" NAME="date">
+    Start Time:<input name="starttime" type="text" class="form-control" placeholder=""
+                      value="Start Time" required>
+    End Time:<input name="endtime" type="text" class="form-control" placeholder=""
+                    value="End Time" required>
+    <input type="submit" value="Submit"/>
 </form>
-
-
-
-
 
 <body>
 
@@ -53,34 +47,33 @@
 <script>
 
 
-  dateInfoPersistent =  loadResults('<%=dateInfo%>');
+    dateInfoPersistent = loadResults('<%=dateInfo%>');
 
-  function loadResults(dateInfo) {
-
-
-
-    var dateInfo = JSON.parse(decodeURI(dateInfo));
+    function loadResults(dateInfo) {
 
 
-    $("#startTime").html(dateInfo.start);
-    $("#endTime").html(dateInfo.end);
-
-    document.form1.date.value = dateInfo.date;
-    document.form1.starttime.value = dateInfo.startTime;
-    document.form1.endtime.value = dateInfo.endTime;
-
-    console.log(dateInfo);
-
-  return dateInfo;
-  }
+        var dateInfo = JSON.parse(decodeURI(dateInfo));
 
 
-  function submitHours(){
+        $("#startTime").html(dateInfo.start);
+        $("#endTime").html(dateInfo.end);
+
+        document.form1.date.value = dateInfo.date;
+        document.form1.starttime.value = dateInfo.startTime;
+        document.form1.endtime.value = dateInfo.endTime;
+
+        console.log(dateInfo);
+
+        return dateInfo;
+    }
 
 
-    form1.submit();
+    function submitHours() {
 
-  }
+
+        form1.submit();
+
+    }
 
 
 </script>

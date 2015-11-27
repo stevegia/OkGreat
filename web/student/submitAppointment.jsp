@@ -4,7 +4,7 @@
 <%
 	logger.info("Now at the aubmitAppointments.jsp file from the make.jsp file");
 
-	Student student = (Student) session.getAttribute("user");
+	Student student = new Student(retriever.getUser(request.getRemoteUser()));
 	String examRefinedId = request.getParameter("examRefinedId");
 	String apptDatetime = request.getParameter("appointmentDatetime");
 	boolean apptSuccessful = student.makeAppointment(student.getNetId(), examRefinedId, apptDatetime);
