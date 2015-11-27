@@ -15,8 +15,8 @@
 
 <%
     logger.info("Now at the appointments.jsp page");
-
-    Administrator admin = new Administrator(retriever.getUser(request.getRemoteUser()));
+    List<Term> terms = retriever.getTerms();
+    Administrator admin = (Administrator) session.getAttribute("user");
     String appointmentsList = retriever.getAppointmentsInTermString(1158);
     request.setAttribute("appointmentsList", appointmentsList);
     if (request.getParameter("termId") == null) {
@@ -49,11 +49,10 @@
             } %>
         </button>
         <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-            <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-            <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-            <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-            <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-            <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
+            <%for(Term term : terms){
+            %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+            <%}
+            %>
         </ul>
     </div>
 </div>

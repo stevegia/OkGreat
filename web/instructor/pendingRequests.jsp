@@ -1,6 +1,3 @@
-<%@ page import="jpaentities.TCSUser" %>
-<%@ page import="jpaentities.Exam" %>
-<%@ page import="java.util.List" %>
 <% String title = "Exams";%>
 <%@include file="instructorHeader.jsp"%>
 
@@ -9,7 +6,7 @@
     logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
 
-
+    List<Term> terms = retriever.getTerms();
     String examList = retriever.getExamsInTermString(request.getRemoteUser(), 1158);
     request.setAttribute("examList", examList);
     if (request.getParameter("termId") == null) {
@@ -42,11 +39,10 @@
             } %>
         </button>
         <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-            <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-            <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-            <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-            <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-            <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
+            <%for(Term term : terms){
+            %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+            <%}
+            %>
         </ul>
     </div>
 </div>

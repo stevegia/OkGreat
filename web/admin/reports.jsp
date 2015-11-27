@@ -1,6 +1,7 @@
 <% String title = "Reports"; %>
 <%@include file="adminHeader.jsp"%>
 <% logger.info("at admin's report page");
+    List<Term> terms = retriever.getTerms();
     String report = "<u>over 9000</u>" +
             "<br>Utilization";
     int termId = 1158;
@@ -27,11 +28,10 @@
                 %>
             </button>
             <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-                <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-                <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-                <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-                <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-                <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016</li>
+                <%for(Term term : terms){
+                %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+                <%
+                }%>
                 <a href="reportsRange.jsp">
                     <li>Range of Terms</li>
                 </a>

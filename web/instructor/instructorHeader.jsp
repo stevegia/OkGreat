@@ -3,6 +3,9 @@
 <%@ page import="java.util.logging.Logger" %>
 <%@ page import="java.util.logging.SimpleFormatter" %>
 <%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="jpaentities.*" %>
+<%@ page import="java.util.List" %>
+
 <%
   Logger logger=Logger.getLogger(this.getClass().getName());
   FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
