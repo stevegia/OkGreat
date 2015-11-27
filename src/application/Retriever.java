@@ -107,7 +107,7 @@ public class Retriever {
 					appointmentJson.put("startDate",exam.getStartDate().toString());
 					appointmentJson.put("endDate",exam.getEndDate().toString());
 					appointmentJson.put("examStatus",exam.getExamStatus());
-					appointmentJson.put("duration",exam.getDurationInHours())
+					appointmentJson.put("duration",exam.getDuration())
 					*/
 					try{
 						CourseExam courseExam = new CourseExam();
@@ -210,7 +210,7 @@ public class Retriever {
 					appointmentJson.put("startDate",exam.getStartDate().toString());
 					appointmentJson.put("endDate",exam.getEndDate().toString());
 					appointmentJson.put("examStatus",exam.getExamStatus());
-					appointmentJson.put("duration",exam.getDurationInHours())
+					appointmentJson.put("duration",exam.getDuration())
 					*/
 					try{
 						CourseExam courseExam = new CourseExam();
