@@ -1,15 +1,15 @@
 <% String title = "Submit Appointment";%>
-<%@ page import="application.*"%>
+<%@ page import="application.Administrator" %>
 <%@include file="adminHeader.jsp" %>
 <%
-    logger.info("Now at the aubmitAppointments.jsp file from the makeAppointments.jsp file");
-
     Administrator admin = (Administrator) session.getAttribute("user");
-    String studentNetId = request.getParameter("studentNetId");
-    String examRefinedId = request.getParameter("examRefinedId");
-    String typeOfSeat = request.getParameter("seatRadio");
-    String apptDatetime = request.getParameter("appointmentDatetime");
-    boolean apptSuccessful = admin.makeAppointment(studentNetId, examRefinedId, apptDatetime, typeOfSeat);
+
+    String studentNetId = (String) session.getAttribute("studentNetId");
+    String examRefinedId = (String) session.getAttribute("examRefinedId");
+    String typeOfSeat = (String) session.getAttribute("typeOfSeat");
+    String formattedDate = request.getParameter("apptDate");
+
+    boolean apptSuccessful = admin.makeAppointment(studentNetId, examRefinedId, formattedDate, typeOfSeat);
 
     if (apptSuccessful) {
         logger.info("Making appointment was a success, returning to appointments.jsp...");

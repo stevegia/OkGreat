@@ -252,7 +252,7 @@ public class Retriever {
 
 	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
 		try {
-			query = em.createQuery("SELECT a FROM Appointment a WHERE a.startDate BETWEEN ?1 AND ?2");
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 AND ?2");
 			query.setParameter(1, date1, TemporalType.TIMESTAMP);
 			query.setParameter(2, date2, TemporalType.TIMESTAMP);
 

@@ -86,7 +86,7 @@ public class Validator {
      */
     public boolean noExistingAppointmentForExam(String netId, String examRefinedId) {
         try {
-            query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND a.examRefinedId = ?2");
+            query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND a.examRefinedId = ?2 AND a.appointmentStatus <> 'CANCELLED'");
             query.setParameter(1, netId);
             query.setParameter(2, examRefinedId);
             long count = (long) query.getSingleResult();
@@ -98,33 +98,20 @@ public class Validator {
     }
 
     /**
-     * Checks to see if student already has an appointment at specified date
-     * @param netId
+     * Checks to see if there is already an appointment at specified date
      * @param apptStartDate
-     * @return true if student has no overlapping appointments, false otherwise
+     * @return true if there are no overlapping appointments, false otherwise
      */
-    public boolean noOverlappingAppointments(String netId, Date apptStartDate) {
+    public boolean noOverlappingAppointments(Date apptStartDate) {
         try {
-            query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND ?2 BETWEEN a.startDate AND a.endDate");
-            query.setParameter(1, netId);
-            query.setParameter(2, apptStartDate, TemporalType.TIMESTAMP);
+            query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND ?1 BETWEEN a.startDate AND a.endDate");
+            query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
             long count = (long) query.getSingleResult();
             return !(count > 0);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-    }
-
-    /**
-     * Checks to see if entire duration of appointment is within time period exam is active
-     * @param apptStartDate
-     * @param apptEndDate
-     * @param exam
-     * @return true if appointment is within exam's bounds, false otherwise
-     */
-    public boolean isAppointmentWithinExamTime(Date apptStartDate, Date apptEndDate, Exam exam) {
-        return !(apptStartDate.before(exam.getStartDate()) || apptEndDate.after(exam.getEndDate()));
     }
 
 }

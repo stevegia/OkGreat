@@ -9,10 +9,9 @@ import jpaentities.TCSUser;
 import jpaentities.TestingCenter;
 import utils.Constants;
 
-import javax.persistence.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -61,31 +60,15 @@ public class Student extends TCSUser {
 	 * @return true if appointment was successfully made, false otherwise
 	 */
 	public boolean makeAppointment(String netId, String examRefinedId, String apptDatetime) {
-		Validator validator = Validator.getInstance();
-
-		if (!validator.eligibleForExam(netId, examRefinedId)) return false;
-		if (!validator.noExistingAppointmentForExam(netId, examRefinedId)) return false;
-
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date apptStartDate = null;
-		try {
-			apptStartDate = dateFormatter.parse(apptDatetime);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return false;
-		}
-		if (!validator.noOverlappingAppointments(netId, apptStartDate)) return false;
-
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(apptStartDate);
-
 		Retriever retriever = Retriever.getInstance();
 		Exam exam = retriever.getExam(examRefinedId);
 		TestingCenter testingCenter = Retriever.getTestingCenter();
-		calendar.add(Calendar.MINUTE, exam.getDuration() + testingCenter.getGapTime());
-		Date apptEndDate = calendar.getTime();
 
-		if (!validator.isAppointmentWithinExamTime(apptStartDate, apptEndDate, exam)) return false;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime startLdt = LocalDateTime.parse(apptDatetime, formatter);
+		LocalDateTime endLdt = startLdt.plusMinutes(exam.getDuration() + testingCenter.getGapTime());
+		Date apptStartDate = Date.from(startLdt.atZone(ZoneId.systemDefault()).toInstant());
+		Date apptEndDate = Date.from(endLdt.atZone(ZoneId.systemDefault()).toInstant());
 
 		long seatsAvailable = retriever.seatsAvailable(apptStartDate);
 		if (seatsAvailable >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
@@ -100,6 +83,15 @@ public class Student extends TCSUser {
 						break;
 				}
 				seatNumber++;
+			}
+
+			if (seatNumber > testingCenter.getNumberOfSeats()) {
+				seatNumber = 1;
+				for (Appointment appointment : appointments) {
+					if (appointment.getSeatNumber() != seatNumber)
+						break;
+					seatNumber++;
+				}
 			}
 		}
 
