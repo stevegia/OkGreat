@@ -168,7 +168,7 @@
             var buttonToAdd = "<input value='Cancel Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
 
             $("#cancel").html(buttonToAdd);
-
+            $("#studentAppointments").empty();
            for(var i = 0; i<dataToUpdate.appointments.length; i++){
 
                var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";

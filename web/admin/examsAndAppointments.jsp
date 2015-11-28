@@ -173,7 +173,7 @@
 
             $("#approve").html(buttonToAdd1);
             $("#deny").html(buttonToAdd2);
-
+            $("#studentAppointments").empty();
             for(var i = 0; i<dataToUpdate.appointments.length; i++){
 
                 var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";

@@ -25,10 +25,10 @@
     if(coursetoggle!=null && coursetoggle.equals("on")){
 
         boolean possible = instructor.makeCourseRequest(testname,courseidentifier,section,startTime,endTime,startDate,endDate,term,course,request.getRemoteUser(),duration);
-        if(possible==true){
+        if(possible){
             response.sendRedirect("createNewRequests.jsp");
         }else{
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("../error.jsp");
         }
 
 
@@ -46,10 +46,12 @@
 
 
             boolean possible = instructor.makeAdhocRequest(testname, courseidentifier, section, startTime, endTime, startDate, endDate, term, course, request.getRemoteUser(), duration, totalStudent, netid, firstname, lastname);
-            if(possible==true){
+
+            if(possible){
                 response.sendRedirect("createNewRequests.jsp");
             }else{
-                response.sendRedirect("error.jsp");
+                System.out.println(possible);
+                response.sendRedirect("../error.jsp");
             }
         }
     }
