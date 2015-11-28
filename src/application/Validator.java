@@ -1,8 +1,13 @@
 package application;
 
 import jpaentities.Exam;
+import jpaentities.TestingCenter;
+import sun.reflect.annotation.ExceptionProxy;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -112,6 +117,33 @@ public class Validator {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * Checks to see if there are enough seats in the testing center to hold the exma
+     * @param exam
+     * @return true if there are enough seats, false otherwise
+     */
+    public boolean isSchedulable(Exam exam) {
+        LocalDate start = exam.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate end = exam.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int daysActive = (int) ChronoUnit.DAYS.between(start, end);
+
+        TestingCenter testingCenter = Retriever.getTestingCenter();
+        int totalSeats = daysActive * (testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats());
+
+        long seatsUnavailable;
+        try {
+            query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 and ?2");
+            query.setParameter(1, exam.getStartDate(), TemporalType.TIMESTAMP);
+            query.setParameter(2, exam.getEndDate(), TemporalType.TIMESTAMP);
+            seatsUnavailable = (long) query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return exam.getNumberOfStudents() <= totalSeats - (int) seatsUnavailable;
     }
 
 }

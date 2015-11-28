@@ -6,7 +6,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
-
 /**
  * The persistent class for the appointment database table.
  * 

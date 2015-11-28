@@ -120,7 +120,9 @@ public class Administrator extends TCSUser {
         Appointment appointment =
                 new Appointment("PENDING", apptEndDate, examRefinedId, seatNumber, apptStartDate, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
         retriever.persist(appointment);
-
+        // increment number of appointments made for exam
+        exam.setNumberOfAppointments(1 + exam.getNumberOfAppointments());
+        retriever.persist(exam);
         return true;
 
     }
