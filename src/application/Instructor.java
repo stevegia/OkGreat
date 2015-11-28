@@ -86,7 +86,7 @@ public class Instructor extends TCSUser {
 
 		int numberOfStudents = 30;
 		Validator validator = Validator.getInstance();
-		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents);
+		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents,durationInt);
 
 		if(possible){
 
@@ -135,7 +135,8 @@ public class Instructor extends TCSUser {
 		int termInt = Integer.parseInt(term);
 
 		Validator validator = Validator.getInstance();
-		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents);
+		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents,durationInt);
+
 
 
 		if(possible){

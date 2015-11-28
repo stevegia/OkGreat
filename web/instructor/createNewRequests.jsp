@@ -12,7 +12,7 @@
                     <div class="col-md-5">Test Type:</div>
                     <div class="col-md-5">
                         <div class="checkbox-inline">
-                            <label><input type="checkbox" name="coursetog" onchange="switchToCourseView(this)">Ctoggle</label>
+                            <label><input type="checkbox" name="coursetog" onchange="switchToCourseView(this)">Course</label>
                         </div>
                         <div class="checkbox-inline">
                             <label><input type="checkbox" name="adhoctog" onchange="switchToAdHoc(this)">Ad Hoc</label>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-md-2">
                         <input name="starttime" type="text" class="form-control" placeholder=""
-                               value="Start Time" required>
+                               value="11:00" required>
                     </div>
                 </div>
                 <div class="row">
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-md-2">
                         <input name="endtime" type="text" class="form-control" placeholder=""
-                               value="End Time" required>
+                               value="12:00" required>
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@
                     <div class="col-md-2">Duration in minutes</div>
                     <div class="col-md-2">
                         <input name="duration" type="number" class="form-control" placeholder=""
-                               value="End Time" required>
+                               value="" required>
                     </div>
                 </div>
 
