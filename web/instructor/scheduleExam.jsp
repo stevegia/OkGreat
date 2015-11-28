@@ -21,13 +21,18 @@
     Retriever retriever = Retriever.getInstance();
     Instructor instructor = new Instructor(retriever.getUser(request.getRemoteUser()));
    System.out.println(coursetoggle);
-      if(coursetoggle.equals("on")){
 
-        instructor.makeCourseRequest(testname,courseidentifier,section,startTime,endTime,startDate,endDate,term,course,request.getRemoteUser(),duration);
+    if(coursetoggle!=null && coursetoggle.equals("on")){
+
+        boolean possible = instructor.makeCourseRequest(testname,courseidentifier,section,startTime,endTime,startDate,endDate,term,course,request.getRemoteUser(),duration);
+        if(possible==true){
+            response.sendRedirect("createNewRequests.jsp");
+        }else{
+            response.sendRedirect("error.jsp");
+        }
 
 
-
-       }else {
+    }else {
 
 
         int totalStudent = Integer.parseInt(request.getParameter("totalStudent"));
@@ -39,9 +44,16 @@
             firstname[i] = request.getParameter("firstname_" + i);
             lastname[i] = request.getParameter("lastname_" + i);
 
-            instructor.makeAdHocrequest(testname,courseidentifier,section,startTime,endTime,startDate,endDate,term,course,request.getRemoteUser(),duration);
+
+            boolean possible = instructor.makeAdhocRequest(testname, courseidentifier, section, startTime, endTime, startDate, endDate, term, course, request.getRemoteUser(), duration, totalStudent, netid, firstname, lastname);
+            if(possible==true){
+                response.sendRedirect("createNewRequests.jsp");
+            }else{
+                response.sendRedirect("error.jsp");
+            }
         }
     }
+
 
 %>
 

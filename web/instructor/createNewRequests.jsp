@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="courseRow">
                     <div class="col-md-2">
                         Course:
                     </div>
@@ -40,23 +40,23 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="courseIdentifierRow">
                     <div class="col-md-2">
                         Course Identifier:
                     </div>
                     <div class="col-md-2">
                         <input type="text" class="form-control" placeholder="Course Identifier"
-                               aria-describedby="basic-addon2" name="courseidentifier">
+                               aria-describedby="basic-addon2" name="courseidentifier" id="courseidentifier">
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="sectionRow">
                     <div class="col-md-2">
                         Section:
                     </div>
                     <div class="col-md-2">
                         <input type="text" class="form-control" placeholder="Section" aria-describedby="basic-addon2"
-                               name="section">
+                               name="section" id="section">
                     </div>
                 </div>
 
@@ -160,15 +160,23 @@
             $("#adhocInformation").css('display', 'none');
             $("#totalStudent").prop("disabled", true);
 
-            $("#course").css('display', 'block');
+            $("#courseRow").css('display', 'block');
             $("#course").prop("disabled", false);
+            $("#courseIdentifierRow").css('display', 'block');
+            $("#courseidentifier").prop("disabled", false);
+            $("#sectionRow").css('display', 'block');
+            $("#section").prop("disabled", false);
         }
         function switchToAdHoc() {
             $("#adhocInformation").css('display', 'block');
             $("#totalStudent").prop("disabled", false);
 
-            $("#course").css('display', 'none');
+            $("#courseRow").css('display', 'none');
             $("#course").prop("disabled", true);
+            $("#courseIdentifierRow").css('display', 'none');
+            $("#courseidentifier").prop("disabled", true);
+            $("#sectionRow").css('display', 'none');
+            $("#section").prop("disabled", true);
         }
         function totalStudentChange() {
             $("#studentIds").empty();

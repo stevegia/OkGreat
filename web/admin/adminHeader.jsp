@@ -44,6 +44,9 @@
         if(header.html() == "Make Appointment"){
             header.attr("class","makeAppointmentsHeader",true);
         }
+        if(header.html() == "Exams"){
+            header.attr("class","examHeader",true);
+        }
         if(header.html() == "Appointments"){
             header.attr("class","appointments",true);
         }
@@ -55,6 +58,9 @@
         }
         if(header.html() == "Edit Appointment"){
             header.attr("class","basicHeader",true);
+        }
+        if(header.html() == "Select Timeslot") {
+            header.attr("class", "basicHeader");
         }
     }
 
@@ -80,6 +86,7 @@
 
                 <li id ="testingCenterInformation"><a href="testingCenterInformation.jsp">Testing Center Information</a></li>
                <!-- <li id="examsAndAppointments"><a href="examsAndAppointments.jsp">Exams and Appointments </a></li> -->
+                <li id="exam"><a href="examsAndAppointments.jsp">Exams</a></li>
                 <li id="appointments"><a href="appointments.jsp">Appointments </a></li>
                 <li id="makeAppointments"><a href="makeAppointments.jsp">Make Appointment </a></li>
                 <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>

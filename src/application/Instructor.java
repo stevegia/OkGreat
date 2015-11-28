@@ -3,10 +3,8 @@
  */
 package application;
 
-import jpaentities.CourseExam;
-import jpaentities.CourseExamPK;
-import jpaentities.Exam;
-import jpaentities.TCSUser;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import jpaentities.*;
 import utils.Constants;
 
 import java.math.BigInteger;
@@ -70,42 +68,101 @@ public class Instructor extends TCSUser {
 		String output = sb.toString();
 		System.out.println(output);
 
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("m/d/y");
-		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-		Date startDate = dateFormatter.parse(startDateString);
-		Date endDate = dateFormatter.parse(endDateString);
-		Time startTime = new Time(timeFormatter.parse(startTimeString).getTime());
-		Time endTime = new Time(timeFormatter.parse(endTimeString).getTime());
+		startDateString = startDateString + " " + startTimeString;
+		endDateString = endDateString + " " + endTimeString;
+
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("m/d/y HH:mm");
+
 		int durationInt = Integer.parseInt(duration);
 		int termInt = Integer.parseInt(term);
 
+		Date startDate = dateFormatter.parse(startDateString);
+		Date endDate = dateFormatter.parse(endDateString);
 
 
 		String refinedId = course + courseidentifier +"-"+ section + "_" + term+ "_" + output;
 		String TCSClassId = course + courseidentifier +"-"+ section + "_" +term;
 
-		Exam exam = new Exam(durationInt,endDate,testName,"PENDING","COURSE",instructorId,30,30,refinedId,startDate,termInt,1);
-		retriever.persist(exam);
+		int numberOfStudents = 30;
+		Validator validator = Validator.getInstance();
+		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents);
 
-		CourseExamPK courseExamPK = new CourseExamPK();
-		courseExamPK.setExamRefinedId(refinedId);
-		courseExamPK.setTCSClassRefinedId(TCSClassId);
+		if(possible){
 
-		CourseExam courseExam = new CourseExam();
-		courseExam.setId(courseExamPK);
+			Exam exam = new Exam(durationInt,endDate,testName,"PENDING","COURSE",instructorId,30,30,refinedId,startDate,termInt,1);
+			retriever.persist(exam);
 
-		retriever.persist(courseExam);
+			CourseExamPK courseExamPK = new CourseExamPK();
+			courseExamPK.setExamRefinedId(refinedId);
+			courseExamPK.setTCSClassRefinedId(TCSClassId);
+
+			CourseExam courseExam = new CourseExam();
+			courseExam.setId(courseExamPK);
+
+			retriever.persist(courseExam);
+			return true;
+
+		}else{
+			return false;
+		}
 
 
 
 
-		return true;
+
 	}
 
-	public boolean makeAdhocRequest(String testname,String courseidentifier,String section,String startTime,String endTime, String startDate, String endDate, String term, String course, String[]netid,String[]firstname,String[]lastname, String instructorId, String duration ){
+	public boolean makeAdhocRequest(String testName,String courseidentifier,String section,String startTimeString,String endTimeString, String startDateString, String endDateString, String term, String course,String instructorId, String duration, int numberOfStudents,String[] netId, String[]firstName,String[]lastName) throws ParseException {
+
+		Retriever retriever = Retriever.getInstance();
+
+		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 5; i++) {
+			char c = chars[random.nextInt(chars.length)];
+			sb.append(c);
+		}
+		String output = sb.toString();
+		System.out.println(output);
+		startDateString = startDateString + " " + startTimeString;
+		endDateString = endDateString + " " + endTimeString;
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("m/d/y HH:mm");
+		Date startDate = dateFormatter.parse(startDateString);
+		Date endDate = dateFormatter.parse(endDateString);
+		int durationInt = Integer.parseInt(duration);
+		int termInt = Integer.parseInt(term);
+
+		Validator validator = Validator.getInstance();
+		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents);
 
 
-		return false;
+		if(possible){
+			String refinedId = "ad" + "_" + term+ "_" + output;
+			String TCSClassId = course + courseidentifier +"-"+ section + "_" +term;
+
+			Exam exam = new Exam(durationInt,endDate,testName,"PENDING","AD-HOC",instructorId,30,numberOfStudents,refinedId,startDate,termInt,1);
+			retriever.persist(exam);
+
+			for(int i = 0; i < numberOfStudents;i++){
+				AdHocExam adHocExam = new AdHocExam();
+				AdHocExamPK adHocExamPK = new AdHocExamPK();
+				adHocExam.setStudentFirstName(firstName[i]);
+				adHocExam.setStudentLastName(lastName[i]);
+				adHocExamPK.setExamRefinedId(refinedId);
+				adHocExamPK.setStudentNetId(netId[i]);
+				adHocExam.setId(adHocExamPK);
+				retriever.persist(adHocExam);
+			}
+			return true;
+		}else{
+			return false;
+		}
+
+
+
+
 	}
 
 	public void cancelExam(String examRefinedID){

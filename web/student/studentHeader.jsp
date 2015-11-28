@@ -48,6 +48,9 @@
         if(header.html() == "Calendar") {
             header.attr("class", "calendarHeader");
         }
+        if(header.html() == "Select Timeslot") {
+            header.attr("class", "basicHeader");
+        }
     }
 
 </script>

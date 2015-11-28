@@ -71,20 +71,23 @@
                 <div class="container-fluid">
                     <div class="col-md-5">
                         <!--Left column -->
-                        <div class="row ">
+                        <div class="row" id="refinedRow">
+                            <div class="col-md-3" id="">Refined ID::</div>
+                            <div class="col-md-4" id="refined"></div>
+                        </div>
+                        <div class="row" id="typeRow">
+                            <div class="col-md-3" id="test">Test Type:</div>
+                            <div class="col-md-4" id="examType"></div>
+                        </div>
+                        <div class="row" id="classRow">
                             <div class="col-md-3" id="classLabel">Class:</div>
                             <div class="col-md-4" id="class"></div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="sectionRow">
                             <div class="col-md-3" id="sectionLabel">Section:</div>
                             <div class="col-md-4" id="section"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3" id="studentsSignedUpLabel">Students Signed Up:</div>
-                            <div class="row">
-                                <div class="col-md-4" id="studentsSignedUp"></div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="col-md-5">
                         <!--Right column -->
@@ -100,7 +103,7 @@
                             <div class="col-md-3" id="endTimeLabel">End Date:</div>
                             <div class="col-md-7" id="end"></div>
                         </div>
-                        <div class="row ">
+                        <div class="row">
                             <div class="col-md-4" id="examTimeLabel">Exam Duration:</div>
                             <div class="col-md-4" id="examTime"></div>
                         </div>
@@ -108,7 +111,7 @@
                 </div>
                 </div>
                 <div class="row">
-                    <div class ="studentAppointmentsTitle">Student Appointments</div>
+                    <div><h1 style="text-align: center">Student Appointments</h1>></div>
 
                     <table class="table table-bordered">
                         <thead>
@@ -148,6 +151,19 @@
             $("#start").html(dataToUpdate.startDate);
             $("#end").html(dataToUpdate.endDate);
             $("#examTime").html(dataToUpdate.duration);
+            $("#examType").html(dataToUpdate.examType);
+            $("#refined").html(dataToUpdate.refinedId);
+
+            if(dataToUpdate.examType =="COURSE"){
+                $("#classRow").css('display', 'block');
+                $("#sectionRow").css('display', 'block');
+            }else{
+                $("#classRow").css('display', 'none');
+                $("#sectionRow").css('display', 'none');
+            }
+
+
+
 
             var buttonToAdd = "<input value='Cancel Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
 

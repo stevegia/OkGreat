@@ -31,7 +31,7 @@
         <%
             logger.info("Now at the selectTimeslot.jsp file from the makeAppointments.jsp file");
 
-            Student student = (Student) session.getAttribute("user");
+            Student student = new Student(retriever.getUser(request.getRemoteUser()));
             String examRefinedId = request.getParameter("examRefinedId");
             session.setAttribute("examRefinedId", examRefinedId);
 
