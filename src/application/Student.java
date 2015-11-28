@@ -9,9 +9,9 @@ import jpaentities.TCSUser;
 import jpaentities.TestingCenter;
 import utils.Constants;
 
-import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -52,92 +52,57 @@ public class Student extends TCSUser {
 		this.setUserType(Constants.UserType.STUDENT);
 	}
 
+	/**
+	 * Creates an appointment for the specified student and exam at the specified date
+	 * @param netId
+	 * @param examRefinedId
+	 * @param apptDatetime
+	 * @return true if appointment was successfully made, false otherwise
+	 */
 	public boolean makeAppointment(String netId, String examRefinedId, String apptDatetime) {
 		Retriever retriever = Retriever.getInstance();
 		Exam exam = retriever.getExam(examRefinedId);
-		// Requested exam not found
-		if (exam == null) return false;
+		TestingCenter testingCenter = Retriever.getTestingCenter();
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestingCenterScheduler");
-		EntityManager em = emf.createEntityManager();
-		Query query;
-		long count;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime startLdt = LocalDateTime.parse(apptDatetime, formatter);
+		LocalDateTime endLdt = startLdt.plusMinutes(exam.getDuration() + testingCenter.getGapTime());
+		Date apptStartDate = Date.from(startLdt.atZone(ZoneId.systemDefault()).toInstant());
+		Date apptEndDate = Date.from(endLdt.atZone(ZoneId.systemDefault()).toInstant());
 
-		try {
+		long seatsAvailable = retriever.seatsAvailable(apptStartDate);
+		if (seatsAvailable >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
 
-			if (exam.getExamType().equals("COURSE")) {
-				// Exam is a course exam
-				query = em.createQuery("SELECT COUNT(r) FROM Roster r, TCSClass t, CourseExam c, TestingCenter tc " +
-						"WHERE r.id.netId = ?1 AND r.id.TCSClassUnrefinedId = t.unrefinedId AND t.refinedId = c.id.TCSClassRefinedId");
-				query.setParameter(1, netId);
-
-				count = (long) query.getSingleResult();
-				// student is not registered for the course
-				if (count == 0) return false;
-			} else {
-				// Exam is an ad-hoc exam
-				query = em.createQuery("SELECT COUNT(a) FROM AdHocExam a WHERE a.id.studentNetId = ?1 AND a.id.examRefinedId = ?2");
-				query.setParameter(1, netId);
-				query.setParameter(2, examRefinedId);
-
-				count = (long) query.getSingleResult();
-				if (count == 0) return false;
+		// create seat number that is available and is not next to a seat of the same exam
+		int seatNumber = 1;
+		if (seatsAvailable > 0) {
+			List<Appointment> appointments = retriever.getAppointmentsBetweenDates(apptStartDate, apptEndDate);
+			for (Appointment appointment : appointments) {
+				if (appointment.getSeatNumber() != seatNumber) {
+					if (appointment.getExamRefinedId().equals(examRefinedId) && (appointment.getSeatNumber() != seatNumber + 1 || appointment.getSeatNumber() != seatNumber - 1) )
+						break;
+				}
+				seatNumber++;
 			}
 
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.examRefinedId = ?1");
-			query.setParameter(1, examRefinedId);
-			count = (long) query.getSingleResult();
-			// Student already has an appointment for the exam
-			if (count > 0) return false;
-
-			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date apptStartDate = dateFormatter.parse(apptDatetime);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(apptStartDate);
-			TestingCenter testingCenter = Retriever.getTestingCenter();
-			calendar.add(Calendar.MINUTE, exam.getDuration() + testingCenter.getGapTime());
-			Date apptEndDate = calendar.getTime();
-
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.studentNetId = ?1 AND ?2 BETWEEN a.startDate AND a.endDate");
-			query.setParameter(1, netId);
-			query.setParameter(2, apptStartDate, TemporalType.TIMESTAMP);
-			count = (long) query.getSingleResult();
-			// user has an overlapping appointment for another exam
-			if (count > 0) return false;
-
-			// appointment timeslot is out of bounds of exam date range
-			if (apptStartDate.before(exam.getStartDate()) || apptEndDate.after(exam.getEndDate())) return false;
-
-			query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE ?1 BETWEEN a.startDate AND a.endDate");
-			query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
-			count = (long) query.getSingleResult();
-			// There are no available seats to satisfy the appointment
-			if (count >= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats()) return false;
-
-			// create seat number that is available and is not next to a seat of the same exam
-			int seatNumber = 1;
-			if (count > 0) {
-				List<Appointment> appointments = retriever.getAppointmentsBetweenDates(apptStartDate, apptEndDate);
+			if (seatNumber > testingCenter.getNumberOfSeats()) {
+				seatNumber = 1;
 				for (Appointment appointment : appointments) {
-					if (appointment.getSeatNumber() != seatNumber) {
-						if (appointment.getExamRefinedId().equals(examRefinedId) && (appointment.getSeatNumber() != seatNumber + 1 || appointment.getSeatNumber() != seatNumber - 1) )
-							break;
-					}
+					if (appointment.getSeatNumber() != seatNumber)
+						break;
 					seatNumber++;
 				}
 			}
-
-			// create appointment in database since it has passed all checks
-			Appointment appointment =
-					new Appointment("PENDING", apptEndDate, examRefinedId, seatNumber, apptStartDate, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
-			em.getTransaction().begin();
-			em.persist(appointment);
-			em.getTransaction().commit();
-
-			return true;
-		} catch (Exception e) {
-			return false;
 		}
+
+		// create appointment in database since it has passed all checks
+		Appointment appointment =
+				new Appointment("PENDING", apptEndDate, examRefinedId, seatNumber, apptStartDate, netId, testingCenter.getCurrentTerm(), testingCenter.getId());
+		retriever.persist(appointment);
+		// increment number of appointments made for exam
+		exam.setNumberOfAppointments(1 + exam.getNumberOfAppointments());
+		retriever.persist(exam);
+		return true;
 	}
 
 }

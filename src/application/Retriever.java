@@ -203,6 +203,8 @@ public class Retriever {
 					appointmentJson.put("examName",exam.getExamName());
 					appointmentJson.put("instructorNetId",exam.getInstructorNetId());
 					appointmentJson.put("duration",exam.getDuration());
+					appointmentJson.put("examType",exam.getExamType());
+
 					/*
 					appointmentJson.put("examName",courseExam.getExamName());
 					appointmentJson.put("id",exam.getId());
@@ -261,13 +263,14 @@ public class Retriever {
 
 	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
 		try {
-			query = em.createQuery("SELECT a FROM Appointment a WHERE a.startDate BETWEEN ?1 AND ?2");
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 AND ?2");
 			query.setParameter(1, date1, TemporalType.TIMESTAMP);
 			query.setParameter(2, date2, TemporalType.TIMESTAMP);
 
 			// appointment(s) exists in database
 			return query.getResultList();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -280,6 +283,7 @@ public class Retriever {
 			return (Exam) query.getSingleResult();
 		} catch(Exception e) {
 			// exam not found in database
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -291,6 +295,7 @@ public class Retriever {
 			return (TestingCenter) query.getSingleResult();
 		} catch (Exception e) {
 			// the testing center does not exist in the database
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -304,6 +309,7 @@ public class Retriever {
 			return query.getResultList();
 		} catch(Exception e) {
 			// user not found in database
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -325,8 +331,20 @@ public class Retriever {
     		return (TCSUser) query.getSingleResult();
         } catch(Exception e) {
         	// user not found in database
+			e.printStackTrace();
         	return null;
         }
+	}
+
+	/**
+	 * Checks to see if there are seats available for a student to satisfy their appointment
+	 * @param apptStartDate
+	 * @return true if there are seats available, false otherwise
+	 */
+	public long seatsAvailable(Date apptStartDate) {
+		query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND ?1 BETWEEN a.startDate AND a.endDate");
+		query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
+		return (long) query.getSingleResult();
 	}
 
 	public Appointment testGetAppointment(){
@@ -358,36 +376,36 @@ public class Retriever {
 		examJson.put("refinedId",exam.getRefinedId());
 		examJson.put("startDate",exam.getStartDate().toString());
 		examJson.put("endDate",exam.getEndDate().toString());
-		examJson.put("examStatus",exam.getExamStatus());
-		examJson.put("duration",exam.getDuration());
+		examJson.put("examStatus", exam.getExamStatus());
+		examJson.put("duration", exam.getDuration());
 
 		try{
-            try{
-                CourseExam courseExam = new CourseExam();
-                query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
-                query.setParameter(1, exam.getRefinedId());
-                courseExam = (CourseExam)query.getSingleResult();
+			try{
+				CourseExam courseExam = new CourseExam();
+				query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
+				query.setParameter(1, exam.getRefinedId());
+				courseExam = (CourseExam)query.getSingleResult();
 
-                TCSClass tcsclass = new TCSClass();
-                query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
-                query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
-                tcsclass = (TCSClass)query.getSingleResult();
-                examJson.put("subject",tcsclass.getSubject());
-                examJson.put("section",tcsclass.getSection());
-                examJson.put("catalogNumber",tcsclass.getCatalogNumber());
+				TCSClass tcsclass = new TCSClass();
+				query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
+				query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
+				tcsclass = (TCSClass)query.getSingleResult();
+				examJson.put("subject",tcsclass.getSubject());
+				examJson.put("section",tcsclass.getSection());
+				examJson.put("catalogNumber",tcsclass.getCatalogNumber());
 
 
-                query = em.createQuery("SELECT t FROM Appointment t WHERE t.examRefinedId = ?1");
-                query.setParameter(1, exam.getRefinedId());
-                Appointment appointment = (Appointment)query.getSingleResult();
+				query = em.createQuery("SELECT t FROM Appointment t WHERE t.examRefinedId = ?1");
+				query.setParameter(1, exam.getRefinedId());
+				Appointment appointment = (Appointment)query.getSingleResult();
 
-                examJson.put("seatNumber",appointment.getSeatNumber());
-                examJson.put("appointmentStatus",appointment.getAppointmentStatus());
-                examJson.put("appointmentDate",appointment.getStartDate());
+				examJson.put("seatNumber",appointment.getSeatNumber());
+				examJson.put("appointmentStatus",appointment.getAppointmentStatus());
+				examJson.put("appointmentDate",appointment.getStartDate());
 
-                System.out.println(examJson.toString());
-                return examJson.toString();
-            }catch(Exception ex){}
+				System.out.println(examJson.toString());
+				return examJson.toString();
+			}catch(Exception ex){}
 
 
 
@@ -399,9 +417,7 @@ public class Retriever {
 	}
 
 	public String getExamsInTermString(String netId, int termId){
-		try{
-
-			query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
+		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
 			query.setParameter(1, termId);
 			query.setParameter(2, netId);
 
@@ -419,6 +435,75 @@ public class Retriever {
 				examJson.put("endDate",exam.getEndDate().toString());
 				examJson.put("examStatus",exam.getExamStatus());
 				examJson.put("duration",exam.getDuration());
+				examJson.put("examType",exam.getExamType());
+
+				CourseExam courseExam = new CourseExam();
+				try{
+					query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
+					query.setParameter(1, exam.getRefinedId());
+					courseExam = (CourseExam)query.getSingleResult();
+				}
+				catch(Exception ex){
+
+					System.out.println("courseExam error block");
+					System.out.println(ex.toString());
+				}
+
+				TCSClass tcsclass = new TCSClass();
+				try{
+					query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
+					query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
+					tcsclass = (TCSClass)query.getSingleResult();
+					examJson.put("subject",tcsclass.getSubject());
+					examJson.put("section",tcsclass.getSection());
+					examJson.put("catalogNumber",tcsclass.getCatalogNumber());
+
+				}catch(Exception ex){
+					System.out.println("TCSclass error block");
+					System.out.println(ex.toString());
+				}
+				query = em.createQuery("SELECT t FROM Appointment t WHERE t.examRefinedId = ?1");
+				query.setParameter(1, exam.getRefinedId());
+				List<Appointment> returnedAppointmentList = query.getResultList();
+				JSONArray appointmentListJson = new JSONArray();
+				for(Appointment appointment: returnedAppointmentList){
+					JSONObject jsonAppointment = new JSONObject();
+					jsonAppointment.put("id",appointment.getId());
+					jsonAppointment.put("netId",appointment.getStudentNetId());
+					jsonAppointment.put("seatNumber",appointment.getSeatNumber());
+					jsonAppointment.put("appointmentStatus",appointment.getAppointmentStatus());
+					jsonAppointment.put("appointmentDate",appointment.getStartDate());
+					appointmentListJson.put(jsonAppointment);
+				}
+				examJson.put("appointments", appointmentListJson);
+				arrayToReturn.put(examJson);
+			}
+			return arrayToReturn.toString();
+		}catch(Exception ex){
+			return ex.toString();
+		}
+	}
+
+
+	public String getAllExamsInTermString( int termId){
+		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1");
+			query.setParameter(1, termId);
+
+			JSONArray arrayToReturn = new JSONArray();
+
+			List<Exam> returnedExamList = query.getResultList();
+
+			for(Exam exam : returnedExamList){
+				JSONObject examJson = new JSONObject();
+
+				examJson.put("examName",exam.getExamName());
+				examJson.put("id",exam.getId());
+				examJson.put("refinedId",exam.getRefinedId());
+				examJson.put("startDate",exam.getStartDate().toString());
+				examJson.put("endDate",exam.getEndDate().toString());
+				examJson.put("examStatus",exam.getExamStatus());
+				examJson.put("duration",exam.getDuration());
+				examJson.put("examType",exam.getExamType());
 
 				CourseExam courseExam = new CourseExam();
 				try{
@@ -595,6 +680,7 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+
 	public List<TestingCenterHour> getTestingCenterHour(){
 		List<TestingCenterHour> returnedList = null;
 		try {
@@ -700,13 +786,20 @@ public class Retriever {
 		}
 		return returnedList;
 	}
+	public TCSUser getUser(String netid){
+		query = em.createQuery("SELECT u FROM TCSUser u WHERE u.netId = ?1");
+		query.setParameter(1, netid);
+		TCSUser user = (TCSUser) query.getSingleResult();
+		return user;
+	}
+
+
 	public String getReportInTerm(int termId){
 		String report="";
 		Date startDate=null;
 		Date endDate=null;
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		GregorianCalendar cal = new GregorianCalendar();
-		int classId;
 		try{
 			query = em.createQuery("SELECT t.startDate FROM Term t WHERE t.id = ?1");
 			query.setParameter(1, termId);
@@ -725,7 +818,7 @@ public class Retriever {
 				query.setParameter(2, cal.getTime(), TemporalType.DATE);
 				long count = (long) query.getSingleResult();
 				if(count==1)
-				report+=dateFormatter.format(d)+": "+count+" appointment<br>";
+					report+=dateFormatter.format(d)+": "+count+" appointment<br>";
 				else
 					report+=dateFormatter.format(d)+": "+count+" appointments<br>";
 			}
@@ -746,32 +839,34 @@ public class Retriever {
 				else
 					report+=dateFormatter.format(startD)+": "+count+" appointments<br>";
 
-				query = em.createQuery("SELECT DISTINCT c.id FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.startDate BETWEEN ?1 AND ?2 " +
+				query = em.createQuery("SELECT DISTINCT c.subject, c.catalogNumber, c.section FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.startDate BETWEEN ?1 AND ?2 " +
 						"AND a.examRefinedId=e.refinedId AND e.refinedId=ce.id.examRefinedId AND ce.id.TCSClassRefinedId =c.refinedId " +
-						"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED') ORDER BY c.id ASC");
+						"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED')");
 				query.setParameter(1, startD, TemporalType.DATE);
 				query.setParameter(2, endD, TemporalType.DATE);
 				report+="&nbsp&nbsp&nbsp&nbsp&nbsp Courses: ";
-				List<Integer> courseIds = query.getResultList();
-				for(Integer id : courseIds){
-					report+=id+" ";
+				List<Object[]> courseInfos = query.getResultList();
+				for(Object[] courseInfo : courseInfos) {
+					report+=(String) courseInfo[0]+courseInfo[1]+courseInfo[2]+"_"+termId+", ";
 				}
+				report=report.substring(0, report.length()-2);    //remove final ", "
 				report+="<br>";
 				cal.add(Calendar.DAY_OF_YEAR, 1);
 			}
 
 			/* Term */
 			report+="<U><h3>Term</h3></U><br>";
-			query = em.createQuery("SELECT DISTINCT c.id FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.termId = ?1 " +
+			query = em.createQuery("SELECT DISTINCT c.subject, c.catalogNumber, c.section FROM Appointment a, TCSClass c, Exam e, CourseExam ce WHERE a.termId = ?1 " +
 					"AND a.examRefinedId=e.refinedId AND e.refinedId=ce.id.examRefinedId AND ce.id.TCSClassRefinedId =c.refinedId " +
 					"AND (a.appointmentStatus='CHECKED_IN' OR a.appointmentStatus='APPROVED') ORDER BY c.id ASC");
 			query.setParameter(1, termId);
 			query.getResultList();
 			report+="Courses: ";
-			List<Integer> courseIds = query.getResultList();
-			for(Integer id : courseIds){
-				report+=id+" ";
+			List<Object[]> courseInfos = query.getResultList();
+			for(Object[] courseInfo : courseInfos) {
+				report+=(String) courseInfo[0]+courseInfo[1]+courseInfo[2]+"_"+termId+", ";
 			}
+			report=report.substring(0, report.length()-2);    //remove final ", "
 			report+="<br>";
 			return report;
 		}catch(Exception ex){
@@ -813,6 +908,14 @@ public class Retriever {
 
 		}catch(Exception ex){
 			return ex.toString();
+		}
+	}
+	public List<Term> getTerms() {
+		try {
+			query = em.createQuery("SELECT t FROM Term t");
+			return query.getResultList();
+		} catch(Exception e) {
+			return null;
 		}
 	}
 }

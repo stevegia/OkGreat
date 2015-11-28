@@ -3,4 +3,59 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+
+    <welcome-file-list>
+        <welcome-file>/web/index.jsp</welcome-file>
+        <welcome-file>/web/css/*</welcome-file>
+        <welcome-file>/web/css/admin/*</welcome-file>
+        <welcome-file>/web/css/student/*</welcome-file>
+        <welcome-file>/web/css/instructor/*</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>adminStuff</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>instructorStuff</web-resource-name>
+            <url-pattern>/instructor/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>instructor</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>studentStuff</web-resource-name>
+            <url-pattern>/student/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>student</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <description>Web Site Administrator</description>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <description>Instructor</description>
+        <role-name>instructor</role-name>
+    </security-role>
+    <security-role>
+        <description>Student</description>
+        <role-name>student</role-name>
+    </security-role>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/logon.jsp</form-login-page>
+            <form-error-page>/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
 </web-app>

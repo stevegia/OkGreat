@@ -3,6 +3,9 @@
 <%@ page import="java.util.logging.Logger" %>
 <%@ page import="java.util.logging.SimpleFormatter" %>
 <%@ page import="java.util.logging.FileHandler" %>
+<%@ page import="jpaentities.*" %>
+<%@ page import="java.util.List" %>
+
 <%
   Logger logger=Logger.getLogger(this.getClass().getName());
   FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
@@ -24,6 +27,8 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="../js/underscore.js"></script>
   <script type="text/javascript" src="../js/calendar.min.js"></script>
+  <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="../css/bootstrap-datepicker.standalone.min.css">
   <link rel="stylesheet" href="../css/calendar.min.css">
   <link rel="stylesheet" href="../css/instructor/instructor.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -72,7 +77,7 @@
         <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
       </ul>
       <ul class="nav navbar-right logout">
-        <li><a class="logout" href="../index.jsp">Logout</a></li>
+        <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
       </ul>
 
 

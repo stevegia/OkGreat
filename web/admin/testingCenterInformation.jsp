@@ -19,6 +19,8 @@
 <div class="generalContent container">
 
 
+    <h1 style="text-align: center">Events</h1>
+
     <div class="pull-right form-inline">
         <div class="btn-group">
             <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
@@ -32,6 +34,8 @@
             <button class="btn btn-warning" data-calendar-view="day">Day</button>
         </div>
     </div>
+
+
 
     <div style="margin-top: 20px"></div>
     <div style="padding-top: 20px"></div>
@@ -54,6 +58,31 @@
             </div>
         </div>
     </div>
+
+    <h1 style="text-align: center">Change Testing Center Information</h1>
+    <form name="frm" action="editTestingCenterInformation.jsp" method="post">
+        Number of Seats:
+        <input name="numberofseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSeats()%>"
+               value="<%=testingCenter.getNumberOfSeats()%>" required>
+        <br>
+        Number of Set-aside Seats:
+        <input name="numberofsetasideseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSetAsideSeats()%>"
+               value="<%=testingCenter.getNumberOfSetAsideSeats()%>" required>
+        <br>
+        Gap Time:
+        <input name="gaptime" type="text" class="form-control" placeholder="<%=testingCenter.getGapTime()%>"
+               value="<%=testingCenter.getGapTime()%>" required>
+        <br>
+        Reminder Interval:
+        <input name="reminderinterval" type="text" class="form-control" placeholder="<%=testingCenter.getReminderInterval()%>"
+               value="<%=testingCenter.getReminderInterval()%>" required>
+        <br>
+        <center>
+            <input type="submit" value="Submit"/>
+        </center>
+    </form>
+
+
 </div>
 
 
@@ -105,27 +134,7 @@
             <%--}--%>
         <%--%>--%>
 
-    <form name="frm" action="editTestingCenterInformation.jsp" method="post">
-        Number of Seats:
-        <input name="numberofseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSeats()%>"
-               value="<%=testingCenter.getNumberOfSeats()%>" required>
-        <br>
-        Number of Set-aside Seats:
-        <input name="numberofsetasideseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSetAsideSeats()%>"
-               value="<%=testingCenter.getNumberOfSetAsideSeats()%>" required>
-        <br>
-        Gap Time:
-        <input name="gaptime" type="text" class="form-control" placeholder="<%=testingCenter.getGapTime()%>"
-               value="<%=testingCenter.getGapTime()%>" required>
-        <br>
-        Reminder Interval:
-        <input name="reminderinterval" type="text" class="form-control" placeholder="<%=testingCenter.getReminderInterval()%>"
-               value="<%=testingCenter.getReminderInterval()%>" required>
-        <br>
-        <center>
-            <input type="submit" value="Submit"/>
-        </center>
-    </form>
+
 </div>
 
 </body>

@@ -25,6 +25,8 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/underscore.js"></script>
     <script type="text/javascript" src="../js/calendar.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.standalone.min.css">
     <link rel="stylesheet" href="../css/calendar.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/admin/admin.css">
@@ -35,14 +37,15 @@
 
     window.onload = function(){
         var header = $("#header");
-        console.log("#header");
-        console.log(header);
-        console.log(header.html());
+
         if(header.html() == "Testing Center Information"){
             header.attr("class","testingCenterInformationHeader",true);
         }
         if(header.html() == "Make Appointment"){
             header.attr("class","makeAppointmentsHeader",true);
+        }
+        if(header.html() == "Exams"){
+            header.attr("class","examHeader",true);
         }
         if(header.html() == "Appointments"){
             header.attr("class","appointments",true);
@@ -55,6 +58,9 @@
         }
         if(header.html() == "Edit Appointment"){
             header.attr("class","basicHeader",true);
+        }
+        if(header.html() == "Select Timeslot") {
+            header.attr("class", "basicHeader");
         }
     }
 
@@ -80,6 +86,7 @@
 
                 <li id ="testingCenterInformation"><a href="testingCenterInformation.jsp">Testing Center Information</a></li>
                <!-- <li id="examsAndAppointments"><a href="examsAndAppointments.jsp">Exams and Appointments </a></li> -->
+                <li id="exam"><a href="examsAndAppointments.jsp">Exams</a></li>
                 <li id="appointments"><a href="appointments.jsp">Appointments </a></li>
                 <li id="makeAppointments"><a href="makeAppointments.jsp">Make Appointment </a></li>
                 <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>
@@ -89,7 +96,7 @@
 
             </ul>
             <ul class="nav navbar-right logout">
-               <li><a class="logout" href="../index.jsp">Logout</a></li>
+               <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </ul>
 
         </div><!-- /.navbar-collapse -->

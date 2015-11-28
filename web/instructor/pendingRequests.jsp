@@ -1,6 +1,3 @@
-<%@ page import="jpaentities.TCSUser" %>
-<%@ page import="jpaentities.Exam" %>
-<%@ page import="java.util.List" %>
 <% String title = "Exams";%>
 <%@include file="instructorHeader.jsp"%>
 
@@ -8,9 +5,9 @@
     logger.addHandler(fileHandler);
     logger.info("at instr pending requests page");
     //Get all the neccisary information to fill out page
-    TCSUser user = (TCSUser) session.getAttribute("user");
 
-    String examList = retriever.getExamsInTermString(user.getNetId(), 1158);
+    List<Term> terms = retriever.getTerms();
+    String examList = retriever.getExamsInTermString(request.getRemoteUser(), 1158);
     request.setAttribute("examList", examList);
     if (request.getParameter("termId") == null) {
         request.setAttribute("termId", 1158);
@@ -22,7 +19,7 @@
     //This code runs to switch info depeding on term
     if (request.getParameterNames() != null && request.getParameter("termId") != null) {
         int term = Integer.parseInt(request.getParameter("termId"));
-        examList = retriever.getExamsInTermString(user.getNetId(), term);
+        examList = retriever.getExamsInTermString(request.getRemoteUser(), term);
         request.setAttribute("examList", examList);
     }
 %>
@@ -42,11 +39,10 @@
             } %>
         </button>
         <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-            <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-            <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-            <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-            <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-            <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
+            <%for(Term term : terms){
+            %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+            <%}
+            %>
         </ul>
     </div>
 </div>
@@ -75,20 +71,23 @@
                 <div class="container-fluid">
                     <div class="col-md-5">
                         <!--Left column -->
-                        <div class="row ">
+                        <div class="row" id="refinedRow">
+                            <div class="col-md-3" id="">Refined ID::</div>
+                            <div class="col-md-4" id="refined"></div>
+                        </div>
+                        <div class="row" id="typeRow">
+                            <div class="col-md-3" id="test">Test Type:</div>
+                            <div class="col-md-4" id="examType"></div>
+                        </div>
+                        <div class="row" id="classRow">
                             <div class="col-md-3" id="classLabel">Class:</div>
                             <div class="col-md-4" id="class"></div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="sectionRow">
                             <div class="col-md-3" id="sectionLabel">Section:</div>
                             <div class="col-md-4" id="section"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3" id="studentsSignedUpLabel">Students Signed Up:</div>
-                            <div class="row">
-                                <div class="col-md-4" id="studentsSignedUp"></div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="col-md-5">
                         <!--Right column -->
@@ -104,7 +103,7 @@
                             <div class="col-md-3" id="endTimeLabel">End Date:</div>
                             <div class="col-md-7" id="end"></div>
                         </div>
-                        <div class="row ">
+                        <div class="row">
                             <div class="col-md-4" id="examTimeLabel">Exam Duration:</div>
                             <div class="col-md-4" id="examTime"></div>
                         </div>
@@ -112,7 +111,7 @@
                 </div>
                 </div>
                 <div class="row">
-                    <div class ="studentAppointmentsTitle">Student Appointments</div>
+                    <div><h1 style="text-align: center">Student Appointments</h1>></div>
 
                     <table class="table table-bordered">
                         <thead>
@@ -152,6 +151,19 @@
             $("#start").html(dataToUpdate.startDate);
             $("#end").html(dataToUpdate.endDate);
             $("#examTime").html(dataToUpdate.duration);
+            $("#examType").html(dataToUpdate.examType);
+            $("#refined").html(dataToUpdate.refinedId);
+
+            if(dataToUpdate.examType =="COURSE"){
+                $("#classRow").css('display', 'block');
+                $("#sectionRow").css('display', 'block');
+            }else{
+                $("#classRow").css('display', 'none');
+                $("#sectionRow").css('display', 'none');
+            }
+
+
+
 
             var buttonToAdd = "<input value='Cancel Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 cancelExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
 

@@ -5,13 +5,6 @@
 
   <title>calendar</title>
 
-
-
-
-
-
-
-
 </head>
 <%@include file="studentHeader.jsp"%>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -22,9 +15,7 @@
 <link rel="stylesheet" href="../css/student/student.css">
 
 <%
-  Student student = (Student) session.getAttribute("user");
-
-  String calenderEvents = retriever.getExamsForCalender(student.getNetId(), 1158);
+  String calenderEvents = retriever.getExamsForCalender(request.getRemoteUser(), 1158);
   if (request.getParameter("termId") == null) {
     request.setAttribute("termId", 1158);
     request.setAttribute("termName", "Fall 2015");

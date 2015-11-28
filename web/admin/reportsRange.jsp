@@ -1,6 +1,7 @@
 <% String title = "Reports"; %>
 <%@include file="adminHeader.jsp"%>
 <% logger.info("at admin's reportsRange page");
+    List<Term> terms = retriever.getTerms();
     String report = "<u>over 9000</u>" +
             "<br>Utilization";
     int termId1 = 1158;
@@ -33,13 +34,12 @@
                     %>
                 </button>
                 <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-                    <li onclick="submitTerm1(1158,'Fall 2015')">Fall 2015</li>
-                    <li onclick="submitTerm1(1161,'Winter 2015')">Winter 2015</li>
-                    <li onclick="submitTerm1(1164,'Spring 2016')">Spring 2016</li>
-                    <li onclick="submitTerm1(1166,'Summer 2016')">Summer 2016</li>
-                    <li onclick="submitTerm1(1168,'Fall 2016')">Fall 2016</li>
-                    <a href="reports.jsp">
-                        <li>Single Term</li>
+                    <%for(Term term : terms){
+                    %> <li onclick="submitTerm1(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+                    <%
+                        }%>
+                    <a href="reportsRange.jsp">
+                        <li>Range of Terms</li>
                     </a>
                 </ul>
         </div>
@@ -52,13 +52,12 @@
                 %>
             </button>
             <ul class="dropdown-menu" id="termDropdown2" aria-labelledby="dropdownMenu2">
-                <li onclick="submitTerm2(1158,'Fall 2015')">Fall 2015</li>
-                <li onclick="submitTerm2(1161,'Winter 2015')">Winter 2015</li>
-                <li onclick="submitTerm2(1164,'Spring 2016')">Spring 2016</li>
-                <li onclick="submitTerm2(1166,'Summer 2016')">Summer 2016</li>
-                <li onclick="submitTerm2(1168,'Fall 2016')">Fall 2016</li>
-                <a href="reports.jsp">
-                    <li>Single Term</li>
+                <%for(Term term : terms){
+                %> <li onclick="submitTerm2(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+                <%
+                    }%>
+                <a href="reportsRange.jsp">
+                    <li>Range of Terms</li>
                 </a>
             </ul>
         </div>

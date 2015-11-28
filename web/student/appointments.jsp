@@ -2,13 +2,12 @@
 <%@include file="studentHeader.jsp" %>
 <%@ page import="application.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="jpaentities.Appointment" %>
+<%@ page import="jpaentities.*" %>
 <%
     logger.info("Now at the appointments.jsp page");
 
-    Student student = (Student) session.getAttribute("user");
-
-    String appointmentsList = retriever.getAppointmentsForStudentString(student.getNetId(),1158);
+    List<Term> terms = retriever.getTerms();
+    String appointmentsList = retriever.getAppointmentsForStudentString(request.getRemoteUser(),1158);
     request.setAttribute("appointmentsList", appointmentsList);
     if (request.getParameter("termId") == null) {
         request.setAttribute("termId", 1158);
@@ -33,11 +32,10 @@
             } %>
         </button>
         <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-            <li onclick="submitTerm(1158,'Fall 2015')">Fall 2015</li>
-            <li onclick="submitTerm(1161,'Winter 2016')">Winter 2015</li>
-            <li onclick="submitTerm(1164,'Spring 2016')">Spring 2016</li>
-            <li onclick="submitTerm(1166,'Summer 2016')">Summer 2016</li>
-            <li onclick="submitTerm(1168,'Fall 2016')">Fall 2016></li>
+            <%for(Term term : terms){
+            %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+            <%}
+            %>
         </ul>
     </div>
 </div>

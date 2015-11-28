@@ -190,6 +190,12 @@ public class Exam implements Serializable {
 	public void cancel(){
 		this.setExamStatus(String.valueOf(Status.CANCELLED));
 	}
+	public void deny(){
+		this.setExamStatus(String.valueOf(Status.DENIED));
+	}
+	public void approve(){
+		this.setExamStatus(String.valueOf(Status.APPROVED));
+	}
 
 
 	/**

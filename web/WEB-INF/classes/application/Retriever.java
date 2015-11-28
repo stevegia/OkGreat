@@ -9,6 +9,7 @@ import jpaentities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import jpaentities.TCSUser;
@@ -58,11 +59,90 @@ public class Retriever {
 			query.setParameter(1, netId);
 			query.setParameter(2, termId);
 
+
+
 			// appointment(s) exists in database
 			return query.getResultList();
 		} catch(Exception e) {
 			// user not found in database
 			return null;
+		}
+	}
+
+	public String getAppointmentsForStudentString(String netId, int termId) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.studentNetId = ?1 AND a.termId = ?2");
+			query.setParameter(1, netId);
+			query.setParameter(2, termId);
+			JSONArray arrayToReturn = new JSONArray();
+
+			List<Appointment> returnedAppointmentList = query.getResultList();
+
+			for(Appointment appointment: returnedAppointmentList){
+				JSONObject appointmentJson = new JSONObject();
+
+				appointmentJson.put("id",appointment.getId());
+				appointmentJson.put("appointmentStatus",appointment.getAppointmentStatus());
+				appointmentJson.put("startDate",appointment.getStartDate());
+				appointmentJson.put("endDate",appointment.getEndDate());
+				appointmentJson.put("examRefinedId",appointment.getExamRefinedId());
+				appointmentJson.put("termId",appointment.getTermId());
+				appointmentJson.put("studentNetId",appointment.getStudentNetId());
+				appointmentJson.put("testingCenterId",appointment.getTestingCenterId());
+				appointmentJson.put("seatNumber",appointment.getSeatNumber());
+
+				try{
+					query = em.createQuery("SELECT t FROM Exam t WHERE t.refinedId  = ?1");
+					query.setParameter(1, appointment.getExamRefinedId());
+					Exam exam = (Exam)query.getSingleResult();
+					appointmentJson.put("examName",exam.getExamName());
+					appointmentJson.put("duration",exam.getDuration());
+					/*
+					appointmentJson.put("examName",courseExam.getExamName());
+					appointmentJson.put("id",exam.getId());
+					appointmentJson.put("refinedId",exam.getRefinedId());
+					appointmentJson.put("startDate",exam.getStartDate().toString());
+					appointmentJson.put("endDate",exam.getEndDate().toString());
+					appointmentJson.put("examStatus",exam.getExamStatus());
+					appointmentJson.put("duration",exam.getDuration())
+					*/
+					try{
+						CourseExam courseExam = new CourseExam();
+						query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
+						query.setParameter(1, exam.getRefinedId());
+						courseExam = (CourseExam)query.getSingleResult();
+						TCSClass tcsclass = new TCSClass();
+						try{
+							query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
+							query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
+							tcsclass = (TCSClass)query.getSingleResult();
+							appointmentJson.put("subject",tcsclass.getSubject());
+							appointmentJson.put("section",tcsclass.getSection());
+							appointmentJson.put("catalogNumber",tcsclass.getCatalogNumber());
+
+						}catch(Exception ex){
+							System.out.println("TCSclass error block");
+							System.out.println(ex.toString());
+						}
+					}
+					catch(Exception ex){
+
+						System.out.println("courseExam error block");
+						System.out.println(ex.toString());
+					};
+				}
+				catch(Exception ex){
+					System.out.println("courseExam error block");
+					System.out.println(ex.toString());
+				}
+				arrayToReturn.put(appointmentJson);
+			}
+
+			// appointment(s) exists in database
+			return arrayToReturn.toString();
+		} catch(Exception ex) {
+			// user not found in database
+			return ex.toString();
 		}
 	}
 
@@ -91,6 +171,84 @@ public class Retriever {
 		}
 	}
 
+	public String getAppointmentsInTermString(int termId) {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.termId = ?1");
+			query.setParameter(1, termId);;
+			JSONArray arrayToReturn = new JSONArray();
+
+			List<Appointment> returnedAppointmentList = query.getResultList();
+
+			for(Appointment appointment: returnedAppointmentList){
+				JSONObject appointmentJson = new JSONObject();
+
+				appointmentJson.put("id",appointment.getId());
+
+				appointmentJson.put("appointmentStatus",appointment.getAppointmentStatus());
+				appointmentJson.put("startDate",appointment.getStartDate());
+				appointmentJson.put("endDate",appointment.getEndDate());
+				appointmentJson.put("examRefinedId",appointment.getExamRefinedId());
+				appointmentJson.put("termId",appointment.getTermId());
+				appointmentJson.put("studentNetId",appointment.getStudentNetId());
+				appointmentJson.put("testingCenterId",appointment.getTestingCenterId());
+				appointmentJson.put("seatNumber",appointment.getSeatNumber());
+
+				try{
+					query = em.createQuery("SELECT t FROM Exam t WHERE t.refinedId  = ?1");
+					query.setParameter(1, appointment.getExamRefinedId());
+					Exam exam = (Exam)query.getSingleResult();
+					appointmentJson.put("examName",exam.getExamName());
+					appointmentJson.put("instructorNetId",exam.getInstructorNetId());
+					appointmentJson.put("duration",exam.getDuration());
+					/*
+					appointmentJson.put("examName",courseExam.getExamName());
+					appointmentJson.put("id",exam.getId());
+					appointmentJson.put("refinedId",exam.getRefinedId());
+					appointmentJson.put("startDate",exam.getStartDate().toString());
+					appointmentJson.put("endDate",exam.getEndDate().toString());
+					appointmentJson.put("examStatus",exam.getExamStatus());
+					appointmentJson.put("duration",exam.getDuration())
+					*/
+					try{
+						CourseExam courseExam = new CourseExam();
+						query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
+						query.setParameter(1, exam.getRefinedId());
+						courseExam = (CourseExam)query.getSingleResult();
+						TCSClass tcsclass = new TCSClass();
+						try{
+							query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
+							query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
+							tcsclass = (TCSClass)query.getSingleResult();
+							appointmentJson.put("subject",tcsclass.getSubject());
+							appointmentJson.put("section",tcsclass.getSection());
+							appointmentJson.put("catalogNumber",tcsclass.getCatalogNumber());
+
+						}catch(Exception ex){
+							System.out.println("TCSclass error block");
+							System.out.println(ex.toString());
+						}
+					}
+					catch(Exception ex){
+
+						System.out.println("courseExam error block");
+						System.out.println(ex.toString());
+					};
+				}
+				catch(Exception ex){
+					System.out.println("courseExam error block");
+					System.out.println(ex.toString());
+				}
+				arrayToReturn.put(appointmentJson);
+			}
+
+			// appointment(s) exists in database
+			return arrayToReturn.toString();
+		} catch(Exception ex) {
+			// user not found in database
+			return ex.toString();
+		}
+	}
+
 	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
 		try {
 			query = em.createQuery("SELECT a FROM Appointment a WHERE a.startDate BETWEEN ?1 AND ?2");
@@ -100,6 +258,7 @@ public class Retriever {
 			// appointment(s) exists in database
 			return query.getResultList();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -108,11 +267,11 @@ public class Retriever {
 		try {
 			query = em.createQuery("SELECT e FROM Exam e WHERE e.refinedId = ?1");
 			query.setParameter(1, examRefinedId);
-
 			// exam exists in database
 			return (Exam) query.getSingleResult();
 		} catch(Exception e) {
 			// exam not found in database
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -124,10 +283,10 @@ public class Retriever {
 			return (TestingCenter) query.getSingleResult();
 		} catch (Exception e) {
 			// the testing center does not exist in the database
+			e.printStackTrace();
 			return null;
 		}
 	}
-
 
 	public List<Appointment> getAppointmentsForStudent(String netId) {
 		try {
@@ -138,6 +297,7 @@ public class Retriever {
 			return query.getResultList();
 		} catch(Exception e) {
 			// user not found in database
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -159,8 +319,20 @@ public class Retriever {
     		return (TCSUser) query.getSingleResult();
         } catch(Exception e) {
         	// user not found in database
+			e.printStackTrace();
         	return null;
         }
+	}
+
+	/**
+	 * Checks to see if there are seats available for a student to satisfy their appointment
+	 * @param apptStartDate
+	 * @return true if there are seats available, false otherwise
+	 */
+	public long seatsAvailable(Date apptStartDate) {
+		query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE ?1 BETWEEN a.startDate AND a.endDate");
+		query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
+		return (long) query.getSingleResult();
 	}
 
 	public Appointment testGetAppointment(){
@@ -178,25 +350,17 @@ public class Retriever {
 		return result;
 	}
 
-
-
-
-
 	public String getExamsInTermString(String netId, int termId){
 		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
 			query.setParameter(1, termId);
 			query.setParameter(2, netId);
 
-
 			JSONArray arrayToReturn = new JSONArray();
-
 
 			List<Exam> returnedExamList = query.getResultList();
 
 			for(Exam exam : returnedExamList){
 				JSONObject examJson = new JSONObject();
-
-
 
 				examJson.put("examName",exam.getExamName());
 				examJson.put("id",exam.getId());
@@ -205,9 +369,6 @@ public class Retriever {
 				examJson.put("endDate",exam.getEndDate().toString());
 				examJson.put("examStatus",exam.getExamStatus());
 				examJson.put("duration",exam.getDuration());
-
-
-
 
 				CourseExam courseExam = new CourseExam();
 				try{
@@ -221,12 +382,6 @@ public class Retriever {
 					System.out.println(ex.toString());
 				}
 
-
-
-
-				System.out.println("got here");
-				System.out.println(courseExam.getId().getExamRefinedId());
-
 				TCSClass tcsclass = new TCSClass();
 				try{
 					query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
@@ -236,20 +391,10 @@ public class Retriever {
 					examJson.put("section",tcsclass.getSection());
 					examJson.put("catalogNumber",tcsclass.getCatalogNumber());
 
-
-
 				}catch(Exception ex){
 					System.out.println("TCSclass error block");
 					System.out.println(ex.toString());
 				}
-
-
-
-
-
-				System.out.println(tcsclass.toString());
-
-
 				query = em.createQuery("SELECT t FROM Appointment t WHERE t.examRefinedId = ?1");
 				query.setParameter(1, exam.getRefinedId());
 				List<Appointment> returnedAppointmentList = query.getResultList();
@@ -265,24 +410,12 @@ public class Retriever {
 				}
 				examJson.put("appointments", appointmentListJson);
 				arrayToReturn.put(examJson);
-
 			}
-			System.out.print(arrayToReturn.toString());
-			System.out.println("RETURN");
 			return arrayToReturn.toString();
 		}catch(Exception ex){
-			System.out.println("outer error block");
-			System.out.println(ex.toString());
 			return ex.toString();
-
-
 		}
-
-
 	}
-
-
-
 
 	public List<Exam> getExamsInTerm(String netId, int termId){
 		query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1 AND t.instructorNetId =?2");
@@ -294,20 +427,14 @@ public class Retriever {
 		for(Exam element : returnedList){
 			System.out.println(element.toString());
 		}
-
-
 		return returnedList;
-
-
 	}
-
 
 	public List<TestingCenterHour> getTestingCenterHour(){
 		List<TestingCenterHour> returnedList = null;
 		try {
 			query = em.createQuery("SELECT t FROM TestingCenterHour t");
 			returnedList = query.getResultList();
-
 			for (TestingCenterHour element : returnedList) {
 				System.out.println(element.toString());
 			}
@@ -319,16 +446,14 @@ public class Retriever {
 	public TestingCenterHour getTestingCenterHour(Date date){
 		TestingCenterHour returnedList = null;
 		try {
-			query = em.createQuery("SELECT t FROM TestingCenterHour t");
+			query = em.createQuery("SELECT t FROM TestingCenterHour t WHERE t.id.openDate = ?1");
+			query.setParameter(1, date, TemporalType.DATE);
 			returnedList =(TestingCenterHour) query.getSingleResult();
-
 		} catch(Exception e) {
 			return null;
 		}
 		return returnedList;
 	}
-
-
 }
 
 
