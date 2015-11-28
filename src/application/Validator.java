@@ -128,7 +128,7 @@ public class Validator {
      * @param examStart exam start date
      * @param examEnd exam end date
      * @param numberOfStudents number of students needing to take the exam
-     * @param duration the duration of exam IN MINUTES
+     * @param duration duration of the exam IN MINUTES
      * @return true if there is enough time to schedule the exam, false otherwise
      */
     public boolean isSchedulable(Date examStart, Date examEnd, int numberOfStudents, int duration) {
@@ -154,7 +154,7 @@ public class Validator {
         TestingCenter testingCenter = Retriever.getTestingCenter();
         totalTestingCenterMinutes *= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats();
 
-        // SECOND GET THE TOTAL NUMBER OF MINUTES THAT BEING TAKEN UP BY EXISTING APPOINTMENTS IN THE DATE RANGE
+        // SECOND GET THE TOTAL NUMBER OF MINUTES BEING TAKEN UP BY EXISTING APPOINTMENTS IN THE DATE RANGE
         List<Appointment> appointments;
         try {
             query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 and ?2");
@@ -175,8 +175,8 @@ public class Validator {
             totalApptDuration += (int) ChronoUnit.MINUTES.between(apptStart, apptEnd);
         }
 
-        // THIRD THE TOTAL NUMBER OF MINUTES THE EXAM NEEDS FOR ALL ITS STUDENTS
-        int totalExamDuration = numberOfStudents * duration;
+        // LASTLY GET THE TOTAL NUMBER OF MINUTES THE EXAM NEEDS FOR ALL ITS STUDENTS
+        int totalExamDuration = numberOfStudents * (duration + testingCenter.getGapTime());
 
         return totalExamDuration <= totalTestingCenterMinutes - totalApptDuration;
     }
