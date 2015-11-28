@@ -120,13 +120,15 @@ public class Validator {
     }
 
     /**
-     * Checks to see if there are enough seats in the testing center to hold the exma
-     * @param exam
-     * @return true if there are enough seats, false otherwise
+     * Checks to see if there are enough seats in the testing center to hold the exam
+     * @param examStart the exam start date
+     * @param examEnd the exam end date
+     * @param numberOfStudents the number of students scheduled to take the exam
+     * @return true if the testing center has enough seats to hold the exam, false otherwise
      */
-    public boolean isSchedulable(Exam exam) {
-        LocalDate start = exam.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate end = exam.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    public boolean isSchedulable(Date examStart, Date examEnd, int numberOfStudents) {
+        LocalDate start = examStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate end = examEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int daysActive = (int) ChronoUnit.DAYS.between(start, end);
 
         TestingCenter testingCenter = Retriever.getTestingCenter();
@@ -135,15 +137,15 @@ public class Validator {
         long seatsUnavailable;
         try {
             query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 and ?2");
-            query.setParameter(1, exam.getStartDate(), TemporalType.TIMESTAMP);
-            query.setParameter(2, exam.getEndDate(), TemporalType.TIMESTAMP);
+            query.setParameter(1, examStart, TemporalType.TIMESTAMP);
+            query.setParameter(2, examEnd, TemporalType.TIMESTAMP);
             seatsUnavailable = (long) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
 
-        return exam.getNumberOfStudents() <= totalSeats - (int) seatsUnavailable;
+        return numberOfStudents <= totalSeats - (int) seatsUnavailable;
     }
 
 }
