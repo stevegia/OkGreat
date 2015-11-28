@@ -1,5 +1,5 @@
 <% String title = "Import Data"; %>
-<%@include file="adminHeader.jsp"%>
+<%@include file="adminHeader.jsp" %>
 <% logger.info("at admin's importData page");
     List<Term> terms = retriever.getTerms();
     int termId = 1158;
@@ -10,36 +10,52 @@
     }
 %>
 <body>
-	<div class="container"> 
-        <div class="col-5">
-            <div class="TermButton">
-                <div class="dropdown">
-                    Term:
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="true">
-                        <%out.print(termName);
-                        %>
-                    </button>
-                    <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
-                        <%for(Term term : terms){
-                        %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
-                        <%}
-                        %>
-                    </ul>
-                </div>
+<div class="container">
+    <div class="col-5">
+        <div class="TermButton">
+            <div class="dropdown">
+                Term:
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                    <%
+                        out.print(termName);
+                    %>
+                </button>
+                <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
+                    <%
+                        for (Term term : terms) {
+                    %>
+                    <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%>
+                    </li>
+                    <%
+                        }
+                    %>
+                </ul>
             </div>
-            <!--This is a hidden form that enables term changing -->
-            <form NAME="form1">
-                <INPUT TYPE="HIDDEN" NAME="termId" value=<%=termId%>>
-                <INPUT TYPE="HIDDEN" NAME="termName" value=<%=termName%>>
-            </form>
-          <br>
-          <button>Browse</button>
-          <p>Browse for folder containing data files</p>
-          <p>user.csv, class.csv, and roster.csv</p>
-          Number of superfluous appointments detected: 0
         </div>
+        <!--This is a hidden form that enables term changing -->
+        <form NAME="form1">
+            <INPUT TYPE="HIDDEN" NAME="termId" value=<%=termId%>>
+            <INPUT TYPE="HIDDEN" NAME="termName" value=<%=termName%>>
+        </form>
+        <br>
+
+
+        <input type="file" id="ctrl" webkitdirectory directory multiple/>
+
+        <p>Browse for folder containing data files</p>
+
+        <p>user.csv, class.csv, and roster.csv</p>
+
+        <div class="row">
+            <input type="button" onclick="javascript:
+                    window.open('submitData.jsp?termId=<%=termId%>', '_self');
+                    return;" value="Submit Data">
+        </div>
+
+
     </div>
+</div>
 </body>
 <SCRIPT LANGUAGE="JavaScript">
     function submitTerm(termId, termName) {

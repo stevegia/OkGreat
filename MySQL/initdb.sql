@@ -26,18 +26,6 @@ VALUES ('instr', 'i123', 'instr@stonybrook.edu', 'Test', 'Instructor', 'INSTRUCT
 INSERT INTO TCSUser (NetId, Password, Email, FirstName, LastName, UserType)
 VALUES ('student', 's123', 'student@stonybrook.edu', 'Test', 'Student', 'STUDENT');
 
-/* Query for importing information from user.csv */
-/*LOAD DATA LOCAL INFILE 'C:/Users/Haseeb/Desktop/user.csv'
-INTO TABLE TCSUser
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(FirstName, LastName, NetID, Email)
-SET Password = 'pass';*/
-
-/* For testing, all users from user.csv are imported as Students */
-/*UPDATE TCSUser SET UserType = 'Student';*/
-
 /* Table for term information */
 CREATE TABLE Term (
 	Id INT NOT NULL,
@@ -75,15 +63,6 @@ CREATE TABLE TCSClass (
 	FOREIGN KEY (InstructorNetId)
 		REFERENCES TCSUser (NetId)
 );
-INSERT INTO TCSClass VALUES (1, 1, 1, 'Cheese', 1, 'DNE', 'instr', 1);
-
-/* Query for importing information from class.csv */
-/*LOAD DATA LOCAL INFILE 'C:/Users/Haseeb/Desktop/class.csv'
-INTO TABLE Course
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(Id, Subject, CatalogNumber, Section, InstructorNetId);*/
 
 /* Table for roster information */
 CREATE TABLE Roster (
@@ -197,7 +176,6 @@ CREATE TABLE CourseExam (
 		REFERENCES TCSClass (RefinedId)
 		ON DELETE CASCADE
 );
-INSERT INTO CourseExam VALUES (1, 1, 1);
 /* Table for Ad-Hoc Exam information.
 Since Ad-Hoc Exams require a list of students, each student is a tuple in this table */
 CREATE TABLE AdHocExam (
@@ -229,8 +207,7 @@ CREATE TABLE Appointment (
     Version INT,
 	PRIMARY KEY (Id),
 	FOREIGN KEY (StudentNetId)
-		REFERENCES TCSUser (NetId)
-		ON DELETE CASCADE,
+		REFERENCES TCSUser (NetId),
 	FOREIGN KEY (ExamRefinedId)
 		REFERENCES Exam (RefinedId)
 		ON DELETE CASCADE,

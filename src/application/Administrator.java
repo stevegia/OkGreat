@@ -9,6 +9,10 @@ import jpaentities.TCSUser;
 import jpaentities.TestingCenter;
 import utils.Constants;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -135,5 +139,73 @@ public class Administrator extends TCSUser {
         System.out.println("After: " + appointment);
 
         retriever.persist(appointment);
+    }
+
+    /**
+     * Imports data from csv files into the database
+     * @param termId
+     * @return true if data was successfully imported, false otherwise
+     */
+    public boolean importData(int termId) {
+        String url = "jdbc:mysql://127.0.0.1:3306/testing_center_scheduler";
+        String username = "root";
+        String password = "admin";
+        Connection connection;
+        Statement statement;
+
+        // import user.csv
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            String userImportQuery = "LOAD DATA INFILE 'C:/xampp/tomcat/webapps/okgreat/CSV/user.csv' " +
+                    "INTO TABLE TCSUser " +
+                    "FIELDS TERMINATED BY ',' ENCLOSED BY '\"' " +
+                    "LINES TERMINATED BY '\\n' " +
+                    "IGNORE 1 LINES " +
+                    "(FirstName, LastName, NetID, Email) " +
+                    "SET Password = 's123', UserType = 'STUDENT';";
+            statement = connection.createStatement();
+            statement.execute(userImportQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // import class.csv
+        try {
+            String foreignKeyOff = "SET FOREIGN_KEY_CHECKS=0;";
+            statement.execute(foreignKeyOff);
+            String classImportQuery = "LOAD DATA INFILE 'C:/xampp/tomcat/webapps/okgreat/CSV/class.csv' " +
+                    "INTO TABLE TCSClass " +
+                    "FIELDS TERMINATED BY ',' ENCLOSED BY '\"' " +
+                    "LINES TERMINATED BY '\\n' " +
+                    "IGNORE 1 LINES " +
+                    "(UnrefinedId, Subject, CatalogNumber, Section, InstructorNetId) " +
+                    "SET RefinedId = CONCAT(Subject, CatalogNumber, '-', Section, '_'," + termId + ");";
+            statement.execute(classImportQuery);
+            String foreignKeyOn = "SET FOREIGN_KEY_CHECKS=1;";
+            statement.execute(foreignKeyOn);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // import roster.csv
+        try {
+            String deleteRostersInTermQuery = "DELETE FROM Roster WHERE TermId = " + termId + ";";
+            statement.execute(deleteRostersInTermQuery);
+            String rosterImportQuery = "LOAD DATA INFILE 'C:/xampp/tomcat/webapps/okgreat/CSV/roster.csv' " +
+                    "INTO TABLE Roster " +
+                    "FIELDS TERMINATED BY ',' ENCLOSED BY '\"' " +
+                    "LINES TERMINATED BY '\\n' " +
+                    "IGNORE 1 LINES " +
+                    "(NetID, TCSClassUnrefinedId) " +
+                    "SET TermId = " + termId + ";";
+            statement.execute(rosterImportQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

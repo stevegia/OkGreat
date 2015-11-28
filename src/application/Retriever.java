@@ -336,6 +336,20 @@ public class Retriever {
 		return (long) query.getSingleResult();
 	}
 
+	/**
+	 * Finds all superfluous appointments that exists in database and returns them
+	 * @return the list of superfluous appointments, or null if none exist
+	 */
+	public List<Appointment> getSuperfluousAppointments() {
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus = 'SUPERFLUOUS'");
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public Appointment testGetAppointment(){
 		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
 		query.setParameter(1, 0);
@@ -749,6 +763,7 @@ public class Retriever {
 			query = em.createQuery("SELECT t FROM Term t");
 			return query.getResultList();
 		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
