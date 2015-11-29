@@ -127,6 +127,16 @@
 
                         </tbody>
                     </table>
+
+
+                    <div class="container">
+                        <div class="row" id="utilRow">
+                            <div class="col-md-3">Utilization before:</div>
+                            <div class="col-md-7" id="utilbefore"></div>
+                            <div class="col-md-3">Utilization after:</div>
+                            <div class="col-md-7" id="utilafter"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="approve" class="row bottomrow">
@@ -157,12 +167,24 @@
             $("#examType").html(dataToUpdate.examType);
             $("#refined").html(dataToUpdate.refinedId);
 
+            $("#studentAppointments").empty();
+
+            $("#utilbefore").html(dataToUpdate.utilbefore);
+            $("#utilafter").html(dataToUpdate.utilafter);
+
             if(dataToUpdate.examType =="COURSE"){
                 $("#classRow").css('display', 'block');
                 $("#sectionRow").css('display', 'block');
             }else{
                 $("#classRow").css('display', 'none');
                 $("#sectionRow").css('display', 'none');
+            }
+            if(dataToUpdate.examStatus=="PENDING"){
+                $("#utilRow").css("display","block");
+                $("#utilbefore").html(dataToUpdate.utilbefore);
+                $("#utilafter").html(dataToUpdate.utilafter);
+            }else{
+                $("#utilRow").css("display","none");
             }
 
 
@@ -173,7 +195,7 @@
 
             $("#approve").html(buttonToAdd1);
             $("#deny").html(buttonToAdd2);
-            $("#studentAppointments").empty();
+
             for(var i = 0; i<dataToUpdate.appointments.length; i++){
 
                 var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";

@@ -495,6 +495,14 @@ public class Retriever {
 				examJson.put("examStatus",exam.getExamStatus());
 				examJson.put("duration",exam.getDuration());
 				examJson.put("examType",exam.getExamType());
+				if(exam.getExamStatus().equals("PENDING")){
+					examJson.put("utilbefore","");
+					examJson.put("utilafter","");
+
+				}else{
+					examJson.put("utilbefore","");
+					examJson.put("utilafter" , "");
+				}
 
 				CourseExam courseExam = new CourseExam();
 				try{
@@ -535,6 +543,10 @@ public class Retriever {
 					appointmentListJson.put(jsonAppointment);
 				}
 				examJson.put("appointments", appointmentListJson);
+
+
+
+
 				arrayToReturn.put(examJson);
 			}
 			return arrayToReturn.toString();
