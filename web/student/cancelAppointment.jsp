@@ -1,4 +1,4 @@
-<% String title = "Make Appointment";%>
+<% String title = "Cancel Appointment";%>
 <%@ page import="application.Retriever" %>
 <%@ page import="jpaentities.Appointment" %>
 <%@ page import="java.util.*" %>

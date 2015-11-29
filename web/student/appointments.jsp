@@ -5,8 +5,6 @@
 <%@ page import="jpaentities.*" %>
 <%
     logger.info("Now at the appointments.jsp page");
-
-    Student student = (Student) session.getAttribute("user");
     List<Term> terms = retriever.getTerms();
     String appointmentsList = retriever.getAppointmentsForStudentString(student.getNetId(),1158);
     request.setAttribute("appointmentsList", appointmentsList);
@@ -115,7 +113,6 @@
 
 
 <SCRIPT LANGUAGE="JavaScript">
-    <!--
     function switchView(obj, x) {
 
         $(obj).addClass('active').siblings().removeClass('active');
@@ -160,7 +157,6 @@
             $("#dropdownMenu1").html(termName);
         }
     }
-    // -->
 </SCRIPT>
 
 </div>

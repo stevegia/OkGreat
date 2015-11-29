@@ -2,7 +2,6 @@
 <%@ page import="application.Student" %>
 <%@include file="studentHeader.jsp" %>
 <%
-	Student student = (Student) session.getAttribute("user");
 	String examRefinedId = (String) session.getAttribute("examRefinedId");
 	String formattedDate = request.getParameter("apptDate");
 
