@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import jpaentities.TCSUser;
+import utils.Status;
 
 import java.util.*;
 
@@ -272,6 +273,16 @@ public class Retriever {
 			return (Exam) query.getSingleResult();
 		} catch(Exception e) {
 			// exam not found in database
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public List<Exam> getExamsOfStatus(String status) {
+		try {
+			query = em.createQuery("SELECT e FROM Exam e WHERE e.examStatus = ?1");
+			query.setParameter(1, status);
+			return (List<Exam>) query.getResultList();
+		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
