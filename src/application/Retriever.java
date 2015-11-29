@@ -338,6 +338,41 @@ public class Retriever {
 		return (long) query.getSingleResult();
 	}
 
+    /**
+     * Finds appointments that match criteria for being superfluous.
+     * Sets the status of all these appointments to "SUPERFLUOUS" and returns them.
+     * @param termId
+     * @return a list of all superfluous appointments (could be none)
+     */
+    public ArrayList<Appointment> getSuperfluousAppointments(int termId) {
+        ArrayList<Appointment> superfluousAppointments = new ArrayList<>();
+        try {
+            // get all appointments in parameter term
+            query = em.createQuery("SELECT a FROM Appointment a WHERE a.termId = ?1 AND a.appointmentStatus = 'PENDING'");
+            query.setParameter(1, termId);
+            List<Appointment> appointments = query.getResultList();
+
+            Retriever retriever = Retriever.getInstance();
+            // check if those appointments match criteria for being superfluous
+            for (Appointment appointment : appointments) {
+                query = em.createQuery("SELECT COUNT(r) FROM Roster r, Appointment a, CourseExam c, TCSClass t WHERE r.id.netId = ?1 " +
+                        "AND c.id.examRefinedId = ?2 AND c.id.TCSClassRefinedId = t.refinedId AND t.unrefinedId = r.id.TCSClassUnrefinedId");
+                query.setParameter(1, appointment.getStudentNetId());
+                query.setParameter(2, appointment.getExamRefinedId());
+                long count = (long) query.getSingleResult();
+                if (count == 0) {
+                    appointment.setAppointmentStatus("SUPERFLUOUS");
+                    retriever.persist(appointment);
+                    superfluousAppointments.add(appointment);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("No appointments in specified term exist");
+        }
+
+        return superfluousAppointments;
+    }
+
 	public Appointment testGetAppointment(){
 		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
 		query.setParameter(1, 0);
@@ -828,6 +863,7 @@ public class Retriever {
 			query = em.createQuery("SELECT t FROM Term t");
 			return query.getResultList();
 		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

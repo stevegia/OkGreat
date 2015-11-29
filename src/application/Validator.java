@@ -155,24 +155,30 @@ public class Validator {
         totalTestingCenterMinutes *= testingCenter.getNumberOfSeats() - testingCenter.getNumberOfSetAsideSeats();
 
         // SECOND GET THE TOTAL NUMBER OF MINUTES BEING TAKEN UP BY EXISTING APPOINTMENTS IN THE DATE RANGE
-        List<Appointment> appointments;
-        try {
-            query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 and ?2");
-            query.setParameter(1, examStart, TemporalType.TIMESTAMP);
-            query.setParameter(2, examEnd, TemporalType.TIMESTAMP);
-            appointments = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
         int totalApptDuration = 0;
-        LocalDate apptStart;
-        LocalDate apptEnd;
-        for (Appointment appointment : appointments) {
-            apptStart = appointment.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            apptEnd = appointment.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            totalApptDuration += (int) ChronoUnit.MINUTES.between(apptStart, apptEnd);
+        query = em.createQuery("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 and ?2");
+        query.setParameter(1, examStart, TemporalType.TIMESTAMP);
+        query.setParameter(2, examEnd, TemporalType.TIMESTAMP);
+        long count = (long) query.getSingleResult();
+        if (count > 0) {
+            List<Appointment> appointments;
+            try {
+                query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 and ?2");
+                query.setParameter(1, examStart, TemporalType.TIMESTAMP);
+                query.setParameter(2, examEnd, TemporalType.TIMESTAMP);
+                appointments = query.getResultList();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            LocalDate apptStart;
+            LocalDate apptEnd;
+            for (Appointment appointment : appointments) {
+                apptStart = appointment.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                apptEnd = appointment.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                totalApptDuration += (int) ChronoUnit.MINUTES.between(apptStart, apptEnd);
+            }
         }
 
         // LASTLY GET THE TOTAL NUMBER OF MINUTES THE EXAM NEEDS FOR ALL ITS STUDENTS
