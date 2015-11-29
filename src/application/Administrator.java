@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -205,6 +206,10 @@ public class Administrator extends TCSUser {
             e.printStackTrace();
             return false;
         }
+
+        Retriever retriever = Retriever.getInstance();
+        ArrayList<Appointment> superfluousAppointments = retriever.getSuperfluousAppointments(termId);
+        // TODO: message student, instructor, and admin of superfluous appointment
 
         return true;
     }

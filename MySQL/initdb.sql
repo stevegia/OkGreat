@@ -81,14 +81,6 @@ CREATE TABLE Roster (
         ON DELETE CASCADE
 );
 
-/* Query for importing information from roster.csv */
-/*LOAD DATA LOCAL INFILE 'C:/Users/Haseeb/Desktop/roster.csv'
-INTO TABLE Roster
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(NetID, CourseId);*/
-
 /* Table for testiing center information */
 CREATE TABLE TestingCenter (
 	Id INT NOT NULL AUTO_INCREMENT,
