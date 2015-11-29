@@ -617,8 +617,7 @@ INSERT INTO CourseExam (ExamRefinedId, TCSClassRefinedId)
 VALUES ('AAS102-1_1158_ex1', 'AAS102-1_1158');
 
 INSERT INTO Appointment (Id, StudentNetId, StartDate, EndDate, ExamRefinedId, TestingCenterId, AppointmentStatus, TermId, SeatNumber, Version)
-VALUES (1, 'student', '2015-11-22 00:00:00', '2015-11-22 10:00:00', 1, 1, 'APPROVED', 1158, 1, 1);
+VALUES (1, 'student', '2015-11-22 00:00:00', '2015-11-22 10:00:00', "AAS102-1_1158", 1, 'APPROVED', 1158, 1, 1);
+
 INSERT INTO Appointment (Id, StudentNetId, StartDate, EndDate, ExamRefinedId, TestingCenterId, AppointmentStatus, TermId, SeatNumber, Version)
-VALUES (1, 'student', '2015-11-22 00:00:00', '2015-11-22 10:00:00', 1, 1, 'APPROVED', 1158, 1, 1);
-
-
+VALUES (2, 'student', '2015-08-28 00:00:00', '2015-12-02 00:00:00', "AAS102-1_1158_ex1", 1, 'APPROVED', 1158, 1, 1);
