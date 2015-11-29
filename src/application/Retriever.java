@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import jpaentities.TCSUser;
+import utils.Constants;
+import utils.DateUtils;
 
 import java.util.*;
 
@@ -252,6 +254,13 @@ public class Retriever {
 		}
 	}
 
+	public List<Appointment> getAppointmentsByDate(Date date){
+			Date dayStart = DateUtils.getStartOfDay(date).getTime();
+			Date dayEnd = DateUtils.getEndOfDay(date).getTime();
+
+			return getAppointmentsBetweenDates(dayStart, dayEnd);
+	}
+
 	public List<Appointment> getAppointmentsBetweenDates(Date date1, Date date2) {
 		try {
 			query = em.createQuery("SELECT a FROM Appointment a WHERE a.appointmentStatus <> 'CANCELLED' AND a.startDate BETWEEN ?1 AND ?2");
@@ -337,6 +346,41 @@ public class Retriever {
 		query.setParameter(1, apptStartDate, TemporalType.TIMESTAMP);
 		return (long) query.getSingleResult();
 	}
+
+    /**
+     * Finds appointments that match criteria for being superfluous.
+     * Sets the status of all these appointments to "SUPERFLUOUS" and returns them.
+     * @param termId
+     * @return a list of all superfluous appointments (could be none)
+     */
+    public ArrayList<Appointment> getSuperfluousAppointments(int termId) {
+        ArrayList<Appointment> superfluousAppointments = new ArrayList<>();
+        try {
+            // get all appointments in parameter term
+            query = em.createQuery("SELECT a FROM Appointment a WHERE a.termId = ?1 AND a.appointmentStatus = 'PENDING'");
+            query.setParameter(1, termId);
+            List<Appointment> appointments = query.getResultList();
+
+            Retriever retriever = Retriever.getInstance();
+            // check if those appointments match criteria for being superfluous
+            for (Appointment appointment : appointments) {
+                query = em.createQuery("SELECT COUNT(r) FROM Roster r, Appointment a, CourseExam c, TCSClass t WHERE r.id.netId = ?1 " +
+                        "AND c.id.examRefinedId = ?2 AND c.id.TCSClassRefinedId = t.refinedId AND t.unrefinedId = r.id.TCSClassUnrefinedId");
+                query.setParameter(1, appointment.getStudentNetId());
+                query.setParameter(2, appointment.getExamRefinedId());
+                long count = (long) query.getSingleResult();
+                if (count == 0) {
+                    appointment.setAppointmentStatus("SUPERFLUOUS");
+                    retriever.persist(appointment);
+                    superfluousAppointments.add(appointment);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("No appointments in specified term exist");
+        }
+
+        return superfluousAppointments;
+    }
 
 	public Appointment testGetAppointment(){
 		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
@@ -553,6 +597,84 @@ public class Retriever {
 		}catch(Exception ex){
 			return ex.toString();
 		}
+	}
+
+	public String getUtilizationForDateRange(String incomingStartDate, String incomingEndDate) throws ParseException {
+
+		JSONArray result = new JSONArray();
+		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyy");
+
+		Date startDate = formatter.parse(incomingStartDate);
+		Date endDate = formatter.parse(incomingEndDate);
+
+		TestingCenter tc = getTestingCenter();
+		int numSeats = tc.getNumberOfSeats();
+		int gapTime = tc.getGapTime();
+
+		Calendar calendar = DateUtils.getStartOfDay(startDate);
+
+		while(calendar.before(endDate)){
+			Date currentDate = calendar.getTime();
+
+			List<Appointment> appointments = getAppointmentsByDate(currentDate);
+			TestingCenterHour tcHour = getTestingCenterHour(currentDate);
+			double openTime = DateUtils.getDurationInHours(tcHour.getStartTime(), tcHour.getEndTime());
+
+			double utilization;
+			utilization = calculateActualUtilization(appointments, numSeats, openTime, gapTime);
+			if (DateUtils.getEndOfDay(currentDate).after(new Date())){
+				List<Exam> exams = getExamsOnDate(currentDate);
+				utilization += calculateExpectedUtilization(exams, gapTime);
+			}
+
+			JSONObject obj = new JSONObject();
+			obj.put(Constants.DATE, currentDate.toString());
+			obj.put(Constants.UTILIZATION, utilization);
+			result.put(obj);
+
+			calendar.add(Calendar.DATE, 1);
+		}
+
+		return result.toString();
+	}
+
+	private double calculateActualUtilization(List<Appointment> appointments, int numSeats, double openTime, int gapTime) {
+		double totalDuration = getTotalDuration(appointments, gapTime);
+		return totalDuration/ (numSeats * openTime);
+	}
+
+	private double getTotalDuration(List<Appointment> appointments, int gapTime) {
+		double result = 0;
+		for(Appointment appointment: appointments){
+			result += DateUtils.getDurationInHours(appointment.getStartDate(), appointment.getEndDate());
+		}
+		return result;
+	}
+
+	/**
+	 * This method calculates only the expected component of expected utilization
+	 * To get the full expected utilization this value must be added to actual utilization
+	 * @return
+	 */
+	private double calculateExpectedUtilization(List<Exam> exams, int gapTime){
+		double result = 0.0;
+		for(Exam exam: exams){
+			int duration = exam.getDuration() + gapTime;
+			int remainingApps = exam.getNumberOfStudents() - exam.getNumberOfAppointments();
+			int numDays = DateUtils.getNumberOfDaysInRange(exam.getStartDate(), exam.getEndDate());
+
+			result += duration * (remainingApps / numDays);
+		}
+		return result;
+	}
+
+	public List<Exam> getExamsOnDate(Date date){
+		query = em.createQuery("SELECT e FROM Exam e WHERE e.startDate >= ?1 AND e.endDate <= ?2");
+		Calendar startOfDay = DateUtils.getStartOfDay(date);
+		Calendar endOfDay = DateUtils.getEndOfDay(date);
+		query.setParameter(1, startOfDay.getTime());
+		query.setParameter(2, endOfDay.getTime());
+		return query.getResultList();
 	}
 
 	public String getExamsForCalender(String netId, int termId){
@@ -840,6 +962,7 @@ public class Retriever {
 			query = em.createQuery("SELECT t FROM Term t");
 			return query.getResultList();
 		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -22,8 +22,7 @@ import java.util.Random;
 public class Instructor extends TCSUser {
 
 
-
-	/**
+/**
 	 * Default constructor
 	 */
 	public Instructor() {
@@ -88,7 +87,7 @@ public class Instructor extends TCSUser {
 		Validator validator = Validator.getInstance();
 		Boolean possible = validator.isSchedulable(startDate,endDate,numberOfStudents,durationInt);
 
-		//if(possible){
+		if(possible){
 
 			Exam exam = new Exam(durationInt,endDate,testName,"PENDING","COURSE",instructorId,30,30,refinedId,startDate,termInt,1);
 			retriever.persist(exam);
@@ -103,9 +102,9 @@ public class Instructor extends TCSUser {
 			retriever.persist(courseExam);
 			return true;
 
-//		}else{
-//			return false;
-//		}
+		}else{
+			return false;
+		}
 
 
 
@@ -139,7 +138,7 @@ public class Instructor extends TCSUser {
 
 
 
-//		if(possible){
+		if(possible){
 			String refinedId = "ad" + "_" + term+ "_" + output;
 			String TCSClassId = course + courseidentifier +"-"+ section + "_" +term;
 
@@ -157,9 +156,9 @@ public class Instructor extends TCSUser {
 				retriever.persist(adHocExam);
 			}
 			return true;
-//		}else{
-//			return false;
-//		}
+		}else{
+			return false;
+		}
 
 
 
