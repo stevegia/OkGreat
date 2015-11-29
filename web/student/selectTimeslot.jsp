@@ -1,9 +1,4 @@
 <% String title = "Select Timeslot";%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
-</head>
 <%@ page import="application.*" %>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.LocalDateTime" %>
@@ -11,11 +6,10 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.sql.Time" %>
 <%@ page import="jpaentities.Exam" %>
-<%@ page import="jpaentities.TestingCenter" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="jpaentities.TestingCenterHour" %>
+<%@ page import="jpaentities.*" %>
 <%@include file="studentHeader.jsp" %>
-<body>
+
 <h2>Available Timeslots</h2>
 
 <div class="container">
@@ -30,8 +24,6 @@
         <tbody>
         <%
             logger.info("Now at the selectTimeslot.jsp file from the makeAppointments.jsp file");
-
-            Student student = (Student) session.getAttribute("user");
             String examRefinedId = request.getParameter("examRefinedId");
             session.setAttribute("examRefinedId", examRefinedId);
 
