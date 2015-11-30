@@ -561,8 +561,8 @@ public class Retriever {
 				examJson.put("duration",exam.getDuration());
 				examJson.put("examType",exam.getExamType());
 				if(exam.getExamStatus().equals("PENDING")){
-					String utilafter = getUtilizationWithExam(exam.getStartDate(),exam.getEndDate(),exam);
-					String utilbefore = getUtilizationForDateRange(exam.getStartDate(), exam.getEndDate());
+					JSONArray utilafter = getUtilizationWithExam(exam.getStartDate(),exam.getEndDate(),exam);
+					JSONArray utilbefore = getUtilizationForDateRange(exam.getStartDate(), exam.getEndDate());
 					examJson.put("utilbefore",utilbefore);
 					examJson.put("utilafter",utilafter);
 
@@ -621,7 +621,7 @@ public class Retriever {
 	/**
 	 * For getting a utilization as a standalone operation or before approving an exam
 	 */
-	public String getUtilizationForDateRange(Date startDate, Date endDate) throws ParseException {
+	public JSONArray getUtilizationForDateRange(Date startDate, Date endDate) throws ParseException {
 		return getUtilizationWithExam(startDate, endDate, null);
 	}
 
@@ -629,7 +629,7 @@ public class Retriever {
 	 * Calculates utilization within the range of dates
 	 * If exam is not null, adds the expected utilization if exam is approved
 	 */
-	public String getUtilizationWithExam(Date startDate, Date endDate, Exam exam) throws ParseException {
+	public JSONArray getUtilizationWithExam(Date startDate, Date endDate, Exam exam) throws ParseException {
 
 		JSONArray result = new JSONArray();
 
@@ -639,11 +639,14 @@ public class Retriever {
 		int gapTime = tc.getGapTime();
 
 
+
 		double newExamUtilization = calculateExpectedUtilizationPerExam(gapTime, exam);
 
 		Calendar calendar = DateUtils.getStartOfDay(startDate);
-
-		while(calendar.before(endDate)){
+		Calendar endCalendar = new GregorianCalendar();
+		endCalendar.setTime(endDate);
+		
+		while(calendar.before(endCalendar)){
 			Date currentDate = calendar.getTime();
 
 			List<Appointment> appointments = getAppointmentsByDate(currentDate);
@@ -652,7 +655,7 @@ public class Retriever {
 
 			double utilization;
 			utilization = calculateActualUtilization(appointments, numSeats, openTime, gapTime);
-			if (DateUtils.getEndOfDay(currentDate).after(new Date())){
+			if (DateUtils.getEndOfDay(currentDate).after(Calendar.getInstance())){
 				List<Exam> exams = getActiveAndApprovedExamsOnDate(currentDate);
 				utilization += calculateExpectedUtilization(exams, gapTime);
 			}
@@ -671,7 +674,7 @@ public class Retriever {
 			calendar.add(Calendar.DATE, 1);
 		}
 
-		return result.toString();
+		return result;
 	}
 
 	private double calculateActualUtilization(List<Appointment> appointments, int numSeats, double openTime, int gapTime) {
@@ -709,9 +712,9 @@ public class Retriever {
 	private double calculateExpectedUtilizationPerExam(int gapTime, Exam exam) {
 		if(exam == null) return 0.0;
 		double result;
-		int duration = exam.getDuration() + gapTime;
-		int remainingApps = exam.getNumberOfStudents() - exam.getNumberOfAppointments();
-		int numDays = DateUtils.getNumberOfDaysInRange(exam.getStartDate(), exam.getEndDate());
+		double duration = exam.getDuration() + gapTime;
+		double remainingApps = exam.getNumberOfStudents() - exam.getNumberOfAppointments();
+		double numDays = DateUtils.getNumberOfDaysInRange(exam.getStartDate(), exam.getEndDate());
 
 		result = duration * (remainingApps / numDays);
 		return result;
