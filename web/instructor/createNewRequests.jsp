@@ -2,11 +2,6 @@
 <%@include file="instructorHeader.jsp"%>
 <% List<Term> terms = retriever.getTerms();
 %>
-<body>
-
-
-
-
 <div class="createNewRequestContent">
   <div class="dropdown">
     Term:
@@ -21,14 +16,7 @@
       %>
     </ul>
   </div>
-
-
-
-
-
 </div>
-
-
 <div class="createNewRequestContent">
   <div class="container-fluid">
 
@@ -102,47 +90,36 @@
         <div class="checkbox-inline">
           <label><input type="checkbox" value="">Notify Students By Email If Schedule Request is Accepted</label>
         </div>
-
-
       </div>
-
-
-
     </div>
-
   </div>
-
-
 </div>
+<div class="md-col-3">
+  <div class="container">
+    <h2>Students</h2>
 
-    <div class="md-col-3">
-      <div class="container">
-        <h2>Students</h2>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Start</th>
+        <th>Regular Seats</th>
+        <th>Select</th>
 
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Date</th>
-            <th>Start</th>
-            <th>Regular Seats</th>
-            <th>Select</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>11/15/12</td>
+        <td>11:00pm</td>
+        <td>3</td>
 
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>11/15/12</td>
-            <td>11:00pm</td>
-            <td>3</td>
+      </tr>
 
-          </tr>
-
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
+      </tbody>
+    </table>
+  </div>
+</div>
 <div class="md-col-3">
   <div class="container">
     <h2>Additional Info</h2>
@@ -168,14 +145,8 @@
       </tbody>
     </table>
   </div>
-
 </div>
-
-
-
 <button type="button" class="btn-block ">Submit New Request</button>
-
-
-
 </body>
+</html>
 

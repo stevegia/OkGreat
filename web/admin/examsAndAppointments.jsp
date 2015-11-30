@@ -2,7 +2,6 @@
 <%@include file="adminHeader.jsp" %>
 
 <%
-    logger.addHandler(fileHandler);
     logger.info("At exams");
     //Get all the neccisary information to fill out page
 
@@ -24,10 +23,7 @@
     }
 %>
 <!-- On load make sure the list of exams is updated-->
-<body onload='createList(<%=examList%>)'>
-
-
-<div class="TermButton">
+<div class="TermButton" onload='createList(<%=examList%>)'>
     <div class="dropdown">
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -46,8 +42,6 @@
         </ul>
     </div>
 </div>
-
-
 <div class="generalBorderedContent">
 
     <!--This is a hidden form that enables term changing -->
@@ -131,9 +125,9 @@
 
                     <div class="container">
                         <div class="row" id="utilRow">
-                            <div class="col-md-3">Utilization before:</div>
+                            <div class="col-md-3">Current Utilization:</div>
                             <div class="col-md-7" id="utilbefore"></div>
-                            <div class="col-md-3">Utilization after:</div>
+                            <div class="col-md-3">Utilization After:</div>
                             <div class="col-md-7" id="utilafter"></div>
                         </div>
                     </div>
@@ -148,7 +142,8 @@
             </div>
         </div>
     </div>
-
+</div>
+</body>
     <SCRIPT LANGUAGE="JavaScript">
         <!--
         function switchView(obj, x) {
@@ -234,6 +229,4 @@
     </SCRIPT>
 
 </div>
-
-
-</body>
+</html>

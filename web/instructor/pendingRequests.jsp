@@ -13,9 +13,6 @@
         request.setAttribute("termId", 1158);
         request.setAttribute("termName", "Fall 2015");
     }
-%>
-
-<%
     //This code runs to switch info depeding on term
     if (request.getParameterNames() != null && request.getParameter("termId") != null) {
         int term = Integer.parseInt(request.getParameter("termId"));
@@ -24,10 +21,7 @@
     }
 %>
 <!-- On load make sure the list of exams is updated-->
-<body onload='createList(<%=examList%>)'>
-
-
-<div class="TermButton">
+<div class="TermButton" onload='createList(<%=examList%>)'>
     <div class="dropdown">
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -47,9 +41,7 @@
     </div>
 </div>
 
-
 <div class="generalBorderedContent">
-
     <!--This is a hidden form that enables term changing -->
     <form NAME="form1">
         <INPUT TYPE="HIDDEN" NAME="termId">
@@ -188,10 +180,8 @@
             }
         }
         // -->
-    </SCRIPT>
-
+    </SCRIPT
 </div>
-
-
 </body>
+</html>
 

@@ -1,8 +1,7 @@
 <% String title = "Appointments";%>
-<%@include file="studentHeader.jsp" %>
-<%@ page import="application.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="jpaentities.*" %>
+<%@include file="studentHeader.jsp" %>
 <%
     logger.info("Now at the appointments.jsp page");
     List<Term> terms = retriever.getTerms();
