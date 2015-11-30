@@ -382,6 +382,22 @@ public class Retriever {
         return superfluousAppointments;
     }
 
+	/**
+	 * Get all messages sent to the specified user
+	 * @param netId
+	 * @return the list of messages if the exist, null otherwise
+	 */
+	public List<Message> getMessagesForUser(String netId) {
+		try {
+			query = em.createQuery("SELECT m FROM Message m WHERE m.receiverNetId = ?1");
+			query.setParameter(1, netId);
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public Appointment testGetAppointment(){
 		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
 		query.setParameter(1, 0);

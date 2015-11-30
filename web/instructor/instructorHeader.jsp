@@ -73,6 +73,7 @@
         <li id="createNewRequests"><a href="createNewRequests.jsp">Create New Requests<span class="sr-only">(current)</span>
         </a></li>
         <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
+        <li id="inbox"><a href="inbox.jsp">Inbox</a></li>
       </ul>
       <ul class="nav navbar-right logout">
         <li><a class="logout" href="../index.jsp">Logout</a></li>

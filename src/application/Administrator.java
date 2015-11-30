@@ -3,10 +3,7 @@
  */
 package application;
 
-import jpaentities.Appointment;
-import jpaentities.Exam;
-import jpaentities.TCSUser;
-import jpaentities.TestingCenter;
+import jpaentities.*;
 import utils.Constants;
 
 import java.sql.Connection;
@@ -143,7 +140,7 @@ public class Administrator extends TCSUser {
     }
 
     /**
-     * Imports data from csv files into the database
+     * Imports data from csv files into the database. Notifies users if this action creates superfluous appointments
      * @param termId
      * @return true if data was successfully imported, false otherwise
      */
@@ -209,7 +206,22 @@ public class Administrator extends TCSUser {
 
         Retriever retriever = Retriever.getInstance();
         ArrayList<Appointment> superfluousAppointments = retriever.getSuperfluousAppointments(termId);
-        // TODO: message student, instructor, and admin of superfluous appointment
+
+        // message admin, instructor, and student of superfluous appointments
+        if (!superfluousAppointments.isEmpty()) {
+            for (Appointment appointment : superfluousAppointments) {
+                Exam exam = retriever.getExam(appointment.getExamRefinedId());
+                Message adminMessage = new Message("You made a superfluous appointment for Exam " + appointment.getExamRefinedId()
+                        + "and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", this.getNetId());
+                Message instrMessage = new Message("There is a superfluous appointment for Exam " + appointment.getExamRefinedId()
+                        + "and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", exam.getInstructorNetId());
+                Message studentMessage = new Message("There is a superfluous appointment for you in Exam " + appointment.getExamRefinedId(),
+                        new Date(), "Superfluous Appointment", appointment.getStudentNetId());
+                retriever.persist(adminMessage);
+                retriever.persist(instrMessage);
+                retriever.persist(studentMessage);
+            }
+        }
 
         return true;
     }
