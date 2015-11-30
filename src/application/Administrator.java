@@ -173,7 +173,7 @@ public class Administrator extends TCSUser {
 
         // import class.csv
         try {
-            String foreignKeyOff = "SET FOREIGN_KEY_CHECKS=0;";
+            String foreignKeyOff = "SET FOREIGN_KEY_CHECKS= 0 ;";
             statement.execute(foreignKeyOff);
             String classImportQuery = "LOAD DATA INFILE 'C:/xampp/tomcat/webapps/okgreat/CSV/class.csv' " +
                     "INTO TABLE TCSClass " +
@@ -183,7 +183,7 @@ public class Administrator extends TCSUser {
                     "(UnrefinedId, Subject, CatalogNumber, Section, InstructorNetId) " +
                     "SET RefinedId = CONCAT(Subject, CatalogNumber, '-', Section, '_'," + termId + ");";
             statement.execute(classImportQuery);
-            String foreignKeyOn = "SET FOREIGN_KEY_CHECKS=1;";
+            String foreignKeyOn = "SET FOREIGN_KEY_CHECKS= 1 ;";
             statement.execute(foreignKeyOn);
         } catch (Exception e) {
             e.printStackTrace();
