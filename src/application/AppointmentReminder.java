@@ -27,6 +27,9 @@ public class AppointmentReminder implements Runnable {
                         Message reminder = new Message("You have an appointment for Exam " + appointment.getExamRefinedId() +
                                 " in 30 minutes", new Date(), "Appointment Reminder", appointment.getStudentNetId());
                         retriever.persist(reminder);
+                        appointment.setAppointmentStatus("REMINDED");
+                        retriever.persist(appointment);
+                        pendingAppointments.remove(appointment);
                     }
                 }
             }
