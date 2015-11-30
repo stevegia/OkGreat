@@ -1,195 +1,239 @@
-<% String title = "Exams And Appointments"; %>
+<% String title = "Exams"; %>
 <%@include file="adminHeader.jsp" %>
-<div class="container">
-    <div class="row">
-        <div class="col-md-1">
-            Pending:
-        </div>
-        <div class="col-md-11">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th> ExamId</th>
-                        <th>Student NetId</th>
-                        <th> Date</th>
-                        <th> Exam Id</th>
-                        <th> Duration</th>
-                        <th> Gap Time</th>
-                        <th> Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="left">
-            <h4>Term:</h4>
-        </div>
-        <ul class="nav nav-pills left">
-            <li class="dropdown active span8">
-                <a class="dropdown-toggle" id="inp_impact" data-toggle="dropdown">
-                    <i class="icon icon-envelope icon-white"></i>&nbsp;<span id="dropdown_title">Select</span><span
-                        class="caret"></span></a>
-                <ul ID="divNewNotifications" class="dropdown-menu">
-                    <li><a>Current</a></li>
-                    <li><a>Next</a></li>
-                </ul>
-            </li>
+<%
+    logger.addHandler(fileHandler);
+    logger.info("At exams");
+    //Get all the neccisary information to fill out page
+
+    List<Term> terms = retriever.getTerms();
+    String examList = retriever.getAllExamsInTermString(1158);
+    request.setAttribute("examList", examList);
+    if (request.getParameter("termId") == null) {
+        request.setAttribute("termId", 1158);
+        request.setAttribute("termName", "Fall 2015");
+    }
+%>
+
+<%
+    //This code runs to switch info depeding on term
+    if (request.getParameterNames() != null && request.getParameter("termId") != null) {
+        int term = Integer.parseInt(request.getParameter("termId"));
+        examList = retriever.getAllExamsInTermString(term);
+        request.setAttribute("examList", examList);
+    }
+%>
+<!-- On load make sure the list of exams is updated-->
+<body onload='createList(<%=examList%>)'>
+
+
+<div class="TermButton">
+    <div class="dropdown">
+        Term:
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            <% if (request.getParameter("termName") != null) {
+                out.print(request.getParameter("termName"));
+            } else {
+                out.print("Fall 2015");
+            } %>
+        </button>
+        <ul class="dropdown-menu" id="termDropdown" aria-labelledby="dropdownMenu1">
+            <%for(Term term : terms){
+            %> <li onclick="submitTerm(<%=term.getId()%>,'<%=term.getTermName()%>')"><%=term.getTermName()%></li>
+            <%}
+            %>
         </ul>
-        <div class="left">
-            <h4>Month:</h4>
-        </div>
-        <ul class="nav nav-pills left">
-            <li class="dropdown active span8">
-                <a class="dropdown-toggle" id="inp_impact" data-toggle="dropdown">
-                    <i class="icon icon-envelope icon-white"></i>&nbsp;<span id="dropdown_title">Select</span><span
-                        class="caret"></span></a>
-                <ul ID="divNewNotifications" class="dropdown-menu">
-                    <li><a>January</a></li>
-                    <li><a>February</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="row">
-        <div id="calenderChart">
-        </div>
-    </div>
-    <div class="row">
-        <div class="textbox">
-            <div class="row">
-                <div class="col-md-1">
-                    Exams:
-                </div>
-                <div class="col-md-11">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th> Id</th>
-                                <th>Student NetId</th>
-                                <th> Student Name</th>
-                                <th> Exam Id</th>
-                                <th> Status</th>
-                                <th> Check In</th>
-                                <th> Edit</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                Utilization:
-                <img src="http://i.stack.imgur.com/TBxuO.jpg">
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    Appointments:
-                </div>
-                <div class="col-md-10">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th> Id</th>
-                                <th>Student NetId</th>
-                                <th> Student Name</th>
-                                <th> Exam Id</th>
-                                <th> Status</th>
-                                <th> Check In</th>
-                                <th> Edit</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <p>Number of available seats: </p>
-            <a href="makeAppointment.jsp">
-                <button>Make Appointment</button>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">
-            Approved:
-        </div>
-        <div class="col-md-11">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th> Id</th>
-                        <th>Student NetId</th>
-                        <th> Student Name</th>
-                        <th> Exam Id</th>
-                        <th> Status</th>
-                        <th> Check In</th>
-                        <th> Edit</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">
-            Denied:
-        </div>
-        <div class="col-md-11">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th> Id</th>
-                        <th>Student NetId</th>
-                        <th> Student Name</th>
-                        <th> Exam Id</th>
-                        <th> Status</th>
-                        <th> Check In</th>
-                        <th> Edit</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </div>
 
 
-</body>
-<script>
-    $(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
-        $('#divNewNotifications li').on('click', function () {
-            $('#dropdown_title').html($(this).find('a').html());
-        });
-        var calendar = $("#calenderChart").calendar(
-                {
-                    tmpl_path: "../tmpls/",
-                    events_source: function () {
-                        return [];
-                    }
-                });
-    });
-</script>
+<div class="generalBorderedContent">
 
-</html>
+    <!--This is a hidden form that enables term changing -->
+    <form NAME="form1">
+        <INPUT TYPE="HIDDEN" NAME="termId">
+        <INPUT TYPE="HIDDEN" NAME="termName">
+    </form>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-2">
+                <div class="list-group" id="examList">
+                    <!--Exams go here and are generated by javascript function createList() -->
+                </div>
+            </div>
+
+            <div class="col-lg-8 examInfo">
+                <div id="row">
+                    <div class="toprow" id="TestTitle">No Exam Selected</div>
+                    <div class="container-fluid">
+                        <div class="col-md-5">
+                            <!--Left column -->
+                            <div class="row" id="refinedRow">
+                                <div class="col-md-3" id="">Refined ID::</div>
+                                <div class="col-md-4" id="refined"></div>
+                            </div>
+                            <div class="row" id="typeRow">
+                                <div class="col-md-3" id="test">Test Type:</div>
+                                <div class="col-md-4" id="examType"></div>
+                            </div>
+                            <div class="row" id="classRow">
+                                <div class="col-md-3" id="classLabel">Class:</div>
+                                <div class="col-md-4" id="class"></div>
+                            </div>
+                            <div class="row" id="sectionRow">
+                                <div class="col-md-3" id="sectionLabel">Section:</div>
+                                <div class="col-md-4" id="section"></div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+                            <!--Right column -->
+                            <div class="row">
+                                <div class="col-md-3" id="statusLavel">Status</div>
+                                <div class="col-md-4" id="status"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" id="startLabel">Start Date:</div>
+                                <div class="col-md-7" id="start"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" id="endTimeLabel">End Date:</div>
+                                <div class="col-md-7" id="end"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4" id="examTimeLabel">Exam Duration:</div>
+                                <div class="col-md-4" id="examTime"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div><h1 style="text-align: center">Student Appointments</h1>></div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Net Id</th>
+                            <th>Date</th>
+                            <th>Seat</th>
+                            <th>Status</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="studentAppointments">
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="container">
+                        <div class="row" id="utilRow">
+                            <div class="col-md-3">Utilization before:</div>
+                            <div class="col-md-7" id="utilbefore"></div>
+                            <div class="col-md-3">Utilization after:</div>
+                            <div class="col-md-7" id="utilafter"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="approve" class="row bottomrow">
+
+                </div>
+                <div id="deny" class="row bottomrow">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <SCRIPT LANGUAGE="JavaScript">
+        <!--
+        function switchView(obj, x) {
+
+            $(obj).addClass('active').siblings().removeClass('active');
+
+            var dataToUpdate = JSON.parse(decodeURI(x));
+
+            $("#TestTitle").html(dataToUpdate.examName);
+            $("#class").html(dataToUpdate.subject + " " + dataToUpdate.catalogNumber);
+            $("#section").html(dataToUpdate.section);
+            $("#status").html(dataToUpdate.examStatus);
+            $("#start").html(dataToUpdate.startDate);
+            $("#end").html(dataToUpdate.endDate);
+            $("#examTime").html(dataToUpdate.duration);
+            $("#examType").html(dataToUpdate.examType);
+            $("#refined").html(dataToUpdate.refinedId);
+
+            $("#studentAppointments").empty();
+
+            $("#utilbefore").html(dataToUpdate.utilbefore);
+            $("#utilafter").html(dataToUpdate.utilafter);
+
+            if(dataToUpdate.examType =="COURSE"){
+                $("#classRow").css('display', 'block');
+                $("#sectionRow").css('display', 'block');
+            }else{
+                $("#classRow").css('display', 'none');
+                $("#sectionRow").css('display', 'none');
+            }
+            if(dataToUpdate.examStatus=="PENDING"){
+                $("#utilRow").css("display","block");
+                $("#utilbefore").html(dataToUpdate.utilbefore);
+                $("#utilafter").html(dataToUpdate.utilafter);
+            }else{
+                $("#utilRow").css("display","none");
+            }
+
+
+
+
+            var buttonToAdd1 = "<input value='Approve Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 approveExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
+            var buttonToAdd2 = "<input value='Deny Request' class='cancelButton btn-primary' type='button' onclick='javascript:window.open(\x22 denyExam.jsp?ExamRefinedId=" +dataToUpdate.refinedId+" \x22, \x22_self\x22); return;' ></input>";
+
+            $("#approve").html(buttonToAdd1);
+            $("#deny").html(buttonToAdd2);
+
+            for(var i = 0; i<dataToUpdate.appointments.length; i++){
+
+                var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";
+                var netid = thopen + dataToUpdate.appointments[i].netId + thclose;
+                var date = thopen + dataToUpdate.appointments[i].appointmentDate + thclose;
+                var status = thopen +  dataToUpdate.appointments[i].appointmentStatus + thclose;
+                var seatnum = thopen + dataToUpdate.appointments[i].seatNumber + thclose;
+                var tableRowToAppend = trOpen + netid + date + seatnum +status +  trclose;
+                $("#studentAppointments").append(tableRowToAppend);
+            }
+        }
+
+        function createList(x) {
+            console.log("Create List");
+            console.log(x);
+
+            for (var i = 0; i < x.length; i++) {
+                var examObject = x[i];
+                var test = "<a  class='list-group-item' onclick='switchView(this, \x22 " + encodeURI(JSON.stringify(examObject)) + "\x22 ) ' > " + examObject.examName + "</a>";
+                $("#examList").append(test);
+            }
+        }
+
+        function submitTerm(termId, termName) {
+            document.form1.termId.value = termId;
+            document.form1.termName.value = termName;
+            form1.submit();
+        }
+
+        function changeTermName(termName) {
+            if (termName != "" && termName != null) {
+                $("#dropdownMenu1").html(termName);
+            }
+        }
+        // -->
+    </SCRIPT>
+
+</div>
+
+
+</body>

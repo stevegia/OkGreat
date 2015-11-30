@@ -10,7 +10,9 @@ public class Constants {
 		ADMINISTRATOR,INSTRUCTOR,STUDENT
 	}
 
-
+	public static final String
+		DATE = "date",
+		UTILIZATION = "utilization";
 
 
 }

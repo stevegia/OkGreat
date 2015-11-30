@@ -1,23 +1,22 @@
-<% String title = "Deny Exam"; %>
+<% String title = "Exam";%>
 <%@include file="adminHeader.jsp"%>
-<% logger.info("at admin's deny exam page");
-    String examRefinedId = request.getParameter("examRefinedId");
-    if(examRefinedId==null){
-        logger.info("not examRefinedId found");
-        session.setAttribute("message", "no examRefinedId found");
-        session.setAttribute("url", "admin/exams.jsp");
-        response.sendRedirect("../error.jsp");
-    }
-    Exam exam = retriever.getExam(examRefinedId);
-    if(exam==null){
-        logger.info("not examRefinedId found");
-        session.setAttribute("message", "no examRefinedId found");
-        session.setAttribute("url", "admin/exams.jsp");
-        response.sendRedirect("../error.jsp");
-    }
-    exam.setExamStatus("DENIED");
+<%@ page import="jpaentities.Exam" %><%
+
+  Exam exam=null;
+
+  try {
+    String ExamRefinedId = request.getParameter("ExamRefinedId");
+    exam = retriever.getExam(ExamRefinedId);
+  }catch(Exception e) {
+
+    response.sendRedirect("error.jsp");
+  }
+  try {
+    exam.deny();
     retriever.persist(exam);
-    response.sendRedirect("exams.jsp");
+  }catch(Exception e){
+    logger.info("error canceling appointment");
+    response.sendRedirect("examsAndAppointments.jsp");
+  }
+  response.sendRedirect("examsAndAppointments.jsp");
 %>
-</body>
-</html>
