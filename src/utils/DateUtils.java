@@ -53,4 +53,10 @@ public class DateUtils {
         int days =(int) hours / 24;
         return days;
     }
+
+    public static boolean isDayInRange(Date startDate, Date endDate, Calendar day){
+        if(day.before(getStartOfDay(startDate))) return false;
+        if(day.after(getEndOfDay(endDate))) return false;
+        return true;
+    }
 }

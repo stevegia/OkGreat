@@ -599,7 +599,18 @@ public class Retriever {
 		}
 	}
 
-	public String getUtilizationForDateRange(String incomingStartDate, String incomingEndDate) throws ParseException {
+	/**
+	 * For getting a utilization as a standalone operation or before approving an exam
+	 */
+	public String getUtilizationForDateRange(String startDate, String endDate) throws ParseException {
+		return getUtilizationWithExam(startDate, endDate, null);
+	}
+
+	/**
+	 * Calculates utilization within the range of dates
+	 * If exam is not null, adds the expected utilization if exam is approved
+	 */
+	public String getUtilizationWithExam(String incomingStartDate, String incomingEndDate, Exam exam) throws ParseException {
 
 		JSONArray result = new JSONArray();
 		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyy");
@@ -610,6 +621,8 @@ public class Retriever {
 		TestingCenter tc = getTestingCenter();
 		int numSeats = tc.getNumberOfSeats();
 		int gapTime = tc.getGapTime();
+
+		double newExamUtilization = calculateExpectedUtilizationPerExam(gapTime, exam);
 
 		Calendar calendar = DateUtils.getStartOfDay(startDate);
 
@@ -623,8 +636,14 @@ public class Retriever {
 			double utilization;
 			utilization = calculateActualUtilization(appointments, numSeats, openTime, gapTime);
 			if (DateUtils.getEndOfDay(currentDate).after(new Date())){
-				List<Exam> exams = getExamsOnDate(currentDate);
+				List<Exam> exams = getActiveAndApprovedExamsOnDate(currentDate);
 				utilization += calculateExpectedUtilization(exams, gapTime);
+			}
+
+			if(exam != null){
+				if(DateUtils.isDayInRange(exam.getStartDate(), exam.getEndDate(), calendar)){
+					utilization += newExamUtilization;
+				}
 			}
 
 			JSONObject obj = new JSONObject();
@@ -659,17 +678,31 @@ public class Retriever {
 	private double calculateExpectedUtilization(List<Exam> exams, int gapTime){
 		double result = 0.0;
 		for(Exam exam: exams){
-			int duration = exam.getDuration() + gapTime;
-			int remainingApps = exam.getNumberOfStudents() - exam.getNumberOfAppointments();
-			int numDays = DateUtils.getNumberOfDaysInRange(exam.getStartDate(), exam.getEndDate());
-
-			result += duration * (remainingApps / numDays);
+			result += calculateExpectedUtilizationPerExam(gapTime, exam);
 		}
 		return result;
 	}
 
-	public List<Exam> getExamsOnDate(Date date){
-		query = em.createQuery("SELECT e FROM Exam e WHERE e.startDate >= ?1 AND e.endDate <= ?2");
+	/**
+	 * Calculates the daily expected utilization of one exam. Returns 0.0 if exam is null
+	 * @param gapTime
+	 * @param exam
+	 * @return
+	 */
+	private double calculateExpectedUtilizationPerExam(int gapTime, Exam exam) {
+		if(exam == null) return 0.0;
+		double result;
+		int duration = exam.getDuration() + gapTime;
+		int remainingApps = exam.getNumberOfStudents() - exam.getNumberOfAppointments();
+		int numDays = DateUtils.getNumberOfDaysInRange(exam.getStartDate(), exam.getEndDate());
+
+		result = duration * (remainingApps / numDays);
+		return result;
+	}
+
+	public List<Exam> getActiveAndApprovedExamsOnDate(Date date){
+		query = em.createQuery("SELECT e FROM Exam e WHERE e.startDate >= ?1 AND e.endDate <= ?2 AND " +
+				"e.examStatus IN ('ACTIVE', 'APPROVED')");
 		Calendar startOfDay = DateUtils.getStartOfDay(date);
 		Calendar endOfDay = DateUtils.getEndOfDay(date);
 		query.setParameter(1, startOfDay.getTime());
