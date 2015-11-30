@@ -9,7 +9,6 @@
         termName = request.getParameter("termName");
     }
 %>
-<body>
 <div class="container">
     <div class="col-5">
         <div class="TermButton">

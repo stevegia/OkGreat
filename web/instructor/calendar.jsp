@@ -3,11 +3,7 @@
 <%@ page import="java.util.List" %>
 <% String title = "Calendar";%>
 <%@include file="instructorHeader.jsp"%>
-<body>
-
 <div class="mainContent">
-
-
   <div class="dropdown">
     Term:
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -32,8 +28,6 @@
             events_source: function () { return []; }
           });
 </script>
-
-
-
 </body>
+</html>
 

@@ -1,9 +1,5 @@
 <%@ page import="application.Student" %>
 <% String title = "Calendar";%>
-<head>
-  <meta name="viewport" content="width=device-width" charset="UTF-8">
-  <title>calendar</title>
-</head>
 <%@include file="studentHeader.jsp"%>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script type="text/javascript" src="../js/underscore.js"></script>

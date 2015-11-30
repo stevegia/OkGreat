@@ -55,56 +55,6 @@
         </div>
     </div>
 </div>
-
-
-        <%--<%  List<TestingCenterHour> hours = retriever.getTestingCenterHour();--%>
-            <%--int ty =0;--%>
-            <%--if (hours != null) {--%>
-        <%--%>--%>
-        <%--<div class="table-responsive">--%>
-            <%--<table class="table table-bordered table-hover">--%>
-                <%--<thead>--%>
-                <%--<tr>--%>
-                    <%--<th> Date</th>--%>
-                    <%--<th> StartTime</th>--%>
-                    <%--<th> EndTime</th>--%>
-                    <%--<th></th>--%>
-                <%--</tr>--%>
-                <%--</thead>--%>
-                <%--<tbody>--%>
-                <%--<% for (TestingCenterHour hour : hours) {--%>
-                    <%--String date = dateFormatter.format(hour.getId().getOpenDate());--%>
-                <%--%>--%>
-                    <%--<tr>--%>
-                        <%--<form name="frm" action="editTestingCenterHour.jsp" method="post">--%>
-                            <%--<td>--%>
-                                <%--<input name="date" type="text" class="form-control" placeholder="<%=date%>"--%>
-                                       <%--value="<%=date%>" required readonly>--%>
-                            <%--</td>--%>
-                            <%--<td>--%>
-                                <%--<input name="starttime" type="text" class="form-control" placeholder="<%=hour.getStartTime()%> "--%>
-                                       <%--value="<%=hour.getStartTime()%>" required>--%>
-                            <%--</td>--%>
-                            <%--<td>--%>
-                                <%--<input name="endtime" type="text" class="form-control" placeholder="<%=hour.getEndTime()%>"--%>
-                                       <%--value="<%=hour.getEndTime()%>" required>--%>
-                            <%--</td>--%>
-                            <%--<td>--%>
-                                <%--<input type="submit" value="Submit"/>--%>
-                            <%--</td>--%>
-                        <%--</form>--%>
-                    <%--</tr>--%>
-                <%--<%--%>
-                    <%--}--%>
-                <%--%>--%>
-                <%--</tbody>--%>
-            <%--</table>--%>
-        <%--</div>--%>
-
-        <%--<%--%>
-            <%--}--%>
-        <%--%>--%>
-
     <form name="frm" action="editTestingCenterInformation.jsp" method="post">
         Number of Seats:
         <input name="numberofseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSeats()%>"

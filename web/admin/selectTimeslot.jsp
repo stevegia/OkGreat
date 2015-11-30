@@ -1,17 +1,10 @@
 <% String title = "Select Timeslot";%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
-</head>
-<%@ page import="application.*"%>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.temporal.ChronoUnit" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.sql.Time" %>
 <%@include file="adminHeader.jsp" %>
-<body>
 <h2>Available Timeslots</h2>
 <div class="container">
 
@@ -73,3 +66,4 @@
     </table>
 </div>
 </body>
+</html>

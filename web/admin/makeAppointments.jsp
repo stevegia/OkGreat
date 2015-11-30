@@ -1,22 +1,10 @@
 <% String title = "Make Appointment";%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
-</head>
-
 <%@include file="adminHeader.jsp" %>
-
-<body>
-
 <%
     logger.info("Now at the makeAppointments.jsp file");
 %>
-
 <div class="makeAppointmentContent">
-
     <form action="selectTimeslot.jsp">
-
         <div class="col-md-5">
             <div class="row">Student NetId</div>
             <div class="row">
@@ -45,13 +33,7 @@
                 <input type="submit" value="Submit Request">
             </div>
         </div>
-
     </form>
-
-
 </div>
-
-
 </body>
-
 </html>

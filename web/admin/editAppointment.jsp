@@ -54,8 +54,7 @@
                  value="<%=appointment.getSeatNumber()%>" required>
 
           <input type="submit" value="Submit"/></div>
-
-
-
   </form>
 </div>
+</body>
+</html>
