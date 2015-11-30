@@ -398,6 +398,22 @@ public class Retriever {
 		}
 	}
 
+	/**
+	 * Gets all pending appointments in specified term
+	 * @return the list of pending appointments if they exist, null otherwise
+	 */
+	public List<Appointment> getPendingAppointmentsInTerm() {
+		TestingCenter testingCenter = Retriever.getTestingCenter();
+		try {
+			query = em.createQuery("SELECT a FROM Appointment a WHERE a.termId = ?1 AND a.appointmentStatus = 'PENDING'");
+			query.setParameter(1, testingCenter.getCurrentTerm());
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public Appointment testGetAppointment(){
 		query = em.createQuery("SELECT t FROM Appointment t WHERE t.id = ?1");
 		query.setParameter(1, 0);

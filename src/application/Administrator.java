@@ -8,7 +8,6 @@ import utils.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -212,9 +211,9 @@ public class Administrator extends TCSUser {
             for (Appointment appointment : superfluousAppointments) {
                 Exam exam = retriever.getExam(appointment.getExamRefinedId());
                 Message adminMessage = new Message("You made a superfluous appointment for Exam " + appointment.getExamRefinedId()
-                        + "and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", this.getNetId());
+                        + " and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", this.getNetId());
                 Message instrMessage = new Message("There is a superfluous appointment for Exam " + appointment.getExamRefinedId()
-                        + "and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", exam.getInstructorNetId());
+                        + " and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", exam.getInstructorNetId());
                 Message studentMessage = new Message("There is a superfluous appointment for you in Exam " + appointment.getExamRefinedId(),
                         new Date(), "Superfluous Appointment", appointment.getStudentNetId());
                 retriever.persist(adminMessage);
