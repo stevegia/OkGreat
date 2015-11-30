@@ -420,7 +420,6 @@ public class Retriever {
 				query = em.createQuery("SELECT t FROM CourseExam t WHERE t.id.examRefinedId  = ?1");
 				query.setParameter(1, exam.getRefinedId());
 				courseExam = (CourseExam)query.getSingleResult();
-
 				TCSClass tcsclass = new TCSClass();
 				query = em.createQuery("SELECT t FROM TCSClass t WHERE t.refinedId = ?1");
 				query.setParameter(1, courseExam.getId().getTCSClassRefinedId());
@@ -428,20 +427,14 @@ public class Retriever {
 				examJson.put("subject",tcsclass.getSubject());
 				examJson.put("section",tcsclass.getSection());
 				examJson.put("catalogNumber",tcsclass.getCatalogNumber());
-
-
 				query = em.createQuery("SELECT t FROM Appointment t WHERE t.examRefinedId = ?1");
 				query.setParameter(1, exam.getRefinedId());
 				Appointment appointment = (Appointment)query.getSingleResult();
-
 				examJson.put("seatNumber",appointment.getSeatNumber());
 				examJson.put("appointmentStatus",appointment.getAppointmentStatus());
 				examJson.put("appointmentDate",appointment.getStartDate());
-
-				System.out.println(examJson.toString());
 				return examJson.toString();
 			}catch(Exception ex){}
-
 
 
 		}catch(Exception ex){
@@ -523,14 +516,10 @@ public class Retriever {
 	public String getAllExamsInTermString( int termId){
 		try{	query = em.createQuery("SELECT t FROM Exam t WHERE t.termId = ?1");
 			query.setParameter(1, termId);
-
 			JSONArray arrayToReturn = new JSONArray();
-
 			List<Exam> returnedExamList = query.getResultList();
-
 			for(Exam exam : returnedExamList){
 				JSONObject examJson = new JSONObject();
-
 				examJson.put("examName",exam.getExamName());
 				examJson.put("id",exam.getId());
 				examJson.put("refinedId",exam.getRefinedId());
@@ -540,12 +529,14 @@ public class Retriever {
 				examJson.put("duration",exam.getDuration());
 				examJson.put("examType",exam.getExamType());
 				if(exam.getExamStatus().equals("PENDING")){
-					examJson.put("utilbefore","");
-					examJson.put("utilafter","");
+					String utilafter = getUtilizationWithExam(exam.getStartDate(),exam.getEndDate(),exam);
+					String utilbefore = getUtilizationForDateRange(exam.getStartDate(), exam.getEndDate());
+					examJson.put("utilbefore",utilbefore);
+					examJson.put("utilafter",utilafter);
 
 				}else{
 					examJson.put("utilbefore","");
-					examJson.put("utilafter" , "");
+					examJson.put("utilafter", "");
 				}
 
 				CourseExam courseExam = new CourseExam();
@@ -587,10 +578,6 @@ public class Retriever {
 					appointmentListJson.put(jsonAppointment);
 				}
 				examJson.put("appointments", appointmentListJson);
-
-
-
-
 				arrayToReturn.put(examJson);
 			}
 			return arrayToReturn.toString();
@@ -602,7 +589,7 @@ public class Retriever {
 	/**
 	 * For getting a utilization as a standalone operation or before approving an exam
 	 */
-	public String getUtilizationForDateRange(String startDate, String endDate) throws ParseException {
+	public String getUtilizationForDateRange(Date startDate, Date endDate) throws ParseException {
 		return getUtilizationWithExam(startDate, endDate, null);
 	}
 
@@ -610,17 +597,15 @@ public class Retriever {
 	 * Calculates utilization within the range of dates
 	 * If exam is not null, adds the expected utilization if exam is approved
 	 */
-	public String getUtilizationWithExam(String incomingStartDate, String incomingEndDate, Exam exam) throws ParseException {
+	public String getUtilizationWithExam(Date startDate, Date endDate, Exam exam) throws ParseException {
 
 		JSONArray result = new JSONArray();
-		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyy");
 
-		Date startDate = formatter.parse(incomingStartDate);
-		Date endDate = formatter.parse(incomingEndDate);
 
 		TestingCenter tc = getTestingCenter();
 		int numSeats = tc.getNumberOfSeats();
 		int gapTime = tc.getGapTime();
+
 
 		double newExamUtilization = calculateExpectedUtilizationPerExam(gapTime, exam);
 
@@ -789,17 +774,11 @@ public class Retriever {
 					query.setParameter(1, element.getId().getTestingCenterId());
 					query.setParameter(2, element.getId().getOpenDate());
 					ClosedDate closedDate = (ClosedDate) query.getSingleResult();
-
-
 					if(closedDate !=null){
 						hoursJson.put("class","event-warning ");
-
-
 					}else{
 						hoursJson.put("class","event-info");
 					}
-
-
 				}catch(Exception ex){
 					hoursJson.put("class","event-info");
 					System.out.println(ex.toString());
@@ -813,8 +792,6 @@ public class Retriever {
 				hoursJson.put("start", startInMiliseconds);
 				hoursJson.put("end", endInMiliseconds);
 				arrayToReturn.put(hoursJson);
-
-
 			}
 		} catch(Exception e) {
 			System.out.println(e.toString());
