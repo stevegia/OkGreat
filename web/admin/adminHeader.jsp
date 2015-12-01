@@ -62,6 +62,9 @@
         if(header.html() == "Select Timeslot") {
             header.attr("class", "basicHeader");
         }
+        if(header.html() == "Inbox") {
+            header.attr("class", "inboxHeader");
+        }
     }
 
 </script>
