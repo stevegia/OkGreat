@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div><h1 style="text-align: center">Student Appointments</h1>></div>
+                    <div><h1 style="text-align: center">Student Appointments</h1></div>
 
                     <table class="table table-bordered">
                         <thead>
@@ -131,10 +131,30 @@
 
                     <div class="container">
                         <div class="row" id="utilRow">
-                            <div class="col-md-3">Utilization before:</div>
-                            <div class="col-md-7" id="utilbefore"></div>
-                            <div class="col-md-3">Utilization after:</div>
-                            <div class="col-md-7" id="utilafter"></div>
+                            <div><h1 style="text-align: center">Utilization Before</h1>></div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Utilization</th>
+                                </tr>
+                                </thead>
+                                <tbody id="utilbefore">
+
+                                </tbody>
+                            </table>
+                            <div><h1 style="text-align: center">Utilization after</h1>></div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Utilization</th>
+                                </tr>
+                                </thead>
+                                <tbody id="utilafter">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -169,8 +189,6 @@
 
             $("#studentAppointments").empty();
 
-            $("#utilbefore").html(dataToUpdate.utilbefore);
-            $("#utilafter").html(dataToUpdate.utilafter);
 
             if(dataToUpdate.examType =="COURSE"){
                 $("#classRow").css('display', 'block');
@@ -206,6 +224,35 @@
                 var tableRowToAppend = trOpen + netid + date + seatnum +status +  trclose;
                 $("#studentAppointments").append(tableRowToAppend);
             }
+
+            $("#utilbefore").html(dataToUpdate.utilbefore);
+            $("#utilafter").html(dataToUpdate.utilafter);
+
+            $("#utilafter").empty();
+            $("#utilbefore").empty();
+
+
+            for(var i = 0; i<dataToUpdate.utilbefore.length; i++){
+
+                var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";
+
+                var date = thopen + dataToUpdate.utilbefore[i].date + thclose;
+                var utilization = thopen +  dataToUpdate.utilbefore[i].utilization + thclose;
+                var tableRowToAppend = trOpen + date + utilization +  trclose;
+                $("#utilbefore").append(tableRowToAppend);
+            }
+            for(var i = 0; i<dataToUpdate.utilafter.length; i++){
+
+                var trOpen = "<tr>",trclose ="</tr>",thopen="<th>",thclose="</th>";
+                var date = thopen + dataToUpdate.utilafter[i].date + thclose;
+                var utilization = thopen +  dataToUpdate.utilafter[i].utilization + thclose;
+                var tableRowToAppend = trOpen + date + utilization +  trclose;
+                $("#utilafter").append(tableRowToAppend);
+            }
+
+
+
+
         }
 
         function createList(x) {

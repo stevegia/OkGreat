@@ -42,3 +42,18 @@ $primary-color: #375AE0;
   text-align : center;
   font-size: 30px;
 }
+
+.inboxHeader{
+  color: white;
+  background-color: #f80040;
+  padding: 20px;
+  text-align : center;
+  font-size: 30px;
+}
+
+#inbox{
+  background-color: #f80040;
+  a{
+    color: white;
+  }
+}

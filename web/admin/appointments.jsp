@@ -24,8 +24,8 @@
     }
 %>
 
-
-<div class="TermButton" onload='createList(<%=appointmentsList%>)'>
+<body onload='createList(<%=appointmentsList%>)'>
+<div class="TermButton" >
     <div class="dropdown">
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -72,6 +72,10 @@
                             <div class="row ">
                                 <div class="col-md-3" id="netIdLabel">Instructor Netid:</div>
                                 <div class="col-md-4" id="netId"></div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-3" id="">Student Netid:</div>
+                                <div class="col-md-4" id="studentNetID"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3" id="sectionLabel">Section:</div>
@@ -142,6 +146,7 @@
         $("#examTime").html(appointmentJson.duration);
         $("#seatNumber").html(appointmentJson.seatNumber);
         $("#netId").html(appointmentJson.instructorNetId);
+        $("#studentNetID").html(appointmentJson.studentNetId);
         console.log(appointmentJson.id);
 
         var cancelButtonToAdd = "<input value='Cancel Appointment' class='cancelButton btn-primary' type='button' onclick='javascript: window.open(\x22cancelAppointment.jsp?AppointmentId="+appointmentJson.id+"\x22, \x22_self\x22);'>";

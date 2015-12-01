@@ -16,8 +16,8 @@
     <tbody>
     <%
       logger.info("Now at the inbox.jsp file");
+      Instructor instructor = new Instructor(retriever.getUser(request.getRemoteUser()));
 
-      Instructor instructor = (Instructor) session.getAttribute("user");
       List<Message> messages = retriever.getMessagesForUser(instructor.getNetId());
 
       if (messages != null) {

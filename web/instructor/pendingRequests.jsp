@@ -20,8 +20,9 @@
         request.setAttribute("examList", examList);
     }
 %>
+<body onload='createList(<%=examList%>)'>
 <!-- On load make sure the list of exams is updated-->
-<div class="TermButton" onload='createList(<%=examList%>)'>
+<div class="TermButton" >
     <div class="dropdown">
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -103,7 +104,7 @@
                 </div>
                 </div>
                 <div class="row">
-                    <div><h1 style="text-align: center">Student Appointments</h1>></div>
+                    <div><h1 style="text-align: center">Student Appointments</h1></div>
 
                     <table class="table table-bordered">
                         <thead>

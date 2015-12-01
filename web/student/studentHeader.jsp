@@ -15,7 +15,7 @@
     Retriever retriever = Retriever.getInstance();
     Student student=null;
     try {
-        student = (Student) session.getAttribute("user");
+        student = new Student(retriever.getUser(request.getRemoteUser()));
     }catch(Exception e){
     session.setAttribute("message", "date "+request.getParameter("date")+" not found in DB");
     session.setAttribute("url", "admin/testingCenterInformation.jsp");
@@ -54,6 +54,9 @@
         }
         if(header.html() == "Calendar") {
             header.attr("class", "calendarHeader");
+        }
+        if(header.html() == "Inbox") {
+            header.attr("class", "inboxHeader");
         }
         if(header.html() == "Select Timeslot") {
             header.attr("class", "basicHeader");

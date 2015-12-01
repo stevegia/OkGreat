@@ -13,12 +13,6 @@
 
 .TermButton {
   padding: 20px 20px 20px 20px; }
-.left {
-  float: left;
-}
-.right {
-  float: right;
-}
 
 .cancelButton {
   height: 30px;
@@ -39,5 +33,17 @@
   padding: 20px;
   text-align: center;
   font-size: 30px; }
+
+.inboxHeader {
+  color: white;
+  background-color: #f80040;
+  padding: 20px;
+  text-align: center;
+  font-size: 30px; }
+
+#inbox {
+  background-color: #f80040; }
+  #inbox a {
+    color: white; }
 
 /*# sourceMappingURL=main.css.map */

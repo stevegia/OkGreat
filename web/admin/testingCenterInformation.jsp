@@ -19,6 +19,8 @@
 <div class="generalContent container">
 
 
+    <h1 style="text-align: center">Events</h1>
+
     <div class="pull-right form-inline">
         <div class="btn-group">
             <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
@@ -32,6 +34,8 @@
             <button class="btn btn-warning" data-calendar-view="day">Day</button>
         </div>
     </div>
+
+
 
     <div style="margin-top: 20px"></div>
     <div style="padding-top: 20px"></div>
@@ -54,7 +58,8 @@
             </div>
         </div>
     </div>
-</div>
+
+    <h1 style="text-align: center">Change Testing Center Information</h1>
     <form name="frm" action="editTestingCenterInformation.jsp" method="post">
         Number of Seats:
         <input name="numberofseats" type="text" class="form-control" placeholder="<%=testingCenter.getNumberOfSeats()%>"
@@ -76,6 +81,60 @@
             <input type="submit" value="Submit"/>
         </center>
     </form>
+
+
+</div>
+
+
+        <%--<%  List<TestingCenterHour> hours = retriever.getTestingCenterHour();--%>
+            <%--int ty =0;--%>
+            <%--if (hours != null) {--%>
+        <%--%>--%>
+        <%--<div class="table-responsive">--%>
+            <%--<table class="table table-bordered table-hover">--%>
+                <%--<thead>--%>
+                <%--<tr>--%>
+                    <%--<th> Date</th>--%>
+                    <%--<th> StartTime</th>--%>
+                    <%--<th> EndTime</th>--%>
+                    <%--<th></th>--%>
+                <%--</tr>--%>
+                <%--</thead>--%>
+                <%--<tbody>--%>
+                <%--<% for (TestingCenterHour hour : hours) {--%>
+                    <%--String date = dateFormatter.format(hour.getId().getOpenDate());--%>
+                <%--%>--%>
+                    <%--<tr>--%>
+                        <%--<form name="frm" action="editTestingCenterHour.jsp" method="post">--%>
+                            <%--<td>--%>
+                                <%--<input name="date" type="text" class="form-control" placeholder="<%=date%>"--%>
+                                       <%--value="<%=date%>" required readonly>--%>
+                            <%--</td>--%>
+                            <%--<td>--%>
+                                <%--<input name="starttime" type="text" class="form-control" placeholder="<%=hour.getStartTime()%> "--%>
+                                       <%--value="<%=hour.getStartTime()%>" required>--%>
+                            <%--</td>--%>
+                            <%--<td>--%>
+                                <%--<input name="endtime" type="text" class="form-control" placeholder="<%=hour.getEndTime()%>"--%>
+                                       <%--value="<%=hour.getEndTime()%>" required>--%>
+                            <%--</td>--%>
+                            <%--<td>--%>
+                                <%--<input type="submit" value="Submit"/>--%>
+                            <%--</td>--%>
+                        <%--</form>--%>
+                    <%--</tr>--%>
+                <%--<%--%>
+                    <%--}--%>
+                <%--%>--%>
+                <%--</tbody>--%>
+            <%--</table>--%>
+        <%--</div>--%>
+
+        <%--<%--%>
+            <%--}--%>
+        <%--%>--%>
+
+
 </div>
 
 </body>

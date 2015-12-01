@@ -45,8 +45,8 @@
     if(header.html() == "Create New Requests"){
       header.attr("class","createNewRequestsHeader");
     }
-    if(header.html() == "Calendar") {
-      header.attr("class", "calendarHeader");
+    if(header.html() == "Inbox") {
+      header.attr("class", "inboxHeader");
     }
   }
 
@@ -74,7 +74,6 @@
         <li id="pendingRequests"><a href="pendingRequests.jsp">Exams</a></li>
         <li id="createNewRequests"><a href="createNewRequests.jsp">Create New Requests<span class="sr-only">(current)</span>
         </a></li>
-        <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
         <li id="inbox"><a href="inbox.jsp">Inbox</a></li>
       </ul>
       <ul class="nav navbar-right logout">

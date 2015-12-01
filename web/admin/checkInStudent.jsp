@@ -4,7 +4,6 @@
   // use this apptId to link back to the appointment in the database
   int apptId = Integer.parseInt(request.getParameter("AppointmentId"));
   logger.info("at admin's checkInStudent");
-  Retriever retriever = Retriever.getInstance();
 
   Administrator admin = new Administrator(retriever.getUser(request.getRemoteUser()));
 

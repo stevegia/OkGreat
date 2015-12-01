@@ -561,8 +561,107 @@ public class Retriever {
 				examJson.put("duration",exam.getDuration());
 				examJson.put("examType",exam.getExamType());
 				if(exam.getExamStatus().equals("PENDING")){
-					JSONArray utilafter = getUtilizationWithExam(exam.getStartDate(),exam.getEndDate(),exam);
-					JSONArray utilbefore = getUtilizationForDateRange(exam.getStartDate(), exam.getEndDate());
+					JSONArray utilbefore = new JSONArray();
+					JSONArray utilafter = new JSONArray();
+
+
+
+					{
+						TestingCenter tc = getTestingCenter();
+						int numSeats = tc.getNumberOfSeats();
+						int gapTime = tc.getGapTime();
+
+						double newExamUtilization = calculateExpectedUtilizationPerExam(gapTime, null);
+
+						Calendar calendar = DateUtils.getStartOfDay(exam.getStartDate());
+						Calendar endCalendar = new GregorianCalendar();
+						endCalendar.setTime(exam.getEndDate());
+
+						while(calendar.before(endCalendar)){
+							Date currentDate = calendar.getTime();
+
+							List<Appointment> appointments = getAppointmentsByDate(currentDate);
+							TestingCenterHour tcHour = getTestingCenterHour(currentDate);
+							double openTime = DateUtils.getDurationInHours(tcHour.getStartTime(), tcHour.getEndTime());
+
+							double utilization;
+							utilization = calculateActualUtilization(appointments, numSeats, openTime, gapTime);
+							if (DateUtils.getEndOfDay(currentDate).after(Calendar.getInstance())){
+								List<Exam> exams = getActiveAndApprovedExamsOnDate(currentDate);
+								utilization += calculateExpectedUtilization(exams, gapTime);
+							}
+
+							if(exam != null){
+								if(DateUtils.isDayInRange(exam.getStartDate(), exam.getEndDate(), calendar)){
+									utilization += newExamUtilization;
+								}
+							}
+
+							JSONObject obj = new JSONObject();
+							obj.put(Constants.DATE, currentDate.toString());
+							obj.put(Constants.UTILIZATION, utilization);
+							utilbefore.put(obj);
+
+							calendar.add(Calendar.DATE, 1);
+						}
+
+					}
+
+
+					{
+
+
+						TestingCenter tc = getTestingCenter();
+						int numSeats = tc.getNumberOfSeats();
+						int gapTime = tc.getGapTime();
+
+
+
+						double newExamUtilization = calculateExpectedUtilizationPerExam(gapTime, exam);
+
+						Calendar calendar = DateUtils.getStartOfDay(exam.getStartDate());
+						Calendar endCalendar = new GregorianCalendar();
+						endCalendar.setTime(exam.getEndDate());
+
+						while(calendar.before(endCalendar)){
+							Date currentDate = calendar.getTime();
+
+							List<Appointment> appointments = getAppointmentsByDate(currentDate);
+							TestingCenterHour tcHour = getTestingCenterHour(currentDate);
+							double openTime = DateUtils.getDurationInHours(tcHour.getStartTime(), tcHour.getEndTime());
+
+							double utilization;
+							utilization = calculateActualUtilization(appointments, numSeats, openTime, gapTime);
+							if (DateUtils.getEndOfDay(currentDate).after(Calendar.getInstance())){
+								List<Exam> exams = getActiveAndApprovedExamsOnDate(currentDate);
+								utilization += calculateExpectedUtilization(exams, gapTime);
+							}
+
+							if(exam != null){
+								if(DateUtils.isDayInRange(exam.getStartDate(), exam.getEndDate(), calendar)){
+									utilization += newExamUtilization;
+								}
+							}
+
+							JSONObject obj = new JSONObject();
+							obj.put(Constants.DATE, currentDate.toString());
+							obj.put(Constants.UTILIZATION, utilization);
+							utilafter.put(obj);
+
+							calendar.add(Calendar.DATE, 1);
+						}
+
+
+					}
+
+
+
+
+
+
+
+
+
 					examJson.put("utilbefore",utilbefore);
 					examJson.put("utilafter",utilafter);
 
