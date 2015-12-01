@@ -16,7 +16,7 @@
         <%
             logger.info("Now at the inbox.jsp file");
 
-            Administrator admin = (Administrator) session.getAttribute("user");
+            Administrator admin = new Administrator(retriever.getUser(request.getRemoteUser()));
             List<Message> messages = retriever.getMessagesForUser(admin.getNetId());
 
             if (messages != null) {

@@ -6,7 +6,7 @@
 <%
     logger.info("Now at the appointments.jsp page");
     List<Term> terms = retriever.getTerms();
-    Administrator admin = (Administrator) session.getAttribute("user");
+    Administrator admin = new Administrator(retriever.getUser(request.getRemoteUser()));
     String appointmentsList = retriever.getAppointmentsInTermString(1158);
     request.setAttribute("appointmentsList", appointmentsList);
     if (request.getParameter("termId") == null) {
