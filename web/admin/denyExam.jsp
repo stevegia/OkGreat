@@ -1,6 +1,6 @@
 <% String title = "Exam";%>
 <%@include file="adminHeader.jsp"%>
-
+<%
   Exam exam=null;
   try {
     String ExamRefinedId = request.getParameter("ExamRefinedId");
