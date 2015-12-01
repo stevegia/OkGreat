@@ -1,17 +1,7 @@
 <% String title = "Appointments";%>
 <%@ page import="application.Administrator" %>
-<%@ page import="application.Retriever" %>
-<%@ page import="jpaentities.Appointment" %>
 <%@ page import="java.util.List" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" charset="UTF-8">
-</head>
-
 <%@include file="adminHeader.jsp" %>
-<body>
-
 
 <%
     logger.info("Now at the appointments.jsp page");
@@ -34,10 +24,8 @@
     }
 %>
 
-<body onload='createList(<%=appointmentsList%>)'>
 
-
-<div class="TermButton">
+<div class="TermButton" onload='createList(<%=appointmentsList%>)'>
     <div class="dropdown">
         Term:
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -137,9 +125,6 @@
 
 
 </div>
-
-
-
 <SCRIPT LANGUAGE="JavaScript">
     <!--
     function switchView(obj, x) {
@@ -197,6 +182,7 @@
     // -->
 </SCRIPT>
 </body>
+</html>
 
 
 

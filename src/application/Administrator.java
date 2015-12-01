@@ -3,15 +3,11 @@
  */
 package application;
 
-import jpaentities.Appointment;
-import jpaentities.Exam;
-import jpaentities.TCSUser;
-import jpaentities.TestingCenter;
+import jpaentities.*;
 import utils.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -143,7 +139,7 @@ public class Administrator extends TCSUser {
     }
 
     /**
-     * Imports data from csv files into the database
+     * Imports data from csv files into the database. Notifies users if this action creates superfluous appointments
      * @param termId
      * @return true if data was successfully imported, false otherwise
      */
@@ -173,7 +169,7 @@ public class Administrator extends TCSUser {
 
         // import class.csv
         try {
-            String foreignKeyOff = "SET FOREIGN_KEY_CHECKS=0;";
+            String foreignKeyOff = "SET FOREIGN_KEY_CHECKS= 0 ;";
             statement.execute(foreignKeyOff);
             String classImportQuery = "LOAD DATA INFILE 'C:/xampp/tomcat/webapps/okgreat/CSV/class.csv' " +
                     "INTO TABLE TCSClass " +
@@ -183,7 +179,7 @@ public class Administrator extends TCSUser {
                     "(UnrefinedId, Subject, CatalogNumber, Section, InstructorNetId) " +
                     "SET RefinedId = CONCAT(Subject, CatalogNumber, '-', Section, '_'," + termId + ");";
             statement.execute(classImportQuery);
-            String foreignKeyOn = "SET FOREIGN_KEY_CHECKS=1;";
+            String foreignKeyOn = "SET FOREIGN_KEY_CHECKS= 1 ;";
             statement.execute(foreignKeyOn);
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,7 +205,22 @@ public class Administrator extends TCSUser {
 
         Retriever retriever = Retriever.getInstance();
         ArrayList<Appointment> superfluousAppointments = retriever.getSuperfluousAppointments(termId);
-        // TODO: message student, instructor, and admin of superfluous appointment
+
+        // message admin, instructor, and student of superfluous appointments
+        if (!superfluousAppointments.isEmpty()) {
+            for (Appointment appointment : superfluousAppointments) {
+                Exam exam = retriever.getExam(appointment.getExamRefinedId());
+                Message adminMessage = new Message("You made a superfluous appointment for Exam " + appointment.getExamRefinedId()
+                        + " and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", this.getNetId());
+                Message instrMessage = new Message("There is a superfluous appointment for Exam " + appointment.getExamRefinedId()
+                        + " and student " + appointment.getStudentNetId(), new Date(), "Superfluous Appointment", exam.getInstructorNetId());
+                Message studentMessage = new Message("There is a superfluous appointment for you in Exam " + appointment.getExamRefinedId(),
+                        new Date(), "Superfluous Appointment", appointment.getStudentNetId());
+                retriever.persist(adminMessage);
+                retriever.persist(instrMessage);
+                retriever.persist(studentMessage);
+            }
+        }
 
         return true;
     }

@@ -3,9 +3,9 @@
 <%@ page import="java.util.logging.Logger" %>
 <%@ page import="java.util.logging.SimpleFormatter" %>
 <%@ page import="java.util.logging.FileHandler" %>
-<%@ page import="jpaentities.Term" %>
-<%@ page import="java.util.List" %>
-
+<%@ page import="jpaentities.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%
     Logger logger=Logger.getLogger(this.getClass().getName());
     FileHandler fileHandler = new FileHandler("okgreatlogs/"+this.getClass().getName()+" .xml");
@@ -13,7 +13,14 @@
     fileHandler.setFormatter(formatter);
     logger.addHandler(fileHandler);
     Retriever retriever = Retriever.getInstance();
-
+    Student student=null;
+    try {
+        student = (Student) session.getAttribute("user");
+    }catch(Exception e){
+    session.setAttribute("message", "date "+request.getParameter("date")+" not found in DB");
+    session.setAttribute("url", "admin/testingCenterInformation.jsp");
+    response.sendRedirect("../error.jsp");
+    }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,6 +85,7 @@
                 <li id="makeAppointment"><a href="make.jsp">Make Appointment<span class="sr-only">(current)</span>
                 </a></li>
                 <li id="calendar"><a href="calendar.jsp">Calendar</a></li>
+                <li id="inbox"><a href="inbox.jsp">Inbox</a></li>
             </ul>
             <ul class="nav navbar-right logout">
                 <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>

@@ -1,4 +1,5 @@
 <%@ page import="application.Administrator" %>
+<%@include file="adminHeader.jsp" %>
 <%
     Administrator admin = (Administrator) session.getAttribute("user");
     int termId = Integer.parseInt(request.getParameter("termId"));

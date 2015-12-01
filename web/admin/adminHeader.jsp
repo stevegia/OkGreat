@@ -91,6 +91,7 @@
                 <li id="makeAppointments"><a href="makeAppointments.jsp">Make Appointment </a></li>
                 <li id="reports"><a href="reports.jsp">Reports <span class="sr-only">(current)</span> </a></li>
                 <li id="importData"><a href="importData.jsp">Import Data</a></li>
+                <li id="inbox"><a href="inbox.jsp">Inbox</a></li>
 
 
 

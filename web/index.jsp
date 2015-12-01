@@ -1,17 +1,18 @@
-<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Logger" %>
 <%@ page import="java.util.logging.FileHandler" %>
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.logging.SimpleFormatter" %>
+<%@ page import="application.AppointmentReminder" %>
 
 <% Logger logger=Logger.getLogger("logon.jsp");%>
 <%
     File dir = new File("./okgreatlogs");
-    System.out.println( dir.getAbsolutePath());
+    System.out.println(dir.getAbsolutePath());
     // Tests whether the directory denoted by this abstract pathname exists.
-    String current = new java.io.File( "." ).getCanonicalPath();
+    String current = new java.io.File(".").getCanonicalPath();
     boolean exists = dir.exists();
     System.out.println(current);
-    if(exists == false){
+    if (exists == false) {
         File root = new File(current);
         File newfolder = new File(root, "/okgreatlogs");
         newfolder.mkdir();
@@ -24,6 +25,8 @@
     logger.info("info reached index page ");
     fileHandler.close();
 
+    AppointmentReminder reminder = new AppointmentReminder();
+    reminder.start();
 %>
 <html lang="en">
 <head>
@@ -45,6 +48,8 @@
     <div class="row login-offset">
         <a class="btn btn-lg btn-primary btn-block login-button" href="admin/testingCenterInformation.jsp" >Admin</a>
         <a class="btn btn-lg btn-primary btn-block login-button" href="instructor/pendingRequests.jsp">Instructor</a>
+
+
         <a class="btn btn-lg btn-primary btn-block login-button" href="student/appointments.jsp">Student</a>
         </div>
     </div>
